@@ -213,7 +213,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 80px;
+      padding: 20px 0 80px;
       position: relative;
       overflow: hidden;
       background: var(--white)
@@ -682,8 +682,8 @@
     }
 
     .tab-dot {
-      width: 6px;
-      height: 6px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--blue);
       opacity: 0;
@@ -925,84 +925,57 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px
+      gap: 20px;
     }
 
     .proj-card {
       background: var(--white);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: box-shadow var(--t), transform var(--t), border-color var(--t)
+      transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s var(--ease);
+      position: relative;
+    }
+
+    /* Animated gradient top border — slides in on hover */
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-mid), #00C6FF);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease);
+      z-index: 1;
     }
 
     .proj-card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-5px);
-      border-color: transparent
+      box-shadow: 0 20px 60px rgba(26, 24, 20, 0.11);
+      border-color: rgba(1, 118, 211, 0.22);
+      transform: translateY(-6px);
+    }
+
+    .proj-card:hover::before {
+      transform: scaleX(1);
     }
 
     .proj-card-top {
-      padding: 20px 22px 0;
+      padding: 22px 24px 0;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start
-    }
-
-    .proj-badge {
-      padding: 4px 11px;
-      border-radius: 6px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase
-    }
-
-    .b-int {
-      background: var(--amber-bg);
-      color: var(--amber)
-    }
-
-    .b-dat {
-      background: var(--violet-bg);
-      color: var(--violet)
-    }
-
-    .b-aut {
-      background: var(--green-bg);
-      color: var(--green)
-    }
-
-    .b-ui {
-      background: var(--teal-bg);
-      color: var(--teal)
-    }
-
-    .b-mkt {
-      background: var(--rose-bg);
-      color: var(--rose)
-    }
-
-    .b-com {
-      background: var(--blue-light);
-      color: var(--blue)
-    }
-
-    .proj-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: var(--cream-deep);
-      line-height: 1
+      align-items: flex-start;
     }
 
     .proj-body {
-      padding: 14px 22px 22px;
+      padding: 14px 24px 24px;
       flex: 1;
       display: flex;
-      flex-direction: column
+      flex-direction: column;
     }
 
     .proj-title {
@@ -1011,7 +984,12 @@
       font-weight: 800;
       color: var(--ink);
       margin-bottom: 8px;
-      letter-spacing: -0.3px
+      letter-spacing: -0.3px;
+      transition: color 0.2s;
+    }
+
+    .proj-card:hover .proj-title {
+      color: var(--blue);
     }
 
     .proj-desc {
@@ -1019,11 +997,11 @@
       color: var(--ink-light);
       line-height: 1.65;
       margin-bottom: 14px;
-      flex: 1
+      flex: 1;
     }
 
     .challenge-row {
-      margin-bottom: 12px
+      margin-bottom: 12px;
     }
 
     .challenge-label {
@@ -1032,14 +1010,14 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--ink-xs);
-      margin-bottom: 3px
+      margin-bottom: 3px;
     }
 
     .challenge-text {
       font-size: 0.8rem;
       color: var(--ink-light);
       font-style: italic;
-      line-height: 1.55
+      line-height: 1.55;
     }
 
     .outcome-row {
@@ -1051,13 +1029,20 @@
       color: var(--green);
       font-weight: 500;
       line-height: 1.5;
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      transition: background 0.2s, border-left-color 0.2s;
     }
 
+    .proj-card:hover .outcome-row {
+      background: #bbf7d0;
+      border-left-color: #16a34a;
+    }
+
+    /* Tech tags animate on hover */
     .tech-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px
+      gap: 5px;
     }
 
     .tech-tag {
@@ -1067,7 +1052,28 @@
       border: 1px solid var(--border);
       font-size: 0.7rem;
       color: var(--ink-mid);
-      font-weight: 600
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .proj-card:hover .tech-tag {
+      background: var(--blue-light);
+      color: var(--blue);
+      border-color: rgba(1, 118, 211, 0.22);
+    }
+
+    /* Project number fades into accent color on hover */
+    .proj-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--cream-deep);
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .proj-card:hover .proj-num {
+      color: var(--blue-light);
     }
 
     /* CERTIFICATIONS */
@@ -1669,7 +1675,7 @@
       background: var(--white);
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
-      padding: 72px 20px 100px;
+      padding: 72px 0px 0px;
     }
 
     /* ── SECTION SHELL ── */
@@ -2280,7 +2286,8 @@
           <div class="profile-card fade-up in">
             <div class="profile-card-header">
               <div class="avatar">
-                <img src="avatarUrl.jpg" alt="Ashish Kurzekar" style="width: 100%;height: 100%;object-fit: cover;object-position: center 20%;display: block;">
+                <img src="avatarUrl.jpg" alt="Ashish Kurzekar"
+                  style="width: 100%;height: 100%;object-fit: cover;object-position: center 20%;display: block;">
               </div>
               <div class="profile-name">Ashish Kurzekar</div>
               <div class="profile-role">Senior Salesforce Solution Engineer</div>
@@ -2506,7 +2513,7 @@
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  Nagpur, India · Remote
+                  Noida, India · Remote
                 </span>
               </div>
             </div>
@@ -2594,7 +2601,7 @@
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  Nagpur, India
+                  Hyderabad, India · Remote
                 </span>
               </div>
             </div>
@@ -2649,62 +2656,6 @@
 
     </div><!-- /timeline -->
   </section>
-  <!-- <section class="section exp-section" id="experience">
-    <div class="container">
-      <div style="margin-bottom:56px">
-        <span class="section-label">Career</span>
-        <h2 class="section-heading">Professional Journey</h2>
-        <div class="divider"></div>
-        <p class="section-sub" style="margin-top:16px">End-to-end Salesforce implementations across Sales Cloud,
-          Experience Cloud, and B2B Commerce.</p>
-      </div>
-      <div class="exp-list">
-        <div class="exp-item fade-up">
-          <div class="exp-meta">
-            <div class="exp-date">Jan 2025 – Present</div>
-            <div class="exp-company">Global K-Cloud<br>Technologies Pvt. Ltd.</div>
-          </div>
-          <div class="exp-dot"></div>
-          <div class="exp-right">
-            <div class="exp-role">Sr. Salesforce Developer</div>
-            <div class="exp-bullets">
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Automated lead
-                  assignment using Apex + Flows, reducing manual routing work by ~80%.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Integrated Salesforce
-                  with a Warehouse Management System via REST API using Queueable jobs and Named Credentials.</span>
-              </div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Designed an LWC
-                  inline Event editing table, improving planner productivity significantly.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Built Pardot +
-                  Calendly behavior-based scoring automation increasing MQL conversion by ~30%.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Established branching
-                  standards and CI/CD pipeline for sandbox-to-production promotions.</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="exp-item fade-up">
-          <div class="exp-meta">
-            <div class="exp-date">Oct 2021 – Dec 2024</div>
-            <div class="exp-company">Lince Soft Solutions<br>Pvt. Ltd.</div>
-          </div>
-          <div class="exp-dot"></div>
-          <div class="exp-right">
-            <div class="exp-role">Salesforce Administrator &amp; Developer</div>
-            <div class="exp-bullets">
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Re-architected Sales
-                  Cloud data model for account hierarchy and entitlement tracking.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Implemented
-                  Experience Cloud partner portal with guided quoting flows end-to-end.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Replaced legacy
-                  Workflow Rules with Flow-based automation to reduce technical debt.</span></div>
-              <div class="exp-bullet"><span class="bullet-arrow">→</span><span class="bullet-text">Optimised reports and
-                  dashboards for CS and RevOps teams, improving pipeline visibility.</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <!-- PROJECTS -->
   <section class="section alt-bg" id="projects">
@@ -2716,7 +2667,7 @@
           usability, and business impact.</p>
       </div>
       <div class="projects-grid">
-        <div class="proj-card fade-up">
+        <div class="proj-card fade-up ">
           <div class="proj-card-top"><span class="proj-badge b-int">Integration</span><span class="proj-num">01</span>
           </div>
           <div class="proj-body">
@@ -3075,10 +3026,5 @@
     }
   </script>
 </body>
-<<<<<<< HEAD
 
 </html>
-=======
-</html>
-
->>>>>>> 4afc208d314428ddd6e212623ac395d835fb9211
