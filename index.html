@@ -50,6 +50,40 @@
       --cream-mid: #F3F2EE;
       --cream-deep: #EAE9E3;
     }
+    h1 {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .accent-line {
+      color: #0070d2; /* Salesforce blue */
+      font-weight: 600;
+    }
+
+    /* Typing effect styles */
+    .typing {
+      border-right: 3px solid #0070d2;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: blinkCursor 0.7s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0% { border-color: transparent; }
+      50% { border-color: #0070d2; }
+      100% { border-color: transparent; }
+    }
+
+    /* Smooth fade-in for accent part */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+    .fade-in.visible {
+      opacity: 1;
+    }
+
 
     *,
     *::before,
@@ -425,8 +459,8 @@
     }
 
     .avatar {
-      width: 250px;
-      height: 250px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
       overflow: hidden;
       margin: 10px auto 16px;
@@ -1336,7 +1370,7 @@
 
     .form-row2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.35fr 0.65fr;
       gap: 14px
     }
 
@@ -2239,7 +2273,7 @@
       <div class="hero-inner">
         <div>
           <div class="hero-eyebrow"><span class="pulse-dot"></span>Sr. Salesforce Developer · Nagpur, India</div>
-          <h1>Building Scalable<br>Solutions on the<span class="accent-line">Salesforce Platform</span></h1>
+          <h1 id="typing-text" class="typing"></h1>
           <p class="hero-desc">4+ years delivering clean Apex architecture, LWC dashboards, and enterprise integrations.
             Certified four times over — I turn complex requirements into maintainable, measurable cloud solutions.</p>
           <div class="skill-pills">
@@ -2966,6 +3000,33 @@
       </div>
     </div>
   </footer>
+  <script>
+    const text = "Building Scalable\nSolutions on the ";
+    const accent = "<span class='accent-line'>Salesforce Platform</span>";
+    const element = document.getElementById("typing-text");
+    let index = 0;
+
+    function typeEffect() {
+      if (index < text.length) {
+        if (text.charAt(index) === "\n") {
+          element.innerHTML += "<br>";
+        } else {
+          element.innerHTML += text.charAt(index);
+        }
+        index++;
+        setTimeout(typeEffect, 100); // typing speed
+      } else {
+        // After typing base text, fade in accent part
+        element.innerHTML += `<span class="fade-in" id="accent">${accent}</span>`;
+        setTimeout(() => {
+          document.getElementById("accent").classList.add("visible");
+          element.classList.remove("typing"); // remove cursor after finish
+        }, 500);
+      }
+    }
+
+    typeEffect();
+  </script> 
   <script>
     /* NAV */
     const nav = document.getElementById('nav');
