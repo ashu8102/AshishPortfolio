@@ -1,1059 +1,2215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://www.salesforce.com/favicon.ico">
-  <title>Blog & Projects — Ashish Kurzekar | Salesforce Developer</title>
-  <meta name="description" content="Articles, project deep-dives, live demos, and video walkthroughs by Ashish Kurzekar — Senior Salesforce Developer.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cream: #FAFAF7;
-      --cream-mid: #F3F2EE;
-      --cream-deep: #EAE9E3;
-      --white: #FFFFFF;
-      --ink: #1A1814;
-      --ink-mid: #3D3A35;
-      --ink-light: #6B6860;
-      --ink-xs: #9C9990;
-      --blue: #0176D3;
-      --blue-mid: #1B96FF;
-      --blue-light: #D4EAFF;
-      --blue-glow: rgba(1,118,211,0.10);
-      --green: #166534;
-      --green-bg: #DCFCE7;
-      --amber: #92400E;
-      --amber-bg: #FEF3C7;
-      --violet: #5B21B6;
-      --violet-bg: #EDE9FE;
-      --rose: #9F1239;
-      --rose-bg: #FFE4E6;
-      --teal: #0E7490;
-      --teal-bg: #CCFBF1;
-      --border: #2db8e6;
-      --border-md: rgba(26,24,20,0.16);
-      --shadow-sm: 0 1px 4px rgba(26,24,20,0.06);
-      --shadow-md: 0 4px 20px rgba(26,24,20,0.08);
-      --shadow-lg: 0 16px 48px rgba(26,24,20,0.12);
-      --shadow-xl: 0 32px 80px rgba(26,24,20,0.16);
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 22px;
-      --radius-xl: 32px;
-      --ease: cubic-bezier(.4,0,.2,1);
-      --t: 0.28s;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Articles — Ashish Kurzekar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FAFAF7;
+            --cream-mid: #F3F2EE;
+            --cream-deep: #EAE9E3;
+            --white: #FFFFFF;
+            --ink: #1A1814;
+            --ink-mid: #3D3A35;
+            --ink-light: #6B6860;
+            --ink-xs: #9C9990;
+            --blue: #0176D3;
+            --blue-mid: #1B96FF;
+            --blue-light: #D4EAFF;
+            --green: #166534;
+            --green-bg: #DCFCE7;
+            --amber: #92400E;
+            --amber-bg: #FEF3C7;
+            --violet: #5B21B6;
+            --violet-bg: #EDE9FE;
+            --rose: #9F1239;
+            --rose-bg: #FFE4E6;
+            --teal: #0E7490;
+            --teal-bg: #CCFBF1;
+            --red: #DC2626;
+            --red-bg: #FEE2E2;
+            --border: rgba(26, 24, 20, 0.10);
+            --border-md: rgba(26, 24, 20, 0.16);
+            --shadow-sm: 0 1px 4px rgba(26, 24, 20, 0.06);
+            --shadow-md: 0 4px 20px rgba(26, 24, 20, 0.08);
+            --shadow-lg: 0 16px 48px rgba(26, 24, 20, 0.12);
+            --shadow-xl: 0 32px 80px rgba(26, 24, 20, 0.16);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 22px;
+            --radius-xl: 32px;
+            --ease: cubic-bezier(.4, 0, .2, 1);
+            --t: 0.28s;
+        }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; height: auto; }
-    button { cursor: pointer; border: none; background: none; font: inherit; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
 
-    .container {
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 0 clamp(16px, 4vw, 32px);
-    }
+        html {
+            scroll-behavior: smooth
+        }
 
-    /* ── NAV ── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-      background: rgba(250,250,247,0.9);
-      backdrop-filter: blur(18px) saturate(1.6);
-      border-bottom: 1px solid var(--border);
-      transition: box-shadow var(--t);
-    }
-    .nav.scrolled { box-shadow: 0 2px 24px rgba(26,24,20,0.07); }
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 66px;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 800; font-size: 1.2rem; color: var(--ink);
-    }
-    .nav-logo em { color: var(--blue); font-style: normal; }
-    .nav-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 18px; border-radius: var(--radius-sm);
-      border: 1.5px solid var(--border-md);
-      font-size: 0.84rem; font-weight: 600; color: var(--ink-mid);
-      transition: all var(--t);
-    }
-    .nav-back:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-    .nav-back svg { width: 14px; height: 14px; }
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased
+        }
 
-    /* ── HERO BANNER ── */
-    .page-hero {
-      padding: 110px 0 60px;
-      background: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-    .page-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 70% at 80% 20%, rgba(1,118,211,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 50% at 10% 90%, rgba(91,33,182,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .hero-inner {
-      position: relative; z-index: 1;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 14px; border-radius: 100px;
-      background: var(--blue-light); color: var(--blue);
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; margin-bottom: 20px;
-    }
-    .page-hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: 900; line-height: 1.05;
-      letter-spacing: -2px; color: var(--ink);
-      margin-bottom: 20px;
-    }
-    .page-hero h1 em {
-      font-style: italic;
-      background: linear-gradient(105deg, var(--blue), #00A9E0);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .page-hero p {
-      font-size: clamp(0.95rem, 1.5vw, 1.08rem);
-      color: var(--ink-light); line-height: 1.78; 
-    }
+        a {
+            text-decoration: none;
+            color: inherit
+        }
 
-    /* ── FILTER TABS ── */
-    .filter-bar {
-      padding: 32px 0 0;
-      display: flex; align-items: center;
-      gap: 8px; flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 7px 18px; border-radius: 100px;
-      border: 1.5px solid var(--border-md);
-      background: var(--white); color: var(--ink-mid);
-      font-size: 0.8rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s var(--ease);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .filter-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-    .filter-btn.active {
-      background: var(--blue); color: var(--white);
-      border-color: var(--ink);
-    }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto
+        }
 
-    /* ── MAIN LAYOUT ── */
-    .blog-page { padding: 48px 0 80px; }
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font: inherit
+        }
 
-    /* ── FEATURED ARTICLE ── */
-    .featured-article {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      margin-bottom: 48px;
-      transition: box-shadow 0.3s, transform 0.3s;
-      position: relative;
-    }
-    .featured-article::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--blue), var(--blue-mid), #00C6FF);
-      z-index: 1;
-    }
-    .featured-article:hover { box-shadow: var(--shadow-xl); transform: translateY(-4px); }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 32px)
+        }
 
-    .featured-visual {
-      background: linear-gradient(135deg, #0176D3 0%, #00A9E0 50%, #0E7490 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 48px 40px;
-      position: relative; overflow: hidden;
-      min-height: 340px;
-    }
-    .featured-visual::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .feat-icon {
-      font-size: 5rem; margin-bottom: 20px;
-      position: relative; z-index: 1;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2));
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .feat-label {
-      position: relative; z-index: 1;
-      padding: 5px 14px; border-radius: 100px;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; font-size: 0.74rem; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-    }
+        /* ── NAV ── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 900;
+            background: rgba(250, 250, 247, 0.92);
+            backdrop-filter: blur(18px) saturate(1.6);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--t)
+        }
 
-    .featured-content {
-      padding: clamp(28px, 4vw, 48px);
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .article-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 12px; border-radius: 100px;
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      margin-bottom: 16px; width: fit-content;
-    }
-    .tag-apex     { background: var(--blue-light); color: var(--blue); }
-    .tag-lwc      { background: var(--violet-bg); color: var(--violet); }
-    .tag-devops   { background: var(--green-bg); color: var(--green); }
-    .tag-integration { background: var(--teal-bg); color: var(--teal); }
-    .tag-marketing { background: var(--amber-bg); color: var(--amber); }
-    .tag-commerce { background: var(--rose-bg); color: var(--rose); }
-    .tag-demo     { background: var(--green-bg); color: var(--green); }
-    .tag-video    { background: var(--rose-bg); color: var(--rose); }
+        .nav.scrolled {
+            box-shadow: 0 2px 24px rgba(26, 24, 20, 0.07)
+        }
 
-    .featured-content h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      font-weight: 900; letter-spacing: -1px;
-      color: var(--ink); line-height: 1.15;
-      margin-bottom: 14px;
-      transition: color 0.2s;
-    }
-    .featured-article:hover .featured-content h2 { color: var(--blue); }
-    .featured-content p {
-      font-size: 0.94rem; color: var(--ink-light);
-      line-height: 1.75; margin-bottom: 24px;
-    }
-    .article-meta {
-      display: flex; align-items: center; gap: 16px;
-      flex-wrap: wrap; margin-bottom: 24px;
-    }
-    .meta-chip {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 0.74rem; color: var(--ink-xs); font-weight: 500;
-    }
-    .meta-chip svg { width: 13px; height: 13px; }
-    .read-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 24px; border-radius: var(--radius-sm);
-      background: var(--blue); color: var(--white);
-      font-weight: 700; font-size: 0.86rem;
-      transition: all var(--t); width: fit-content;
-    }
-    .read-btn:hover { background: var(--ink); transform: translateX(4px); }
-    .read-btn svg { width: 14px; height: 14px; transition: transform var(--t); }
-    .read-btn:hover svg { transform: translateX(4px); }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 66px
+        }
 
-    /* ── ARTICLES GRID ── */
-    .articles-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-bottom: 48px;
-    }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--ink)
+        }
 
-    .article-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: all 0.3s var(--ease);
-      position: relative;
-      cursor: pointer;
-    }
-    .article-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--blue), var(--blue-mid));
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s var(--ease);
-    }
-    .article-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: rgba(1,118,211,0.2); }
-    .article-card:hover::before { transform: scaleX(1); }
+        .nav-logo em {
+            color: var(--blue);
+            font-style: normal
+        }
 
-    .card-visual {
-      height: 160px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem; position: relative; overflow: hidden;
-    }
-    .cv-apex        { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); }
-    .cv-lwc         { background: linear-gradient(135deg, #F5F3FF, #EDE9FE); }
-    .cv-devops      { background: linear-gradient(135deg, #F0FDF4, #DCFCE7); }
-    .cv-integration { background: linear-gradient(135deg, #F0FDFA, #CCFBF1); }
-    .cv-marketing   { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); }
-    .cv-commerce    { background: linear-gradient(135deg, #FFF1F2, #FFE4E6); }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
 
-    .card-visual-icon {
-      font-size: 3.8rem;
-      transition: transform 0.3s var(--ease);
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
-    }
-    .article-card:hover .card-visual-icon { transform: scale(1.15) rotate(-3deg); }
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-md);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--ink-mid);
+            transition: all var(--t)
+        }
 
-    .card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-    .card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-weight: 800;
-      color: var(--ink); letter-spacing: -0.3px;
-      margin-bottom: 10px; line-height: 1.3;
-      transition: color 0.2s;
-    }
-    .article-card:hover .card-body h3 { color: var(--blue); }
-    .card-body p { font-size: 0.82rem; color: var(--ink-light); line-height: 1.68; margin-bottom: 16px; flex: 1; }
+        .nav-back:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light)
+        }
 
-    .card-footer {
-      display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 8px;
-      padding-top: 14px; border-top: 1px solid var(--border);
-    }
-    .card-read-link {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.78rem; font-weight: 700; color: var(--blue);
-      transition: gap 0.2s;
-    }
-    .card-read-link svg { width: 12px; height: 12px; }
-    .article-card:hover .card-read-link { gap: 8px; }
+        .nav-back svg {
+            width: 13px;
+            height: 13px
+        }
 
-    /* ── DEMOS & VIDEOS SECTION ── */
-    .section-divider {
-      display: flex; align-items: center; gap: 16px;
-      margin: 52px 0 32px;
-    }
-    .section-divider-line { flex: 1; height: 1px; background: var(--border-md); }
-    .section-divider-label {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 900; letter-spacing: -1px;
-      color: var(--ink); white-space: nowrap;
-    }
+        .nav-auth-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: all var(--t);
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            border: none
+        }
 
-    /* Demo Cards */
-    .demos-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-      margin-bottom: 48px;
-    }
-    .demo-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: all 0.3s var(--ease);
-      position: relative;
-    }
-    .demo-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: rgba(1,118,211,0.22); }
+        .nav-auth-btn:hover {
+            background: var(--ink);
+            transform: translateY(-1px)
+        }
 
-    .demo-card-banner {
-      height: 180px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      position: relative; overflow: hidden; gap: 12px;
-    }
-    .demo-card-banner::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E");
-    }
-    .dcb-blue    { background: linear-gradient(135deg, #0176D3, #1B96FF, #00A9E0); }
-    .dcb-teal    { background: linear-gradient(135deg, #0E7490, #06B6D4, #0891B2); }
-    .dcb-violet  { background: linear-gradient(135deg, #5B21B6, #7C3AED, #8B5CF6); }
-    .dcb-green   { background: linear-gradient(135deg, #166534, #16A34A, #22C55E); }
+        .nav-user-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--green-bg);
+            border: 1px solid rgba(22, 101, 52, 0.2);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--green)
+        }
 
-    .demo-banner-icon {
-      font-size: 3rem; position: relative; z-index: 1;
-      animation: float 5s ease-in-out infinite;
-    }
-    .demo-banner-badge {
-      position: relative; z-index: 1;
-      padding: 4px 12px; border-radius: 100px;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.35);
-      color: #fff; font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-    }
-    .demo-card-body { padding: 22px; }
-    .demo-card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 800;
-      color: var(--ink); margin-bottom: 8px; letter-spacing: -0.3px;
-      transition: color 0.2s;
-    }
-    .demo-card:hover .demo-card-body h3 { color: var(--blue); }
-    .demo-card-body p { font-size: 0.83rem; color: var(--ink-light); line-height: 1.68; margin-bottom: 16px; }
+        .nav-user-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+            flex-shrink: 0
+        }
 
-    .demo-links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .demo-link-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 9px 18px; border-radius: var(--radius-sm);
-      font-size: 0.8rem; font-weight: 700;
-      transition: all var(--t); cursor: pointer;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .demo-link-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .demo-link-primary {
-      background: var(--blue); color: var(--white);
-      border: 1.5px solid var(--blue);
-    }
-    .demo-link-primary:hover { background: var(--ink); border-color: var(--ink); transform: translateY(-2px); }
-    .demo-link-secondary {
-      background: transparent; color: var(--ink-mid);
-      border: 1.5px solid var(--border-md);
-    }
-    .demo-link-secondary:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+        .nav-logout-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 14px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-md);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--ink-light);
+            transition: all var(--t);
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: none
+        }
 
-    /* ── VIDEO SECTION ── */
-    .videos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-    .video-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: all 0.3s var(--ease);
-      cursor: pointer;
-    }
-    .video-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: rgba(1,118,211,0.2); }
+        .nav-logout-btn:hover {
+            border-color: var(--red);
+            color: var(--red)
+        }
 
-    .video-thumb {
-      position: relative;
-      aspect-ratio: 16/9;
-      background: var(--ink);
-      overflow: hidden;
-    }
-    .video-thumb iframe {
-      width: 100%; height: 100%;
-      border: none; display: block;
-      pointer-events: none;
-    }
-    .video-thumb-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px; padding: 20px;
-    }
-    .vtp-blue   { background: linear-gradient(135deg, #0F172A, #1E3A5F); }
-    .vtp-dark   { background: linear-gradient(135deg, #1A1814, #2D2B27); }
-    .vtp-teal   { background: linear-gradient(135deg, #042F2E, #134E4A); }
+        /* ── MODALS ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(26, 24, 20, 0.55);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s var(--ease)
+        }
 
-    .play-btn {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.4);
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-    }
-    .video-card:hover .play-btn { background: var(--blue); border-color: var(--blue); transform: scale(1.1); }
-    .play-btn svg { width: 20px; height: 20px; color: #fff; margin-left: 3px; }
-    .video-thumb-title {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.78rem; font-weight: 600;
-      text-align: center; line-height: 1.4;
-    }
-    .video-duration {
-      position: absolute; bottom: 10px; right: 10px;
-      padding: 3px 8px; border-radius: 5px;
-      background: rgba(0,0,0,0.7);
-      color: #fff; font-size: 0.68rem; font-weight: 700;
-    }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all
+        }
 
-    .video-card-body { padding: 18px; }
-    .video-card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.98rem; font-weight: 800;
-      color: var(--ink); margin-bottom: 6px;
-      letter-spacing: -0.3px; line-height: 1.3;
-      transition: color 0.2s;
-    }
-    .video-card:hover .video-card-body h3 { color: var(--blue); }
-    .video-card-body p { font-size: 0.78rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 12px; }
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: clamp(28px, 5vw, 44px);
+            width: 100%;
+            max-width: 460px;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.3s var(--ease);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto
+        }
 
-    .video-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .video-tag {
-      padding: 2px 8px; border-radius: 5px;
-      background: var(--cream-mid); border: 1px solid var(--border);
-      font-size: 0.67rem; color: var(--ink-mid); font-weight: 600;
-      transition: background 0.2s, color 0.2s;
-    }
-    .video-card:hover .video-tag { background: var(--blue-light); color: var(--blue); }
+        .modal-overlay.open .modal {
+            transform: translateY(0) scale(1)
+        }
 
-    /* ── NEWSLETTER CTA ── */
-    .newsletter-cta {
-      margin-top: 64px;
-      background: linear-gradient(135deg, var(--ink) 0%, #2D2B27 100%);
-      border-radius: var(--radius-xl);
-      padding: clamp(32px, 5vw, 56px);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 40px;
-      align-items: center;
-      position: relative; overflow: hidden;
-    }
-    .newsletter-cta::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(1,118,211,0.15) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .cta-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 900; color: var(--white);
-      letter-spacing: -1px; margin-bottom: 10px;
-    }
-    .cta-text p { font-size: 0.94rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
-    .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0; position: relative; z-index: 1; }
-    .cta-btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 26px; border-radius: var(--radius-sm);
-      background: var(--blue); color: var(--white);
-      font-weight: 700; font-size: 0.9rem;
-      transition: all var(--t); white-space: nowrap;
-    }
-    .cta-btn-primary:hover { background: var(--blue-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(1,118,211,0.35); }
-    .cta-btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 26px; border-radius: var(--radius-sm);
-      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);
-      font-weight: 600; font-size: 0.9rem;
-      transition: all var(--t); white-space: nowrap;
-    }
-    .cta-btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+        .modal-wide {
+            max-width: 660px
+        }
 
-    /* ── FOOTER ── */
-    .footer {
-      background: var(--ink);
-      padding: clamp(32px,5vw,52px) 0 28px;
-      margin-top: 0;
-    }
-    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-    .footer-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.15rem; color: var(--white); }
-    .footer-logo em { color: var(--blue-mid); font-style: normal; }
-    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-align: center; line-height: 1.7; }
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--t);
+            font-size: 1rem;
+            color: var(--ink-light)
+        }
 
-    /* ── FADE UP ── */
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .fade-up.in { opacity: 1; transform: none; }
-    .fade-up:nth-child(2) { transition-delay: .07s; }
-    .fade-up:nth-child(3) { transition-delay: .14s; }
-    .fade-up:nth-child(4) { transition-delay: .21s; }
-    .fade-up:nth-child(5) { transition-delay: .28s; }
-    .fade-up:nth-child(6) { transition-delay: .35s; }
+        .modal-close:hover {
+            background: var(--red-bg);
+            color: var(--red);
+            border-color: rgba(220, 38, 38, 0.3)
+        }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      .fade-up { opacity: 1; transform: none; }
-    }
+        .modal-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--ink);
+            margin-bottom: 4px
+        }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .articles-grid { grid-template-columns: repeat(2, 1fr); }
-      .videos-grid   { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .featured-article { grid-template-columns: 1fr; }
-      .featured-visual  { min-height: 200px; padding: 32px; }
-      .feat-icon { font-size: 3.5rem; }
-      .demos-grid { grid-template-columns: 1fr; }
-      .newsletter-cta { grid-template-columns: 1fr; gap: 24px; }
-      .cta-actions { flex-direction: column; width: 100%; }
-      .cta-btn-primary, .cta-btn-secondary { justify-content: center; }
-    }
-    @media (max-width: 640px) {
-      .articles-grid { grid-template-columns: 1fr; }
-      .videos-grid   { grid-template-columns: 1fr; }
-      .filter-bar    { gap: 6px; }
-      .filter-btn    { padding: 6px 13px; font-size: 0.76rem; }
-      .demo-links    { flex-direction: column; }
-      .demo-link-btn { justify-content: center; }
-    }
-  </style>
+        .modal-logo em {
+            color: var(--blue);
+            font-style: normal
+        }
+
+        .modal-sub {
+            font-size: 0.84rem;
+            color: var(--ink-light);
+            margin-bottom: 24px
+        }
+
+        .modal-tabs {
+            display: flex;
+            background: var(--cream-mid);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            margin-bottom: 22px
+        }
+
+        .modal-tab {
+            flex: 1;
+            padding: 9px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            color: var(--ink-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            border: none;
+            background: none
+        }
+
+        .modal-tab.active {
+            background: var(--white);
+            color: var(--blue);
+            box-shadow: var(--shadow-sm)
+        }
+
+        /* ── FORMS ── */
+        .fg {
+            margin-bottom: 15px
+        }
+
+        .fg label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--ink-mid);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px
+        }
+
+        .fg input,
+        .fg textarea,
+        .fg select {
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--cream-mid);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--ink);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.88rem;
+            transition: border-color var(--t), box-shadow var(--t), background var(--t);
+            -webkit-appearance: none;
+            appearance: none
+        }
+
+        .fg input:focus,
+        .fg textarea:focus,
+        .fg select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.12);
+            background: var(--white)
+        }
+
+        .fg textarea {
+            min-height: 120px;
+            resize: vertical
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 13px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: all var(--t);
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px
+        }
+
+        .btn-primary:hover {
+            background: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(1, 118, 211, 0.25)
+        }
+
+        .btn-primary:disabled {
+            background: var(--ink-xs);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none
+        }
+
+        .alert {
+            padding: 11px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: none
+        }
+
+        .alert.show {
+            display: block
+        }
+
+        .alert-error {
+            background: var(--red-bg);
+            color: var(--red);
+            border: 1px solid rgba(220, 38, 38, 0.2)
+        }
+
+        .alert-success {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid rgba(22, 101, 52, 0.2)
+        }
+
+        .alert-info {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid rgba(1, 118, 211, 0.2)
+        }
+
+        .tag-select-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 4px
+        }
+
+        .tag-option {
+            padding: 5px 12px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border-md);
+            font-size: 0.74rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--ink-mid);
+            background: var(--cream)
+        }
+
+        .tag-option.selected {
+            background: var(--blue-light);
+            border-color: var(--blue);
+            color: var(--blue)
+        }
+
+        .char-count {
+            font-size: 0.7rem;
+            color: var(--ink-xs);
+            text-align: right;
+            margin-top: 3px
+        }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            padding: 100px 0 44px;
+            background: var(--white);
+            position: relative;
+            overflow: hidden
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 70% at 80% 20%, rgba(1, 118, 211, 0.06) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 10% 90%, rgba(91, 33, 182, 0.03) 0%, transparent 60%);
+            pointer-events: none
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 680px
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            border-radius: 100px;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--ink);
+            margin-bottom: 14px
+        }
+
+        .page-hero h1 em {
+            font-style: italic;
+            background: linear-gradient(105deg, var(--blue), #00A9E0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .page-hero p {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            color: var(--ink-light);
+            line-height: 1.75
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: all var(--t);
+            margin-top: 26px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .hero-btn-blue {
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 6px 24px rgba(1, 118, 211, 0.25)
+        }
+
+        .hero-btn-blue:hover {
+            background: var(--ink);
+            transform: translateY(-2px)
+        }
+
+        .hero-btn-dark {
+            background: var(--ink);
+            color: var(--white);
+            box-shadow: 0 6px 24px rgba(26, 24, 20, 0.15)
+        }
+
+        .hero-btn-dark:hover {
+            background: var(--blue);
+            transform: translateY(-2px)
+        }
+
+        .hero-btn svg {
+            width: 16px;
+            height: 16px
+        }
+
+        .filter-bar {
+            padding: 26px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .filter-btn {
+            padding: 7px 18px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border-md);
+            background: var(--white);
+            color: var(--ink-mid);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .filter-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light)
+        }
+
+        .filter-btn.active {
+            background: var(--ink);
+            color: var(--white);
+            border-color: var(--ink)
+        }
+
+        /* ── ARTICLE GRID ── */
+        .blog-page {
+            padding: 44px 0 80px
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .article-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s var(--ease);
+            position: relative;
+            cursor: pointer
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-mid), #00C6FF);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s var(--ease);
+            z-index: 1
+        }
+
+        .article-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            border-color: rgba(1, 118, 211, 0.2)
+        }
+
+        .article-card:hover::before {
+            transform: scaleX(1)
+        }
+
+        .card-visual {
+            height: 148px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        .cv-apex {
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE)
+        }
+
+        .cv-lwc {
+            background: linear-gradient(135deg, #F5F3FF, #EDE9FE)
+        }
+
+        .cv-devops {
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7)
+        }
+
+        .cv-integration {
+            background: linear-gradient(135deg, #F0FDFA, #CCFBF1)
+        }
+
+        .cv-marketing {
+            background: linear-gradient(135deg, #FFFBEB, #FEF3C7)
+        }
+
+        .cv-commerce {
+            background: linear-gradient(135deg, #FFF1F2, #FFE4E6)
+        }
+
+        .cv-general {
+            background: linear-gradient(135deg, #F8FAFC, #F1F5F9)
+        }
+
+        .card-visual-icon {
+            font-size: 3.4rem;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08))
+        }
+
+        .article-card:hover .card-visual-icon {
+            transform: scale(1.12) rotate(-3deg)
+        }
+
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column
+        }
+
+        .article-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            width: fit-content
+        }
+
+        .tag-apex {
+            background: var(--blue-light);
+            color: var(--blue)
+        }
+
+        .tag-lwc {
+            background: var(--violet-bg);
+            color: var(--violet)
+        }
+
+        .tag-devops {
+            background: var(--green-bg);
+            color: var(--green)
+        }
+
+        .tag-integration {
+            background: var(--teal-bg);
+            color: var(--teal)
+        }
+
+        .tag-marketing {
+            background: var(--amber-bg);
+            color: var(--amber)
+        }
+
+        .tag-commerce {
+            background: var(--rose-bg);
+            color: var(--rose)
+        }
+
+        .tag-general {
+            background: var(--cream-deep);
+            color: var(--ink-mid)
+        }
+
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            transition: color 0.2s
+        }
+
+        .article-card:hover .card-body h3 {
+            color: var(--blue)
+        }
+
+        .card-body p {
+            font-size: 0.81rem;
+            color: var(--ink-light);
+            line-height: 1.65;
+            margin-bottom: 14px;
+            flex: 1
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .meta-chip {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.72rem;
+            color: var(--ink-xs);
+            font-weight: 500
+        }
+
+        .meta-chip svg {
+            width: 11px;
+            height: 11px
+        }
+
+        .card-read-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--blue);
+            transition: gap 0.2s
+        }
+
+        .card-read-link svg {
+            width: 11px;
+            height: 11px
+        }
+
+        .article-card:hover .card-read-link {
+            gap: 8px
+        }
+
+        .author-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: var(--ink-light);
+            font-weight: 600
+        }
+
+        .author-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 80px 20px
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.4
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 8px
+        }
+
+        .empty-state p {
+            font-size: 0.88rem;
+            color: var(--ink-light)
+        }
+
+        .skeleton-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden
+        }
+
+        .skeleton-visual {
+            height: 148px;
+            background: var(--cream-mid)
+        }
+
+        .skeleton-body {
+            padding: 20px
+        }
+
+        .skeleton-line {
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--cream-mid) 25%, var(--cream-deep) 50%, var(--cream-mid) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-bottom: 10px
+        }
+
+        .skeleton-line.short {
+            width: 40%
+        }
+
+        .skeleton-line.medium {
+            width: 70%
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        /* ── ARTICLE DETAIL ── */
+        .article-detail {
+            display: none;
+            padding: 40px 0 80px
+        }
+
+        .article-detail.active {
+            display: block
+        }
+
+        .detail-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--ink-light);
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: color var(--t);
+            background: none;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .detail-back:hover {
+            color: var(--blue)
+        }
+
+        .detail-back svg {
+            width: 14px;
+            height: 14px
+        }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 48px;
+            align-items: start
+        }
+
+        .detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--ink);
+            line-height: 1.1;
+            margin-bottom: 18px
+        }
+
+        .detail-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .detail-content {
+            font-size: 1rem;
+            color: var(--ink-light);
+            line-height: 1.85;
+            white-space: pre-wrap;
+            margin-bottom: 40px
+        }
+
+        /* ── LIKE BUTTON ── */
+        .like-section {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .like-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 22px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border-md);
+            background: var(--white);
+            color: var(--ink-mid);
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s var(--ease);
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .like-btn:hover {
+            border-color: var(--rose);
+            color: var(--rose);
+            background: var(--rose-bg)
+        }
+
+        .like-btn.liked {
+            background: var(--rose-bg);
+            border-color: var(--rose);
+            color: var(--rose)
+        }
+
+        .like-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s
+        }
+
+        .like-btn:hover svg,
+        .like-btn.liked svg {
+            transform: scale(1.2)
+        }
+
+        .like-count {
+            font-size: 0.82rem;
+            color: var(--ink-xs);
+            font-weight: 600
+        }
+
+        .edit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-md);
+            background: var(--white);
+            color: var(--ink-mid);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .edit-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light)
+        }
+
+        .edit-btn svg {
+            width: 13px;
+            height: 13px
+        }
+
+        /* ── SIDEBAR ── */
+        .detail-sidebar {
+            position: sticky;
+            top: 90px
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            margin-bottom: 18px
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 14px;
+            letter-spacing: -0.3px
+        }
+
+        /* ── COMMENTS ── */
+        .comments-section {
+            margin-top: 8px
+        }
+
+        .comment-count-badge {
+            font-size: 0.76rem;
+            color: var(--ink-xs);
+            font-weight: 600;
+            margin-bottom: 16px
+        }
+
+        .comment-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .comment-item:last-child {
+            border-bottom: none
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 7px
+        }
+
+        .comment-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .comment-author {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink)
+        }
+
+        .comment-date {
+            font-size: 0.7rem;
+            color: var(--ink-xs);
+            margin-left: auto
+        }
+
+        .comment-text {
+            font-size: 0.82rem;
+            color: var(--ink-light);
+            line-height: 1.6
+        }
+
+        .comment-form {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border)
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--cream-mid);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--ink);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.84rem;
+            resize: none;
+            min-height: 80px;
+            transition: border-color var(--t), background var(--t)
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.10);
+            background: var(--white)
+        }
+
+        .comment-submit-btn {
+            margin-top: 8px;
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--t)
+        }
+
+        .comment-submit-btn:hover {
+            background: var(--ink)
+        }
+
+        .comment-submit-btn:disabled {
+            background: var(--ink-xs);
+            cursor: not-allowed
+        }
+
+        .comment-login-prompt {
+            text-align: center;
+            padding: 14px;
+            background: var(--cream-mid);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            color: var(--ink-light)
+        }
+
+        .comment-login-prompt button {
+            color: var(--blue);
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .no-comments {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.8rem;
+            color: var(--ink-xs)
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--ink);
+            color: var(--white);
+            padding: 13px 24px;
+            border-radius: var(--radius-md);
+            font-size: 0.86rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            transition: transform 0.35s var(--ease);
+            max-width: calc(100vw - 40px);
+            text-align: center
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0)
+        }
+
+        .toast.success {
+            background: var(--green)
+        }
+
+        .toast.error {
+            background: var(--red)
+        }
+
+        .toast.info {
+            background: var(--blue)
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--ink);
+            padding: clamp(32px, 5vw, 48px) 0 28px
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: var(--white)
+        }
+
+        .footer-logo em {
+            color: var(--blue-mid);
+            font-style: normal
+        }
+
+        .footer-copy {
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease)
+        }
+
+        .fade-up.in {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important
+            }
+
+            .fade-up {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @media(max-width:1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .detail-layout {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:600px) {
+            .articles-grid {
+                grid-template-columns: 1fr
+            }
+
+            .detail-sidebar {
+                position: static
+            }
+        }
+
+        @media(max-width:480px) {
+            .nav-back span {
+                display: none
+            }
+
+            .nav-right {
+                gap: 6px
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="container nav-inner">
-      <a href="index.html" class="nav-logo">Ashish<em>.</em>dev</a>
-      <a href="index.html" class="nav-back">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M19 12H5M12 5l-7 7 7 7"/>
-        </svg>
-        Back to Portfolio
-      </a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="page-hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-eyebrow">✍️ Articles, Demos &amp; Videos</div>
-        <h1>Technical <em>Insights</em> from the Trenches</h1>
-        <p>Deep-dives into real Salesforce projects — architecture decisions, integration patterns, lessons learned, and live demos you can actually click through.</p>
-      </div>
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="apex">Apex</button>
-        <button class="filter-btn" data-filter="lwc">LWC</button>
-        <button class="filter-btn" data-filter="integration">Integrations</button>
-        <button class="filter-btn" data-filter="devops">DevOps</button>
-        <button class="filter-btn" data-filter="demo">Live Demos</button>
-        <button class="filter-btn" data-filter="video">Videos</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- MAIN CONTENT -->
-  <main class="blog-page">
-    <div class="container">
-
-      <!-- FEATURED ARTICLE -->
-      <a href="articles/wms-integration.html" class="featured-article fade-up" data-category="integration apex">
-        <div class="featured-visual">
-          <div class="feat-icon">🏭</div>
-          <div class="feat-label">Featured Article</div>
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">Ashish<em>.</em>dev</a>
+            <div class="nav-right">
+                <div id="navLoggedOut">
+                    <button class="nav-auth-btn" onclick="openAuthModal('login')">Sign In / Register</button>
+                </div>
+                <div id="navLoggedIn" style="display:none;align-items:center;gap:10px;">
+                    <div class="nav-user-pill">
+                        <span class="nav-user-dot"></span>
+                        <span id="navUsername"></span>
+                    </div>
+                    <button class="nav-logout-btn" onclick="logout()">Sign Out</button>
+                </div>
+                <a href="index.html" class="nav-back">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M19 12H5M12 5l-7 7 7 7" />
+                    </svg>
+                    <span>Portfolio</span>
+                </a>
+            </div>
         </div>
-        <div class="featured-content">
-          <div class="article-tag tag-integration">🔗 Integration</div>
-          <h2>How I Built a Fault-Tolerant WMS Integration in Apex</h2>
-          <p>A deep-dive into building a bi-directional order sync between Salesforce and a Warehouse Management System — covering idempotency, rate-limit handling, Named Credentials, and Queueable chains that don't drop a single order.</p>
-          <div class="article-meta">
+    </nav>
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeAuthModal()">✕</button>
+            <div class="modal-logo">Ashish<em>.</em>dev</div>
+            <p class="modal-sub">Join the community · Share your Salesforce knowledge</p>
+            <div class="modal-tabs">
+                <button class="modal-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+                <button class="modal-tab" id="registerTab" onclick="switchTab('register')">Register</button>
+            </div>
+            <!-- LOGIN -->
+            <div id="loginForm">
+                <div class="alert alert-error" id="loginError"></div>
+                <div class="alert alert-success" id="loginSuccess"></div>
+                <div class="fg"><label>Email Address</label><input type="email" id="loginEmail"
+                        placeholder="you@example.com" autocomplete="email"></div>
+                <div class="fg"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"
+                        autocomplete="current-password"></div>
+                <button class="btn-primary" id="loginBtn" onclick="handleLogin()">Sign In →</button>
+                <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:var(--ink-light)">No account? <button
+                        onclick="switchTab('register')"
+                        style="color:var(--blue);font-weight:700;background:none;border:none;cursor:pointer;">Register
+                        here</button></p>
+            </div>
+            <!-- REGISTER -->
+            <div id="registerForm" style="display:none">
+                <div class="alert alert-error" id="registerError"></div>
+                <div class="alert alert-success" id="registerSuccess"></div>
+                <div class="fg"><label>Full Name *</label><input type="text" id="regName" placeholder="Your Name"
+                        autocomplete="name"></div>
+                <div class="fg"><label>Email Address *</label><input type="email" id="regEmail"
+                        placeholder="you@example.com" autocomplete="email"></div>
+                <div class="fg"><label>Password * <span style="color:var(--ink-xs);font-weight:400">(min 8
+                            chars)</span></label><input type="password" id="regPassword" placeholder="••••••••"
+                        autocomplete="new-password"></div>
+                <div class="fg"><label>Short Bio <span
+                            style="color:var(--ink-xs);font-weight:400">(optional)</span></label><input type="text"
+                        id="regBio" placeholder="e.g. Salesforce Developer at XYZ"></div>
+                <button class="btn-primary" id="registerBtn" onclick="handleRegister()">Create Account →</button>
+                <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:var(--ink-light)">Have account?
+                    <button onclick="switchTab('login')"
+                        style="color:var(--blue);font-weight:700;background:none;border:none;cursor:pointer;">Sign
+                        in</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POST / EDIT ARTICLE MODAL -->
+    <div class="modal-overlay" id="postModal">
+        <div class="modal modal-wide">
+            <button class="modal-close" onclick="closePostModal()">✕</button>
+            <div class="modal-logo" style="margin-bottom:4px;" id="postModalTitle">Write an Article</div>
+            <p class="modal-sub">Your article will be reviewed by Mr. Ashish before going live.</p>
+            <div class="alert alert-error" id="postError"></div>
+            <div class="alert alert-success" id="postSuccess"></div>
+            <div class="alert alert-info show" id="postInfo">📋 After submission, Mr. Ashish reviews and approves before
+                articles appear publicly.</div>
+            <div class="fg"><label>Title *</label><input type="text" id="postTitle"
+                    placeholder="e.g. How I built a WMS integration in Apex" maxlength="120"
+                    oninput="updateCount('postTitle','titleCount',120)">
+                <div class="char-count"><span id="titleCount">0</span>/120</div>
+            </div>
+            <div class="fg">
+                <label>Category *</label>
+                <div class="tag-select-grid">
+                    <span class="tag-option" data-value="Apex" onclick="selectTag(this)">⚙️ Apex</span>
+                    <span class="tag-option" data-value="LWC" onclick="selectTag(this)">⚡ LWC</span>
+                    <span class="tag-option" data-value="Integration" onclick="selectTag(this)">🔗 Integration</span>
+                    <span class="tag-option" data-value="DevOps" onclick="selectTag(this)">🚀 DevOps</span>
+                    <span class="tag-option" data-value="Marketing" onclick="selectTag(this)">📈 Marketing</span>
+                    <span class="tag-option" data-value="Commerce" onclick="selectTag(this)">🛒 Commerce</span>
+                    <span class="tag-option" data-value="General" onclick="selectTag(this)">📝 General</span>
+                </div>
+            </div>
+            <div class="fg"><label>Summary * <span style="color:var(--ink-xs);font-weight:400">(shown on
+                        card)</span></label><input type="text" id="postSummary" placeholder="One-line description"
+                    maxlength="200" oninput="updateCount('postSummary','summaryCount',200)">
+                <div class="char-count"><span id="summaryCount">0</span>/200</div>
+            </div>
+            <div class="fg"><label>Full Article *</label><textarea id="postContent"
+                    placeholder="Write your full article here..." maxlength="10000"
+                    oninput="updateCount('postContent','contentCount',10000)" style="min-height:180px"></textarea>
+                <div class="char-count"><span id="contentCount">0</span>/10,000</div>
+            </div>
+            <div class="fg"><label>Estimated Read Time</label><select id="postReadTime">
+                    <option value="2">2 min</option>
+                    <option value="5" selected>5 min</option>
+                    <option value="8">8 min</option>
+                    <option value="10">10 min</option>
+                    <option value="15">15+ min</option>
+                </select></div>
+            <input type="hidden" id="editArticleId">
+            <button class="btn-primary" id="postSubmitBtn" onclick="handlePostArticle()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
+                <span id="postSubmitLabel">Submit for Review</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" id="heroSection">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-eyebrow">✍️ Community Articles</div>
+                <h1>Technical <em>Insights</em><br>from the Field</h1>
+                <p>Real Salesforce knowledge from developers who've shipped it. All articles are reviewed before
+                    publishing.</p>
+                <button class="hero-btn hero-btn-blue" id="heroWriteBtn" style="display:none;"
+                    onclick="openPostModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                    Write an Article
+                </button>
+                <button class="hero-btn hero-btn-dark" id="heroLoginBtn" onclick="openAuthModal('login')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" />
+                    </svg>
+                    Sign In to Write
+                </button>
+            </div>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all" onclick="filterArticles(this)">All</button>
+                <button class="filter-btn" data-filter="Apex" onclick="filterArticles(this)">⚙️ Apex</button>
+                <button class="filter-btn" data-filter="LWC" onclick="filterArticles(this)">⚡ LWC</button>
+                <button class="filter-btn" data-filter="Integration" onclick="filterArticles(this)">🔗
+                    Integration</button>
+                <button class="filter-btn" data-filter="DevOps" onclick="filterArticles(this)">🚀 DevOps</button>
+                <button class="filter-btn" data-filter="Marketing" onclick="filterArticles(this)">📈 Marketing</button>
+                <button class="filter-btn" data-filter="Commerce" onclick="filterArticles(this)">🛒 Commerce</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN -->
+    <main class="blog-page">
+        <div class="container">
+
+            <!-- LIST VIEW -->
+            <div id="articlesView">
+                <div class="articles-grid" id="articlesGrid">
+                    <div class="skeleton-card">
+                        <div class="skeleton-visual"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line medium"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-visual"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line medium"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-visual"></div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line medium"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETAIL VIEW -->
+            <div id="detailView" class="article-detail">
+                <button class="detail-back" onclick="closeDetail()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M19 12H5M12 5l-7 7 7 7" />
+                    </svg>
+                    Back to Articles
+                </button>
+
+                <div class="detail-layout">
+                    <!-- LEFT: article content -->
+                    <div>
+                        <div id="detailTag" class="article-tag" style="margin-bottom:14px;"></div>
+                        <h1 class="detail-title" id="detailTitle"></h1>
+                        <div class="detail-meta-row" id="detailMeta"></div>
+                        <div class="detail-content" id="detailContent"></div>
+
+                        <!-- LIKE SECTION -->
+                        <div class="like-section">
+                            <button class="like-btn" id="likeBtn" onclick="handleLike()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                                </svg>
+                                <span id="likeBtnLabel">Like</span>
+                            </button>
+                            <span class="like-count" id="likeCount"></span>
+                            <!-- Edit button shown only to article author -->
+                            <button class="edit-btn" id="editBtn" style="display:none;" onclick="openEditModal()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg>
+                                Edit Article
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: sidebar with comments -->
+                    <div class="detail-sidebar">
+                        <div class="sidebar-card">
+                            <div class="sidebar-title">💬 Comments</div>
+                            <div class="comments-section">
+                                <div class="comment-count-badge" id="commentCountBadge">Loading…</div>
+                                <div id="commentsList"></div>
+
+                                <!-- Comment form — shown only to logged-in users -->
+                                <div id="commentFormWrap"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">Ashish<em>.</em>dev</div>
+                <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer · Nagpur, India</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ═══════════════════════════════════════════════════════
+           CONFIG
+        ═══════════════════════════════════════════════════════ */
+        const SF = 'https://ashishkurzekar-dev-ed.develop.my.salesforce-sites.com/webhook/services/apexrest/';
+        const API = {
+            REGISTER: `${SF}/users`,
+            LOGIN: `${SF}/users/login`,
+            ARTICLES: `${SF}/articles`,
+            COMMENTS: `${SF}/comments`,
+            LIKES: `${SF}/likes`,
+        };
+
+        /* ═══════════════════════════════════════════════════════
+           SESSION STORAGE (clears when browser/tab closes)
+           ─────────────────────────────────────────────────────
+           Uses sessionStorage instead of localStorage.
+           Session ends automatically on tab/browser close.
+           No manual expiry needed.
+        ═══════════════════════════════════════════════════════ */
+        const Session = {
+            KEY: 'blog_session',
+            get() { try { return JSON.parse(sessionStorage.getItem(this.KEY)); } catch (e) { return null; } },
+            set(user) { sessionStorage.setItem(this.KEY, JSON.stringify(user)); },
+            clear() { sessionStorage.removeItem(this.KEY); },
+        };
+
+        /* ═══════════════════════════════════════════════════════
+           STATE
+        ═══════════════════════════════════════════════════════ */
+        let currentUser = null;
+        let allArticles = [];
+        let selectedTag = '';
+        let currentArticle = null;  // article open in detail view
+        let editMode = false;
+
+        /* ═══════════════════════════════════════════════════════
+           INIT
+        ═══════════════════════════════════════════════════════ */
+        function init() {
+            // Restore session if tab is still open
+            const saved = Session.get();
+            if (saved) {
+                currentUser = saved;
+                setLoggedInUI(currentUser.name);
+            }
+            loadArticles();
+
+            // Nav scroll shadow
+            window.addEventListener('scroll', () =>
+                document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10)
+            );
+
+            // Close modals on overlay click / Escape
+            ['authModal', 'postModal'].forEach(id => {
+                document.getElementById(id).addEventListener('click', e => {
+                    if (e.target === e.currentTarget) {
+                        if (id === 'authModal') closeAuthModal();
+                        else closePostModal();
+                    }
+                });
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') { closeAuthModal(); closePostModal(); }
+            });
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           AUTH UI
+        ═══════════════════════════════════════════════════════ */
+        function setLoggedInUI(name) {
+            document.getElementById('navLoggedOut').style.display = 'none';
+            document.getElementById('navLoggedIn').style.display = 'flex';
+            document.getElementById('navUsername').textContent = name;
+            document.getElementById('heroWriteBtn').style.display = 'inline-flex';
+            document.getElementById('heroLoginBtn').style.display = 'none';
+        }
+        function setLoggedOutUI() {
+            document.getElementById('navLoggedOut').style.display = 'block';
+            document.getElementById('navLoggedIn').style.display = 'none';
+            document.getElementById('heroWriteBtn').style.display = 'none';
+            document.getElementById('heroLoginBtn').style.display = 'inline-flex';
+        }
+        function logout() {
+            currentUser = null;
+            Session.clear();
+            setLoggedOutUI();
+            // Refresh comment form if detail is open
+            if (currentArticle) renderCommentForm();
+            showToast('Signed out. Session ended.', 'info');
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           AUTH MODAL
+        ═══════════════════════════════════════════════════════ */
+        function openAuthModal(tab = 'login') {
+            switchTab(tab);
+            document.getElementById('authModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('open');
+            document.body.style.overflow = '';
+            clearAlerts();
+        }
+        function switchTab(tab) {
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+            document.getElementById('loginTab').classList.toggle('active', tab === 'login');
+            document.getElementById('registerTab').classList.toggle('active', tab === 'register');
+            clearAlerts();
+        }
+
+        /* LOGIN */
+        async function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            clearAlerts();
+            if (!email || !password) { showAlert('loginError', 'Please fill in all fields.'); return; }
+            setLoading('loginBtn', true, 'Signing in…');
+            try {
+                const res = await sfPost(API.LOGIN, { email, password });
+                if (res.success && res.user) {
+                    currentUser = res.user;
+                    Session.set(currentUser);          // ← saved to sessionStorage
+                    setLoggedInUI(currentUser.name);
+                    closeAuthModal();
+                    if (currentArticle) renderCommentForm(); // refresh comment box
+                    showToast(`Welcome back, ${currentUser.name}! 👋`, 'success');
+                } else {
+                    showAlert('loginError', res.message || 'Invalid email or password.');
+                }
+            } catch (e) { showAlert('loginError', 'Connection failed. Please try again.'); }
+            setLoading('loginBtn', false, 'Sign In →');
+        }
+
+        /* REGISTER */
+        async function handleRegister() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const bio = document.getElementById('regBio').value.trim();
+            clearAlerts();
+            if (!name || !email || !password) { showAlert('registerError', 'Name, email and password are required.'); return; }
+            if (password.length < 8) { showAlert('registerError', 'Password must be at least 8 characters.'); return; }
+            setLoading('registerBtn', true, 'Creating account…');
+            try {
+                const res = await sfPost(API.REGISTER, { name, email, password, bio });
+                if (res.success && res.user) {
+                    currentUser = res.user;
+                    Session.set(currentUser);          // ← saved to sessionStorage
+                    setLoggedInUI(currentUser.name);
+                    closeAuthModal();
+                    showToast(`Welcome, ${currentUser.name}! Account created 🎉`, 'success');
+                } else {
+                    showAlert('registerError', res.message || 'Registration failed.');
+                }
+            } catch (e) { showAlert('registerError', 'Connection failed. Please try again.'); }
+            setLoading('registerBtn', false, 'Create Account →');
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           POST / EDIT ARTICLE MODAL
+        ═══════════════════════════════════════════════════════ */
+        function openPostModal() {
+            if (!currentUser) { openAuthModal('login'); return; }
+            editMode = false;
+            document.getElementById('editArticleId').value = '';
+            document.getElementById('postModalTitle').textContent = 'Write an Article';
+            document.getElementById('postSubmitLabel').textContent = 'Submit for Review';
+            document.getElementById('postInfo').style.display = 'block';
+            document.getElementById('postModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function openEditModal() {
+            if (!currentArticle || !currentUser) return;
+            editMode = true;
+            document.getElementById('editArticleId').value = currentArticle.id;
+            document.getElementById('postTitle').value = currentArticle.title || '';
+            document.getElementById('postSummary').value = currentArticle.summary || '';
+            document.getElementById('postContent').value = currentArticle.content || '';
+            document.getElementById('postModalTitle').textContent = 'Edit Article';
+            document.getElementById('postSubmitLabel').textContent = 'Save & Resubmit';
+            document.getElementById('postInfo').style.display = 'none';
+            // Pre-select category tag
+            document.querySelectorAll('.tag-option').forEach(t => {
+                t.classList.toggle('selected', t.dataset.value === currentArticle.category);
+            });
+            selectedTag = currentArticle.category || '';
+            updateCount('postTitle', 'titleCount', 120);
+            updateCount('postSummary', 'summaryCount', 200);
+            updateCount('postContent', 'contentCount', 10000);
+            document.getElementById('postModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePostModal() {
+            document.getElementById('postModal').classList.remove('open');
+            document.body.style.overflow = '';
+            clearAlerts('post');
+            if (!editMode) {
+                ['postTitle', 'postSummary', 'postContent'].forEach(id => document.getElementById(id).value = '');
+                document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('selected'));
+                selectedTag = '';
+                ['titleCount', 'summaryCount', 'contentCount'].forEach(id => document.getElementById(id).textContent = '0');
+            }
+        }
+        function selectTag(el) {
+            document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedTag = el.dataset.value;
+        }
+        function updateCount(inputId, countId, max) {
+            document.getElementById(countId).textContent = document.getElementById(inputId).value.length.toLocaleString();
+        }
+
+        async function handlePostArticle() {
+            const title = document.getElementById('postTitle').value.trim();
+            const summary = document.getElementById('postSummary').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+            const readTime = document.getElementById('postReadTime').value;
+            const editId = document.getElementById('editArticleId').value;
+            clearAlerts('post');
+            if (!title) { showAlert('postError', 'Please add a title.'); return; }
+            if (!selectedTag) { showAlert('postError', 'Please select a category.'); return; }
+            if (!summary) { showAlert('postError', 'Please add a summary.'); return; }
+            if (content.length < 100) { showAlert('postError', 'Article must be at least 100 characters.'); return; }
+
+            setLoading('postSubmitBtn', true, 'Submitting…');
+            try {
+                let res;
+                if (editMode && editId) {
+                    // PATCH — edit existing article
+                    res = await sfPatch(API.ARTICLES, { articleId: editId, authorId: currentUser.id, title, category: selectedTag, summary, content, readTime: parseInt(readTime) });
+                } else {
+                    // POST — new article
+                    res = await sfPost(API.ARTICLES, { title, category: selectedTag, summary, content, readTime: parseInt(readTime), authorId: currentUser.id, authorName: currentUser.name });
+                }
+                if (res.success) {
+                    showAlert('postSuccess', editMode ? '✅ Updated! Ashish will re-review your article.' : '🎉 Submitted! Ashish will review shortly.');
+                    document.getElementById('postSubmitBtn').style.display = 'none';
+                    showToast(editMode ? 'Article updated!' : 'Article submitted for review!', 'success');
+                    setTimeout(() => {
+                        document.getElementById('postSubmitBtn').style.display = 'flex';
+                        closePostModal();
+                        loadArticles(); // refresh list
+                    }, 3000);
+                } else {
+                    showAlert('postError', res.message || 'Submission failed.');
+                }
+            } catch (e) { showAlert('postError', 'Connection failed. Please try again.'); }
+            setLoading('postSubmitBtn', false, editMode ? 'Save & Resubmit' : 'Submit for Review');
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           ARTICLES — FETCH & RENDER
+        ═══════════════════════════════════════════════════════ */
+        async function loadArticles() {
+            try {
+                const res = await sfGet(API.ARTICLES);
+                allArticles = (res.success && Array.isArray(res.articles)) ? res.articles : getDemoArticles();
+            } catch (e) {
+                allArticles = getDemoArticles();
+            }
+            renderArticles(allArticles);
+        }
+
+        function renderArticles(articles) {
+            const grid = document.getElementById('articlesGrid');
+            if (!articles.length) {
+                grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📭</div><h3>No articles yet</h3><p>Be the first to share your Salesforce knowledge!</p></div>`;
+                return;
+            }
+            grid.innerHTML = articles.map(a => `
+    <div class="article-card fade-up" onclick="openDetail('${a.id}')">
+      <div class="card-visual ${getCls(a.category)}">
+        <span class="card-visual-icon">${getEmoji(a.category)}</span>
+      </div>
+      <div class="card-body">
+        <div class="article-tag ${getTag(a.category)}">${getEmoji(a.category)} ${esc(a.category || 'General')}</div>
+        <h3>${esc(a.title)}</h3>
+        <p>${esc(a.summary)}</p>
+        <div class="card-footer">
+          <div class="card-meta">
+            <div class="author-chip">
+              <div class="author-avatar">${(a.authorName || '?')[0].toUpperCase()}</div>
+              ${esc(a.authorName || 'Anonymous')}
+            </div>
             <div class="meta-chip">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              8 min read
-            </div>
-            <div class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Jan 2025
-            </div>
-            <div class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              1.2k views
+              ${a.readTime || 5} min
             </div>
           </div>
-          <div class="read-btn">
-            Read Full Article
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <!-- ARTICLES GRID -->
-      <div class="articles-grid">
-
-        <a href="articles/lwc-vs-aura.html" class="article-card fade-up" data-category="lwc">
-          <div class="card-visual cv-lwc">
-            <span class="card-visual-icon">⚡</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-lwc">⚡ LWC</div>
-            <h3>LWC vs Aura — My Real-World Experience After 4 Years</h3>
-            <p>When to migrate, when to stay, and the gotchas nobody warns you about. Performance benchmarks, component communication patterns, and honest trade-offs.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  6 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="articles/copado-cicd.html" class="article-card fade-up" data-category="devops">
-          <div class="card-visual cv-devops">
-            <span class="card-visual-icon">🚀</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-devops">🚀 DevOps</div>
-            <h3>Setting Up a Zero-Regression Copado Pipeline from Scratch</h3>
-            <p>Step-by-step: Git branching strategy, environment rings, automated test runs, and how we eliminated deployment fear entirely at K-Cloud.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  7 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="articles/pardot-calendly.html" class="article-card fade-up" data-category="marketing">
-          <div class="card-visual cv-marketing">
-            <span class="card-visual-icon">📈</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-marketing">📈 Marketing Ops</div>
-            <h3>Building a 30% MQL Lift with Pardot + Calendly Scoring</h3>
-            <p>How behaviour-based scoring — reacting to booking signals in real time — replaced static lead scores and actually changed how sales worked their queue.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  5 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="articles/mismo-xml.html" class="article-card fade-up" data-category="apex">
-          <div class="card-visual cv-apex">
-            <span class="card-visual-icon">📄</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-apex">⚙️ Apex</div>
-            <h3>Parsing MISMO 3.4 Mortgage XML — The Hard Way, Done Right</h3>
-            <p>Deep-nested XML, edge-case field mapping, and building a Batch Apex pipeline that reduced manual data entry by 60% for a lending client.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  9 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="articles/b2b-commerce.html" class="article-card fade-up" data-category="commerce lwc">
-          <div class="card-visual cv-commerce">
-            <span class="card-visual-icon">🛒</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-commerce">🛒 B2B Commerce</div>
-            <h3>Account-Based Pricing in B2B Commerce — Architecture &amp; Pitfalls</h3>
-            <p>How we built customer-specific price books, handled large catalog performance, and synced real-time inventory without killing storefront speed.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  10 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="articles/bulk-flow-launcher.html" class="article-card fade-up" data-category="lwc apex">
-          <div class="card-visual cv-integration">
-            <span class="card-visual-icon">🔀</span>
-          </div>
-          <div class="card-body">
-            <div class="article-tag tag-lwc">⚡ LWC</div>
-            <h3>Building a Governor-Limit-Safe Bulk Flow Launcher in LWC</h3>
-            <p>Letting ops teams bulk-enrol thousands of contacts into Flows — safely, with chunking, progress tracking, and a UI that stays responsive throughout.</p>
-            <div class="card-footer">
-              <div class="article-meta" style="margin:0">
-                <div class="meta-chip">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  6 min read
-                </div>
-              </div>
-              <div class="card-read-link">
-                Read
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </div>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- LIVE DEMOS SECTION -->
-      <div class="section-divider fade-up">
-        <div class="section-divider-line"></div>
-        <div class="section-divider-label">🖥 Live Demos</div>
-        <div class="section-divider-line"></div>
-      </div>
-
-      <div class="demos-grid">
-        <div class="demo-card fade-up" data-category="demo">
-          <div class="demo-card-banner dcb-blue">
-            <div class="demo-banner-icon">🛒</div>
-            <div class="demo-banner-badge">Experience Cloud · B2B</div>
-          </div>
-          <div class="demo-card-body">
-            <h3>B2B Commerce Storefront — Live Demo</h3>
-            <p>Explore the live B2B digital storefront built on Salesforce Experience Cloud. Features account-based pricing, self-service ordering, and real-time inventory sync.</p>
-            <div class="demo-links">
-              <!-- Replace # with your actual Salesforce Experience Cloud URL -->
-              <a href="#" target="_blank" rel="noopener noreferrer" class="demo-link-btn demo-link-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Open Live Site
-              </a>
-              <a href="articles/b2b-commerce.html" class="demo-link-btn demo-link-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Read Case Study
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-card fade-up" data-category="demo lwc">
-          <div class="demo-card-banner dcb-teal">
-            <div class="demo-banner-icon">📊</div>
-            <div class="demo-banner-badge">LWC · Experience Cloud</div>
-          </div>
-          <div class="demo-card-body">
-            <h3>LWC Data Table Dashboard — Interactive Demo</h3>
-            <p>Live inline editing dashboard for sales managers. Server-side pagination, real-time SOQL data, and filter controls all working in an Experience Cloud org.</p>
-            <div class="demo-links">
-              <!-- Replace # with your actual demo URL -->
-              <a href="#" target="_blank" rel="noopener noreferrer" class="demo-link-btn demo-link-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Open Live Demo
-              </a>
-              <a href="articles/lwc-vs-aura.html" class="demo-link-btn demo-link-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Read Case Study
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-card fade-up" data-category="demo integration">
-          <div class="demo-card-banner dcb-violet">
-            <div class="demo-banner-icon">🏭</div>
-            <div class="demo-banner-badge">Apex · REST API</div>
-          </div>
-          <div class="demo-card-body">
-            <h3>WMS Integration — Sandbox Walkthrough</h3>
-            <p>A sandboxed version of the WMS order sync. Trigger an order, watch it flow through Salesforce via Platform Events, and see error handling in action live.</p>
-            <div class="demo-links">
-              <!-- Replace # with your actual sandbox/demo URL -->
-              <a href="#" target="_blank" rel="noopener noreferrer" class="demo-link-btn demo-link-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Open Demo Sandbox
-              </a>
-              <a href="articles/wms-integration.html" class="demo-link-btn demo-link-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Read Case Study
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="demo-card fade-up" data-category="demo apex">
-          <div class="demo-card-banner dcb-green">
-            <div class="demo-banner-icon">🔀</div>
-            <div class="demo-banner-badge">LWC · Flow · Apex</div>
-          </div>
-          <div class="demo-card-body">
-            <h3>Bulk Flow Launcher — Self-Serve Demo</h3>
-            <p>Try the bulk contact enrolment tool yourself. Select a list, pick a Flow, watch the chunked processing complete — all with live progress feedback in the UI.</p>
-            <div class="demo-links">
-              <!-- Replace # with your actual demo URL -->
-              <a href="#" target="_blank" rel="noopener noreferrer" class="demo-link-btn demo-link-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Try the Demo
-              </a>
-              <a href="articles/bulk-flow-launcher.html" class="demo-link-btn demo-link-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Read Case Study
-              </a>
-            </div>
-          </div>
+          <div class="card-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </div>
+    </div>`).join('');
+            document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+        }
 
-      <!-- VIDEO WALKTHROUGHS -->
-      <div class="section-divider fade-up">
-        <div class="section-divider-line"></div>
-        <div class="section-divider-label">🎬 Video Walkthroughs</div>
-        <div class="section-divider-line"></div>
-      </div>
+        function filterArticles(btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const f = btn.dataset.filter;
+            renderArticles(f === 'all' ? allArticles : allArticles.filter(a => (a.category || '').toLowerCase() === f.toLowerCase()));
+        }
 
-      <div class="videos-grid">
-        <div class="video-card fade-up" data-category="video integration">
-          <div class="video-thumb">
-            <!-- OPTION A: Replace VIDEO_ID with your actual YouTube video ID -->
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-            <!-- OPTION B (placeholder until you have a video): -->
-            <div class="video-thumb-placeholder vtp-blue">
-              <div class="play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-              <div class="video-thumb-title">WMS Integration<br>Full Walkthrough</div>
-            </div>
-            <div class="video-duration">12:34</div>
-          </div>
-          <div class="video-card-body">
-            <h3>WMS Integration — Full Code Walkthrough</h3>
-            <p>Live screen recording: building the Queueable chain, Named Credentials setup, and error surfacing from scratch.</p>
-            <div class="video-tags">
-              <span class="video-tag">Apex</span>
-              <span class="video-tag">REST API</span>
-              <span class="video-tag">Queueable</span>
-            </div>
-          </div>
-        </div>
+        /* ═══════════════════════════════════════════════════════
+           DETAIL VIEW — open article
+        ═══════════════════════════════════════════════════════ */
+        async function openDetail(id) {
+            const a = allArticles.find(x => x.id === id);
+            if (!a) return;
+            currentArticle = a;
 
-        <div class="video-card fade-up" data-category="video lwc">
-          <div class="video-thumb">
-            <!-- Replace VIDEO_ID with your actual YouTube video ID -->
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-            <div class="video-thumb-placeholder vtp-dark">
-              <div class="play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-              <div class="video-thumb-title">LWC Data Table<br>Build from Scratch</div>
-            </div>
-            <div class="video-duration">18:20</div>
-          </div>
-          <div class="video-card-body">
-            <h3>LWC Inline Editing Data Table — Build from Scratch</h3>
-            <p>Watch the full component build: wire adapters, inline edit handlers, server-side pagination, and Experience Cloud deployment.</p>
-            <div class="video-tags">
-              <span class="video-tag">LWC</span>
-              <span class="video-tag">SOQL</span>
-              <span class="video-tag">Experience Cloud</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="video-card fade-up" data-category="video devops">
-          <div class="video-thumb">
-            <!-- Replace VIDEO_ID with your actual YouTube video ID -->
-            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-            <div class="video-thumb-placeholder vtp-teal">
-              <div class="play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-              <div class="video-thumb-title">Copado CI/CD<br>Pipeline Setup</div>
-            </div>
-            <div class="video-duration">22:10</div>
-          </div>
-          <div class="video-card-body">
-            <h3>Copado CI/CD Pipeline Setup — Zero to Production</h3>
-            <p>Complete Copado setup walkthrough: environment rings, branch strategy, automated PMD checks, and first deployment.</p>
-            <div class="video-tags">
-              <span class="video-tag">Copado</span>
-              <span class="video-tag">Git</span>
-              <span class="video-tag">CI/CD</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CTA -->
-      <div class="newsletter-cta fade-up">
-        <div class="cta-text">
-          <h3>Have a project in mind?</h3>
-          <p>I'm open to consulting engagements, full-time roles, and interesting Salesforce challenges worldwide. Let's build something that ships.</p>
-        </div>
-        <div class="cta-actions">
-          <a href="index.html#contact" class="cta-btn-primary">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Get in Touch
-          </a>
-          <a href="index.html" class="cta-btn-secondary">
-            View Portfolio →
-          </a>
-        </div>
-      </div>
+            document.getElementById('detailTag').className = `article-tag ${getTag(a.category)}`;
+            document.getElementById('detailTag').textContent = `${getEmoji(a.category)} ${a.category}`;
+            document.getElementById('detailTitle').textContent = a.title;
+            document.getElementById('detailContent').textContent = a.content || '';
+            document.getElementById('detailMeta').innerHTML = `
+    <div class="author-chip">
+      <div class="author-avatar">${(a.authorName || '?')[0].toUpperCase()}</div>
+      ${esc(a.authorName || 'Anonymous')}
     </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">Ashish<em>.</em>dev</div>
-        <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer · Nagpur, India</div>
-      </div>
+    <div class="meta-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      ${a.readTime || 5} min read
     </div>
-  </footer>
+    ${a.publishedDate ? `<div class="meta-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      ${new Date(a.publishedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+    </div>` : ''}`;
 
-  <script>
-    // Nav scroll shadow
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+            // Show edit button only to article's own author
+            const editBtn = document.getElementById('editBtn');
+            editBtn.style.display = (currentUser && currentUser.id === a.authorId) ? 'inline-flex' : 'none';
 
-    // Fade-up on scroll
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+            // Switch views
+            document.getElementById('articlesView').style.display = 'none';
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('detailView').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Filter tabs
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const allCards = document.querySelectorAll('[data-category]');
+            // Load likes & comments in parallel
+            loadLikes(a.id);
+            loadComments(a.id);
+            renderCommentForm();
+        }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        allCards.forEach(card => {
-          const cats = card.dataset.category || '';
-          const show = filter === 'all' || cats.includes(filter);
-          card.style.transition = 'opacity 0.3s, transform 0.3s';
-          if (show) {
-            card.style.opacity = '1';
-            card.style.transform = '';
-            card.style.display = '';
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.97)';
-            setTimeout(() => { if (!cats.includes(filter) && filter !== 'all') card.style.display = 'none'; }, 300);
-          }
-        });
-      });
-    });
-  </script>
+        function closeDetail() {
+            document.getElementById('detailView').classList.remove('active');
+            document.getElementById('articlesView').style.display = 'block';
+            document.getElementById('heroSection').style.display = 'block';
+            currentArticle = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           LIKES
+        ═══════════════════════════════════════════════════════ */
+        async function loadLikes(articleId) {
+            const btn = document.getElementById('likeBtn');
+            const countEl = document.getElementById('likeCount');
+            const labelEl = document.getElementById('likeBtnLabel');
+            btn.disabled = true;
+
+            try {
+                const userId = currentUser ? currentUser.id : '';
+                const res = await sfGet(`${API.LIKES}?articleId=${articleId}&userId=${userId}`);
+                if (res.success) {
+                    const count = res.likeCount || 0;
+                    countEl.textContent = count > 0 ? `${count} ${count === 1 ? 'like' : 'likes'}` : '';
+                    if (res.userLiked) {
+                        btn.classList.add('liked');
+                        labelEl.textContent = 'Liked';
+                    } else {
+                        btn.classList.remove('liked');
+                        labelEl.textContent = 'Like';
+                    }
+                }
+            } catch (e) {
+                countEl.textContent = '';
+            }
+            btn.disabled = false;
+        }
+
+        async function handleLike() {
+            if (!currentUser) { openAuthModal('login'); showToast('Sign in to like articles', 'info'); return; }
+            const btn = document.getElementById('likeBtn');
+            const labelEl = document.getElementById('likeBtnLabel');
+            const isLiked = btn.classList.contains('liked');
+            btn.disabled = true;
+
+            try {
+                let res;
+                if (isLiked) {
+                    // Unlike — DELETE
+                    res = await sfDelete(`${API.LIKES}?articleId=${currentArticle.id}&authorId=${currentUser.id}`);
+                } else {
+                    // Like — POST
+                    res = await sfPost(API.LIKES, { articleId: currentArticle.id, authorId: currentUser.id, authorName: currentUser.name });
+                }
+                if (res.success) {
+                    const count = res.likeCount || 0;
+                    document.getElementById('likeCount').textContent = count > 0 ? `${count} ${count === 1 ? 'like' : 'likes'}` : '';
+                    if (isLiked) {
+                        btn.classList.remove('liked');
+                        labelEl.textContent = 'Like';
+                    } else {
+                        btn.classList.add('liked');
+                        labelEl.textContent = 'Liked';
+                        // Small bounce animation
+                        btn.style.transform = 'scale(1.12)';
+                        setTimeout(() => btn.style.transform = '', 200);
+                    }
+                }
+            } catch (e) { showToast('Could not update like. Try again.', 'error'); }
+            btn.disabled = false;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           COMMENTS
+        ═══════════════════════════════════════════════════════ */
+        async function loadComments(articleId) {
+            const listEl = document.getElementById('commentsList');
+            const countEl = document.getElementById('commentCountBadge');
+            listEl.innerHTML = '<div class="no-comments">Loading…</div>';
+
+            try {
+                const res = await sfGet(`${API.COMMENTS}?articleId=${articleId}`);
+                if (res.success && Array.isArray(res.comments)) {
+                    const comments = res.comments;
+                    countEl.textContent = `${comments.length} comment${comments.length !== 1 ? 's' : ''}`;
+                    if (!comments.length) {
+                        listEl.innerHTML = '<div class="no-comments">No comments yet. Be the first!</div>';
+                        return;
+                    }
+                    listEl.innerHTML = comments.map(c => `
+        <div class="comment-item">
+          <div class="comment-header">
+            <div class="comment-avatar">${(c.authorName || '?')[0].toUpperCase()}</div>
+            <span class="comment-author">${esc(c.authorName || 'Anonymous')}</span>
+            <span class="comment-date">${formatDate(c.createdDate)}</span>
+          </div>
+          <div class="comment-text">${esc(c.text)}</div>
+        </div>`).join('');
+                }
+            } catch (e) {
+                listEl.innerHTML = '<div class="no-comments">Could not load comments.</div>';
+                countEl.textContent = '0 comments';
+            }
+        }
+
+        function renderCommentForm() {
+            const wrap = document.getElementById('commentFormWrap');
+            if (!currentArticle) return;
+
+            if (!currentUser) {
+                // Not logged in — show prompt
+                wrap.innerHTML = `
+      <div class="comment-login-prompt">
+        <button onclick="openAuthModal('login')">Sign in</button> to leave a comment
+      </div>`;
+                return;
+            }
+
+            // Logged in — show comment form
+            wrap.innerHTML = `
+    <div class="comment-form">
+      <textarea id="commentInput" placeholder="Write a comment…" maxlength="2000"></textarea>
+      <button class="comment-submit-btn" id="commentSubmitBtn" onclick="handleComment()">Post Comment</button>
+    </div>`;
+        }
+
+        async function handleComment() {
+            if (!currentUser || !currentArticle) return;
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const btn = document.getElementById('commentSubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Posting…';
+
+            try {
+                const res = await sfPost(API.COMMENTS, {
+                    articleId: currentArticle.id,
+                    authorId: currentUser.id,
+                    authorName: currentUser.name,
+                    text
+                });
+                if (res.success) {
+                    input.value = '';
+                    showToast('Comment posted!', 'success');
+                    loadComments(currentArticle.id); // refresh comment list
+                } else {
+                    showToast(res.message || 'Failed to post comment.', 'error');
+                }
+            } catch (e) { showToast('Connection failed.', 'error'); }
+
+            btn.disabled = false;
+            btn.textContent = 'Post Comment';
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SF API HELPERS
+        ═══════════════════════════════════════════════════════ */
+        async function sfGet(url) {
+            const res = await fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+        async function sfPost(url, body) {
+            const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+        async function sfPatch(url, body) {
+            const res = await fetch(url, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+        async function sfDelete(url) {
+            const res = await fetch(url, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           UI HELPERS
+        ═══════════════════════════════════════════════════════ */
+        function showAlert(id, msg) { const el = document.getElementById(id); if (!el) return; el.textContent = msg; el.classList.add('show'); }
+        function clearAlerts(prefix = '') {
+            ['loginError', 'loginSuccess', 'registerError', 'registerSuccess', 'postError', 'postSuccess']
+                .filter(id => !prefix || id.startsWith(prefix))
+                .forEach(id => { const el = document.getElementById(id); if (el) { el.textContent = ''; el.classList.remove('show'); } });
+        }
+        function setLoading(id, loading, label) { const b = document.getElementById(id); if (!b) return; b.disabled = loading; b.textContent = label; }
+
+        let toastTimer;
+        function showToast(msg, type = 'info') {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.className = `toast ${type} show`;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+        }
+        function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+        function formatDate(d) {
+            if (!d) return '';
+            try { return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); }
+            catch (e) { return ''; }
+        }
+
+        const catMap = {
+            'Apex': { cls: 'cv-apex', emoji: '⚙️', tag: 'tag-apex' },
+            'LWC': { cls: 'cv-lwc', emoji: '⚡', tag: 'tag-lwc' },
+            'Integration': { cls: 'cv-integration', emoji: '🔗', tag: 'tag-integration' },
+            'DevOps': { cls: 'cv-devops', emoji: '🚀', tag: 'tag-devops' },
+            'Marketing': { cls: 'cv-marketing', emoji: '📈', tag: 'tag-marketing' },
+            'Commerce': { cls: 'cv-commerce', emoji: '🛒', tag: 'tag-commerce' },
+            'General': { cls: 'cv-general', emoji: '📝', tag: 'tag-general' },
+        };
+        const getCls = c => (catMap[c] || catMap.General).cls;
+        const getEmoji = c => (catMap[c] || catMap.General).emoji;
+        const getTag = c => (catMap[c] || catMap.General).tag;
+
+        /* Fade up observer */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.08 });
+
+        /* ═══════════════════════════════════════════════════════
+           DEMO ARTICLES (fallback until SF endpoints are live)
+        ═══════════════════════════════════════════════════════ */
+        function getDemoArticles() {
+            return [
+                { id: 'd1', title: 'How I Built a Fault-Tolerant WMS Integration in Apex', category: 'Integration', summary: 'Deep-dive into bi-directional order sync with idempotency, rate-limit handling, and Named Credentials.', content: 'This is a demo article.\n\nConnect your Salesforce endpoint to display real articles.\n\nThe full content will appear here once loaded from Salesforce.', authorName: 'Ashish Kurzekar', authorId: 'demo', readTime: 8, publishedDate: '2025-01-15' },
+                { id: 'd2', title: 'LWC vs Aura — My Real-World Experience After 4 Years', category: 'LWC', summary: 'When to migrate, when to stay, and the gotchas nobody warns you about.', content: 'Demo article. Replace with real Salesforce data.', authorName: 'Ashish Kurzekar', authorId: 'demo', readTime: 6, publishedDate: '2025-01-10' },
+                { id: 'd3', title: 'Setting Up a Zero-Regression Copado Pipeline', category: 'DevOps', summary: 'Git branching strategy, environment rings, and automated test runs from scratch.', content: 'Demo article. Replace with real Salesforce data.', authorName: 'Ashish Kurzekar', authorId: 'demo', readTime: 7, publishedDate: '2025-01-05' },
+            ];
+        }
+
+        /* ─── START ─── */
+        init();
+    </script>
 </body>
+
 </html>
