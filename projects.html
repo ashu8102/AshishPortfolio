@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://www.salesforce.com/favicon.ico">
+  <title>Project Stories — Ashish Kurzekar | Salesforce Developer</title>
+  <meta name="description" content="Real project challenges, hard-won solutions and measurable successes from 4+ years building on Salesforce.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#FAFAF7;--cream-mid:#F3F2EE;--cream-deep:#EAE9E3;
+      --white:#FFFFFF;--ink:#1A1814;--ink-mid:#3D3A35;
+      --ink-light:#6B6860;--ink-xs:#9C9990;
+      --blue:#0176D3;--blue-mid:#1B96FF;--blue-light:#D4EAFF;
+      --blue-glow:rgba(1,118,211,0.10);
+      --green:#166534;--green-bg:#DCFCE7;--green-mid:#16A34A;
+      --amber:#92400E;--amber-bg:#FEF3C7;--amber-mid:#D97706;
+      --violet:#5B21B6;--violet-bg:#EDE9FE;
+      --rose:#9F1239;--rose-bg:#FFE4E6;
+      --teal:#0E7490;--teal-bg:#CCFBF1;
+      --red:#DC2626;--red-bg:#FEE2E2;
+      --border:rgba(26,24,20,0.10);--border-md:rgba(26,24,20,0.16);
+      --shadow-sm:0 1px 4px rgba(26,24,20,0.06);
+      --shadow-md:0 4px 20px rgba(26,24,20,0.08);
+      --shadow-lg:0 16px 48px rgba(26,24,20,0.12);
+      --shadow-xl:0 32px 80px rgba(26,24,20,0.16);
+      --radius-sm:8px;--radius-md:14px;--radius-lg:22px;--radius-xl:32px;
+      --ease:cubic-bezier(.4,0,.2,1);--t:0.28s;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%;height:auto}
+    button{cursor:pointer;border:none;background:none;font:inherit}
+    .container{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+
+    /* ── NAV ── */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(250,250,247,0.92);backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid var(--border);transition:box-shadow var(--t)}
+    .nav.scrolled{box-shadow:0 2px 24px rgba(26,24,20,0.07)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .nav-logo{font-family:'Playfair Display',serif;font-weight:800;font-size:1.2rem;color:var(--ink)}
+    .nav-logo em{color:var(--blue);font-style:normal}
+    .nav-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .nav-link{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border-md);font-size:0.82rem;font-weight:600;color:var(--ink-mid);transition:all var(--t)}
+    .nav-link:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .nav-link svg{width:13px;height:13px}
+    .nav-link-active{background:linear-gradient(135deg,var(--blue),var(--blue-mid));color:var(--white);border-color:transparent;box-shadow:0 3px 12px rgba(1,118,211,0.25)}
+    .nav-link-active:hover{background:linear-gradient(135deg,var(--ink),var(--ink-mid));color:var(--white);transform:translateY(-1px)}
+
+    /* ── PAGE HERO ── */
+    .page-hero{padding:110px 0 56px;background:var(--white);position:relative;overflow:hidden}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 20%,rgba(1,118,211,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 10% 90%,rgba(91,33,182,0.04) 0%,transparent 60%);pointer-events:none}
+    .hero-inner{position:relative;z-index:1;max-width:720px}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:100px;background:var(--blue-light);color:var(--blue);font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-2px;color:var(--ink);margin-bottom:18px}
+    .page-hero h1 em{font-style:italic;background:linear-gradient(105deg,var(--blue),#00A9E0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .page-hero p{font-size:clamp(0.92rem,1.5vw,1.05rem);color:var(--ink-light);line-height:1.78;max-width:580px}
+
+    /* STATS ROW */
+    .hero-stats{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin-top:36px;padding-top:32px;border-top:1px solid var(--border)}
+    .stat-item{text-align:center}
+    .stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--blue);letter-spacing:-1px;display:block}
+    .stat-lbl{font-size:0.72rem;color:var(--ink-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.8px}
+
+    /* FILTER BAR */
+    .filter-bar{padding:32px 0 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .filter-btn{padding:7px 18px;border-radius:100px;border:1.5px solid var(--border-md);background:var(--white);color:var(--ink-mid);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s var(--ease);font-family:'Plus Jakarta Sans',sans-serif}
+    .filter-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .filter-btn.active{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+    /* ── MAIN ── */
+    .projects-page{padding:52px 0 40px}
+
+    /* ── FEATURED PROJECT ── */
+    .featured-project{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:52px;transition:box-shadow 0.3s,transform 0.3s;position:relative}
+    .featured-project::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-mid),#00C6FF);z-index:1}
+    .featured-project:hover{box-shadow:var(--shadow-xl);transform:translateY(-4px)}
+    .feat-visual{background:linear-gradient(135deg,#0176D3 0%,#00A9E0 50%,#0E7490 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 40px;position:relative;overflow:hidden;min-height:360px}
+    .feat-visual::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+    .feat-icon{font-size:5rem;margin-bottom:20px;position:relative;z-index:1;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.2));animation:float 4s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .feat-label{position:relative;z-index:1;padding:5px 14px;border-radius:100px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:0.74rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+    .feat-content{padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+    .feat-content h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;letter-spacing:-1px;color:var(--ink);line-height:1.15;margin-bottom:12px;transition:color 0.2s}
+    .featured-project:hover .feat-content h2{color:var(--blue)}
+
+    /* ── PROJECT CARDS ── */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:52px}
+
+    .project-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;transition:all 0.3s var(--ease);position:relative}
+    .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform 0.3s var(--ease)}
+    .project-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-5px);border-color:rgba(1,118,211,0.2)}
+    .project-card:hover::before{transform:scaleX(1)}
+    .pc-blue::before{background:linear-gradient(90deg,var(--blue),var(--blue-mid))}
+    .pc-green::before{background:linear-gradient(90deg,var(--green),var(--green-mid))}
+    .pc-violet::before{background:linear-gradient(90deg,var(--violet),#7C3AED)}
+    .pc-amber::before{background:linear-gradient(90deg,var(--amber),var(--amber-mid))}
+    .pc-teal::before{background:linear-gradient(90deg,var(--teal),#06B6D4)}
+    .pc-rose::before{background:linear-gradient(90deg,var(--rose),#E11D48)}
+
+    .card-banner{height:156px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+    .card-banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E")}
+    .cb-blue  {background:linear-gradient(135deg,#0176D3,#1B96FF,#00A9E0)}
+    .cb-green {background:linear-gradient(135deg,#166534,#16A34A,#22C55E)}
+    .cb-violet{background:linear-gradient(135deg,#5B21B6,#7C3AED,#8B5CF6)}
+    .cb-amber {background:linear-gradient(135deg,#92400E,#D97706,#F59E0B)}
+    .cb-teal  {background:linear-gradient(135deg,#0E7490,#06B6D4,#22D3EE)}
+    .cb-rose  {background:linear-gradient(135deg,#9F1239,#E11D48,#F43F5E)}
+    .banner-icon{font-size:3rem;position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));transition:transform 0.3s}
+    .project-card:hover .banner-icon{transform:scale(1.12) rotate(-4deg)}
+    .banner-badge{position:relative;z-index:1;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase}
+
+    .card-body{padding:22px;flex:1;display:flex;flex-direction:column}
+    .proj-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;width:fit-content}
+    .tag-integration{background:var(--teal-bg);color:var(--teal)}
+    .tag-lwc        {background:var(--violet-bg);color:var(--violet)}
+    .tag-apex       {background:var(--blue-light);color:var(--blue)}
+    .tag-devops     {background:var(--green-bg);color:var(--green)}
+    .tag-marketing  {background:var(--amber-bg);color:var(--amber)}
+    .tag-commerce   {background:var(--rose-bg);color:var(--rose)}
+
+    .card-body h3{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:800;color:var(--ink);letter-spacing:-0.3px;margin-bottom:10px;line-height:1.3;transition:color 0.2s}
+    .project-card:hover .card-body h3{color:var(--blue)}
+
+    /* CHALLENGE → SOLUTION → RESULT BLOCKS */
+    .story-blocks{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;flex:1}
+    .story-block{padding:10px 12px;border-radius:var(--radius-sm);font-size:0.78rem;line-height:1.55}
+    .sb-challenge{background:var(--red-bg);border-left:3px solid var(--red);color:#7F1D1D}
+    .sb-challenge strong{color:var(--red)}
+    .sb-solution {background:var(--blue-light);border-left:3px solid var(--blue);color:#1e3a5f}
+    .sb-solution  strong{color:var(--blue)}
+    .sb-result   {background:var(--green-bg);border-left:3px solid var(--green-mid);color:#14532D}
+    .sb-result    strong{color:var(--green)}
+
+    .card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--border)}
+    .meta-chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .meta-chip{display:flex;align-items:center;gap:4px;font-size:0.71rem;color:var(--ink-xs);font-weight:500}
+    .meta-chip svg{width:11px;height:11px}
+    .card-cta{display:inline-flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:var(--blue);transition:gap 0.2s}
+    .card-cta svg{width:11px;height:11px}
+    .project-card:hover .card-cta{gap:8px}
+
+    /* ── OUTCOME NUMBERS ROW ── */
+    .outcomes-section{margin-bottom:52px}
+    .section-label{display:inline-flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;letter-spacing:-1px;color:var(--ink);margin-bottom:28px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border-md);display:block;min-width:40px}
+    .outcomes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .outcome-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;text-align:center;transition:all 0.3s var(--ease);position:relative;overflow:hidden}
+    .outcome-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .oc-blue::before  {background:linear-gradient(90deg,var(--blue),var(--blue-mid))}
+    .oc-green::before {background:linear-gradient(90deg,var(--green),var(--green-mid))}
+    .oc-violet::before{background:linear-gradient(90deg,var(--violet),#7C3AED)}
+    .oc-amber::before {background:linear-gradient(90deg,var(--amber),var(--amber-mid))}
+    .outcome-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+    .outcome-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;letter-spacing:-2px;display:block;margin-bottom:4px}
+    .oc-blue .outcome-num  {color:var(--blue)}
+    .oc-green .outcome-num {color:var(--green)}
+    .oc-violet .outcome-num{color:var(--violet)}
+    .oc-amber .outcome-num {color:var(--amber)}
+    .outcome-lbl{font-size:0.78rem;font-weight:600;color:var(--ink-mid);line-height:1.4}
+    .outcome-sub{font-size:0.7rem;color:var(--ink-xs);margin-top:4px}
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider{display:flex;align-items:center;gap:16px;margin:48px 0 28px}
+    .section-divider-line{flex:1;height:1px;background:var(--border-md)}
+    .section-divider-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:900;letter-spacing:-1px;color:var(--ink);white-space:nowrap}
+
+    /* ── TIMELINE (challenges detail) ── */
+    .timeline{display:flex;flex-direction:column;gap:0;margin-bottom:52px}
+    .timeline-item{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
+    .timeline-item:not(:last-child)::after{content:'';position:absolute;left:38px;top:52px;bottom:0;width:2px;background:var(--border-md);z-index:0}
+    .tl-left{display:flex;flex-direction:column;align-items:center;padding-top:18px;position:relative;z-index:1}
+    .tl-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;box-shadow:var(--shadow-sm)}
+    .tl-dot-blue  {background:linear-gradient(135deg,var(--blue),var(--blue-mid))}
+    .tl-dot-green {background:linear-gradient(135deg,var(--green),var(--green-mid))}
+    .tl-dot-violet{background:linear-gradient(135deg,var(--violet),#7C3AED)}
+    .tl-dot-amber {background:linear-gradient(135deg,var(--amber),var(--amber-mid))}
+    .tl-dot-teal  {background:linear-gradient(135deg,var(--teal),#06B6D4)}
+    .tl-dot-rose  {background:linear-gradient(135deg,var(--rose),#E11D48)}
+    .tl-right{padding:16px 16px 32px 24px}
+    .tl-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:0.67rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;width:fit-content}
+    .tl-title{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:800;color:var(--ink);letter-spacing:-0.4px;margin-bottom:12px;line-height:1.25}
+    .tl-story{display:flex;flex-direction:column;gap:8px}
+    .tl-block{padding:10px 14px;border-radius:var(--radius-sm);font-size:0.82rem;line-height:1.6}
+    .tl-challenge{background:var(--red-bg);border-left:3px solid var(--red);color:#7F1D1D}
+    .tl-challenge strong{color:var(--red);font-weight:700}
+    .tl-solution {background:var(--blue-light);border-left:3px solid var(--blue);color:#1e3a5f}
+    .tl-solution  strong{color:var(--blue);font-weight:700}
+    .tl-result   {background:var(--green-bg);border-left:3px solid var(--green-mid);color:#14532D}
+    .tl-result    strong{color:var(--green);font-weight:700}
+    .tl-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .tl-chip{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:0.68rem;font-weight:600;background:var(--cream-mid);color:var(--ink-mid);border:1px solid var(--border)}
+
+    /* ── CTA ── */
+    .cta-section{margin-top:16px;background: linear-gradient(135deg, #00A1E0 0%, #50C7F2 100%);border-radius:var(--radius-xl);padding:clamp(32px,5vw,56px);display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(1,118,211,0.15) 0%,transparent 60%);pointer-events:none}
+    .cta-text h3{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--white);letter-spacing:-1px;margin-bottom:10px}
+    .cta-text p{font-size:0.94rem;color:var(--white);line-height:1.7}
+    .cta-actions{display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0;position:relative;z-index:1}
+    .cta-btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--radius-sm);background:var(--blue);color:var(--white);font-weight:700;font-size:0.9rem;transition:all var(--t);white-space:nowrap}
+    .cta-btn-primary:hover{background:var(--blue-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(1,118,211,0.35)}
+    .cta-btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:var(--radius-sm);border:2px solid var(--white);color:var(--white);font-weight:600;font-size:0.9rem;transition:all var(--t);white-space:nowrap}
+    .cta-btn-secondary:hover{border-color:rgba(255,255,255,0.5);color:var(--white)}
+
+    /* FOOTER */
+    .footer{background:var(--ink);padding:clamp(32px,5vw,52px) 0 28px}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:14px}
+    .footer-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.15rem;color:var(--white)}
+    .footer-logo em{color:var(--blue-mid);font-style:normal}
+    .footer-copy{font-size:0.74rem;color:rgba(255,255,255,0.3);text-align:center}
+
+    /* FADE UP */
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.65s var(--ease),transform 0.65s var(--ease)}
+    .fade-up.in{opacity:1;transform:none}
+    .fade-up:nth-child(2){transition-delay:.07s}
+    .fade-up:nth-child(3){transition-delay:.14s}
+    .fade-up:nth-child(4){transition-delay:.21s}
+    .fade-up:nth-child(5){transition-delay:.28s}
+    .fade-up:nth-child(6){transition-delay:.35s}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}.fade-up{opacity:1;transform:none}}
+
+    @media(max-width:1024px){.projects-grid{grid-template-columns:repeat(2,1fr)}.outcomes-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:768px){.featured-project{grid-template-columns:1fr}.feat-visual{min-height:200px;padding:32px}.cta-section{grid-template-columns:1fr;gap:24px}.cta-actions{flex-direction:column;width:100%}.cta-btn-primary,.cta-btn-secondary{justify-content:center}.timeline-item{grid-template-columns:56px 1fr}.tl-dot{width:32px;height:32px;font-size:0.9rem}.timeline-item:not(:last-child)::after{left:26px}}
+    @media(max-width:600px){.projects-grid{grid-template-columns:1fr}.outcomes-grid{grid-template-columns:1fr 1fr}.hero-stats{gap:20px}}
+    @media(max-width:400px){.outcomes-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">Ashish<em>.</em>dev</a>
+    <div class="nav-right">
+      <a href="blogs.html" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Articles</span>
+      </a>
+      <a href="projects.html" class="nav-link nav-link-active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>Project Stories</span>
+      </a>
+      <a href="index.html" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span>Portfolio</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🏗️ Real Projects · Real Challenges</div>
+      <h1>Where Things Got <em>Hard</em><br>— and What Fixed Them</h1>
+      <p>Not polished case studies. The actual problems, the dead ends, the 2 AM governor-limit errors, and the solutions that finally shipped. Every project below is one I personally built.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">12+</span>
+        <span class="stat-lbl">Projects shipped</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4+</span>
+        <span class="stat-lbl">Years on Salesforce</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">60%</span>
+        <span class="stat-lbl">Avg. manual work cut</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">0</span>
+        <span class="stat-lbl">Data loss incidents</span>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="integration">🔗 Integration</button>
+      <button class="filter-btn" data-filter="lwc">⚡ LWC</button>
+      <button class="filter-btn" data-filter="apex">⚙️ Apex</button>
+      <button class="filter-btn" data-filter="devops">🚀 DevOps</button>
+      <button class="filter-btn" data-filter="marketing">📈 Marketing</button>
+      <button class="filter-btn" data-filter="commerce">🛒 Commerce</button>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="projects-page">
+  <div class="container">
+
+    <!-- FEATURED PROJECT -->
+    <div class="featured-project fade-up" data-category="integration apex">
+      <div class="feat-visual">
+        <div class="feat-icon">🏭</div>
+        <div class="feat-label">Most Complex Build</div>
+      </div>
+      <div class="feat-content">
+        <div class="proj-tag tag-integration">🔗 Integration · Apex</div>
+        <h2>WMS Bi-Directional Order Sync</h2>
+        <p style="font-size:0.88rem;color:var(--ink-light);line-height:1.7;margin-bottom:18px">The most technically demanding project of my career — syncing 10k+ orders/day between Salesforce and a legacy Warehouse Management System with zero data loss tolerance.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px">
+          <div class="tl-block tl-challenge"><strong>🔴 Challenge:</strong> The WMS had no idempotency support. Duplicate inserts were silently corrupting order records and the client only found out during month-end reconciliation.</div>
+          <div class="tl-block tl-solution"><strong>🔵 Solution:</strong> Built a SHA-256 hash of every inbound payload stored as a unique External ID. Any duplicate triggers an update instead of insert. Added a Queueable retry chain with exponential backoff for transient failures.</div>
+          <div class="tl-block tl-result"><strong>🟢 Result:</strong> Zero duplicate orders in 14 months of production. Processing time cut from 4 hours batch to under 90 seconds real-time.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span class="tl-chip">Queueable Apex</span>
+          <span class="tl-chip">Named Credentials</span>
+          <span class="tl-chip">Platform Events</span>
+          <span class="tl-chip">14 months production</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTCOMES ROW -->
+    <div class="outcomes-section fade-up">
+      <div class="section-label">📊 Measured Outcomes</div>
+      <div class="outcomes-grid">
+        <div class="outcome-card oc-blue">
+          <span class="outcome-num">90s</span>
+          <div class="outcome-lbl">Order sync latency</div>
+          <div class="outcome-sub">Down from 4-hour batch window</div>
+        </div>
+        <div class="outcome-card oc-green">
+          <span class="outcome-num">30%</span>
+          <div class="outcome-lbl">MQL lift via Pardot scoring</div>
+          <div class="outcome-sub">Calendly signal integration</div>
+        </div>
+        <div class="outcome-card oc-violet">
+          <span class="outcome-num">60%</span>
+          <div class="outcome-lbl">Manual data entry reduced</div>
+          <div class="outcome-sub">MISMO XML Batch pipeline</div>
+        </div>
+        <div class="outcome-card oc-amber">
+          <span class="outcome-num">0</span>
+          <div class="outcome-lbl">Deployment rollbacks</div>
+          <div class="outcome-sub">Post Copado CI/CD adoption</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: Project Cards -->
+    <div class="section-divider fade-up">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">🗂 All Project Stories</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- 1 -->
+      <div class="project-card pc-violet fade-up" data-category="lwc">
+        <div class="card-banner cb-violet">
+          <div class="banner-icon">⚡</div>
+          <div class="banner-badge">LWC · Experience Cloud</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-lwc">⚡ LWC</div>
+          <h3>Inline Editing Data Table for Sales Ops</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> Sales ops team was copy-pasting between Salesforce and Excel to bulk-update 200+ records daily. Error-prone and eating 3 hours every morning.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> LWC inline-edit data table with server-side pagination, SOQL wire adapters, and dirty-state tracking. Only changed fields sent to server.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> 3-hour daily task down to 20 minutes. Zero data errors reported in first 6 months of use.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                3 weeks build
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="project-card pc-green fade-up" data-category="devops">
+        <div class="card-banner cb-green">
+          <div class="banner-icon">🚀</div>
+          <div class="banner-badge">Copado · CI/CD</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-devops">🚀 DevOps</div>
+          <h3>Zero-Regression Copado Pipeline</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> 2–3 production hotfixes per sprint due to manual deployments. Developers afraid to push changes on Fridays. No automated testing gate.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> Implemented Copado with 4-environment ring, mandatory PMD static analysis, and 75% test coverage gate before any promotion.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> Zero hotfixes in the 6 months following adoption. Deployment confidence high enough that Friday releases became normal.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                6 weeks rollout
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="project-card pc-amber fade-up" data-category="marketing">
+        <div class="card-banner cb-amber">
+          <div class="banner-icon">📈</div>
+          <div class="banner-badge">Pardot · Marketing Cloud</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-marketing">📈 Marketing</div>
+          <h3>Pardot + Calendly Behaviour Scoring</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> Static lead scores weren't reflecting actual buying intent. Sales was ignoring MQLs because 60% were cold. Marketing and sales misaligned.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> Webhooks from Calendly pushed booking signals into Salesforce in real time. Pardot score boosted +80 on any booking, triggering immediate sales alert.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> 30% MQL-to-pipeline lift in Q1 post-launch. Sales started trusting the queue again — follow-up time dropped from 48h to 4h.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                2 weeks build
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="project-card pc-blue fade-up" data-category="apex">
+        <div class="card-banner cb-blue">
+          <div class="banner-icon">📄</div>
+          <div class="banner-badge">Batch Apex · XML</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-apex">⚙️ Apex</div>
+          <h3>MISMO 3.4 Mortgage XML Pipeline</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> Loan processors manually re-keying 80+ fields from MISMO XML into Salesforce per application. Taking 45 min per file, 20 files/day.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> Batch Apex that parsed deeply-nested MISMO 3.4 XML using Dom.Document, mapped to custom objects, and surfaced validation errors in a review UI.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> Processing time from 45 min to under 2 min per file. 60% reduction in data entry errors in first month.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                4 weeks build
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="project-card pc-rose fade-up" data-category="commerce lwc">
+        <div class="card-banner cb-rose">
+          <div class="banner-icon">🛒</div>
+          <div class="banner-badge">B2B Commerce · LWC</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-commerce">🛒 Commerce</div>
+          <h3>Account-Based Pricing in B2B Commerce</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> 500+ customers each with negotiated price books. Standard B2B Commerce pricing didn't support the complexity. Storefront was showing wrong prices for 30% of orders.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> Custom Apex pricing extension that resolves the correct price book per account at checkout time, with a cache layer to avoid SOQL on every add-to-cart.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> Pricing errors dropped to zero. Page load time on cart maintained under 1.2s despite the custom pricing logic.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                5 weeks build
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="project-card pc-teal fade-up" data-category="lwc apex">
+        <div class="card-banner cb-teal">
+          <div class="banner-icon">🔀</div>
+          <div class="banner-badge">LWC · Flow · Apex</div>
+        </div>
+        <div class="card-body">
+          <div class="proj-tag tag-lwc">⚡ LWC</div>
+          <h3>Governor-Safe Bulk Flow Launcher</h3>
+          <div class="story-blocks">
+            <div class="story-block sb-challenge"><strong>🔴 Challenge:</strong> Ops team needed to bulk-enrol 5,000 contacts into an onboarding Flow. Native solution hit CPU time limits at ~200 records and silently failed the rest.</div>
+            <div class="story-block sb-solution"><strong>🔵 Solution:</strong> LWC with chunked processing (200 records/batch), Queueable chain for async execution, real-time progress bar via custom Platform Event, and failed-record download.</div>
+            <div class="story-block sb-result"><strong>🟢 Result:</strong> 5,000 contacts processed in under 8 minutes with full audit trail. Zero governor limit errors since launch.</div>
+          </div>
+          <div class="card-footer">
+            <div class="meta-chips">
+              <div class="meta-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                3 weeks build
+              </div>
+            </div>
+            <div class="card-cta">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DEEP-DIVE TIMELINE -->
+    <div class="section-divider fade-up">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">🔬 Deep-Dive: How Hard Problems Got Solved</div>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-up" data-category="integration apex">
+        <div class="tl-left">
+          <div class="tl-dot tl-dot-blue">🏭</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-tag tag-integration">🔗 Integration</div>
+          <div class="tl-title">The duplicate order problem that took 3 weeks to fully solve</div>
+          <div class="tl-story">
+            <div class="tl-block tl-challenge"><strong>🔴 What went wrong:</strong> The WMS sent webhook retries on any non-200 response. Salesforce occasionally returned 202 (accepted but processing) which the WMS treated as failure and retried. We ended up with 3–4 copies of the same order record silently inserted.</div>
+            <div class="tl-block tl-solution"><strong>🔵 How we fixed it:</strong> Changed the REST endpoint to always return 200 immediately with a job ID, then process asynchronously. Added a SHA-256 composite hash (orderId + timestamp bucket) stored as an External ID with upsert. Any duplicate payload now updates the existing record instead of creating a new one.</div>
+            <div class="tl-block tl-result"><strong>🟢 What we learned:</strong> Never trust the upstream system to handle idempotency. Build it into Salesforce regardless. The 20 minutes spent adding the hash field saved weeks of data cleanup.</div>
+          </div>
+          <div class="tl-meta">
+            <span class="tl-chip">🕐 3 weeks to resolve</span>
+            <span class="tl-chip">Apex Upsert</span>
+            <span class="tl-chip">External ID</span>
+            <span class="tl-chip">REST Webhook</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up" data-category="lwc">
+        <div class="tl-left">
+          <div class="tl-dot tl-dot-violet">⚡</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-tag tag-lwc">⚡ LWC</div>
+          <div class="tl-title">Why the data table felt laggy — and why it wasn't what we thought</div>
+          <div class="tl-story">
+            <div class="tl-block tl-challenge"><strong>🔴 What went wrong:</strong> After deploying the inline edit table, users reported it felt "slow to respond" when editing a cell. We assumed it was the wire call. We were wrong for long time.</div>
+            <div class="tl-block tl-solution"><strong>🔵 The actual cause:</strong> The parent component was re-rendering on every keypress because we'd put the dirty-state map in a reactive property. Every single character typed triggered a full tree re-render. Fixed by moving dirty tracking into a plain (non-reactive) JS Map and only flagging reactive state on blur.</div>
+            <div class="tl-block tl-result"><strong>🟢 What we learned:</strong> In LWC, reactive properties are powerful but expensive. Keep internal component state in plain JS objects. Only promote to reactive when you actually need the template to re-render.</div>
+          </div>
+          <div class="tl-meta">
+            <span class="tl-chip">🕐 2 weeks debugging</span>
+            <span class="tl-chip">LWC Reactivity</span>
+            <span class="tl-chip">Performance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up" data-category="apex">
+        <div class="tl-left">
+          <div class="tl-dot tl-dot-amber">📄</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-tag tag-apex">⚙️ Apex</div>
+          <div class="tl-title">The MISMO field that silently mapped to the wrong object for 3 weeks</div>
+          <div class="tl-story">
+            <div class="tl-block tl-challenge"><strong>🔴 What went wrong:</strong> One specific MISMO field — the co-borrower's SSN last 4 digits — was being written to the primary borrower's record. The field path in the XML was identical except for an ancestor node. Our XPath traversal was grabbing the first match and stopping.</div>
+            <div class="tl-block tl-solution"><strong>🔵 How we fixed it:</strong> Rewrote the parser to traverse the full DOM tree and track parent node context before assigning values. Built a unit test suite with 12 edge-case XML fixtures covering co-borrowers, joint applications, and missing optional sections.</div>
+            <div class="tl-block tl-result"><strong>🟢 What we learned:</strong> For deeply nested XML, always validate with real production samples — not the spec's simplified examples. The spec had 3 nesting levels; production files had up to 9.</div>
+          </div>
+          <div class="tl-meta">
+            <span class="tl-chip">🕐 3 weeks to catch</span>
+            <span class="tl-chip">Dom.Document</span>
+            <span class="tl-chip">Batch Apex</span>
+            <span class="tl-chip">Unit Testing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up" data-category="devops">
+        <div class="tl-left">
+          <div class="tl-dot tl-dot-green">🚀</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-tag tag-devops">🚀 DevOps</div>
+          <div class="tl-title">The Copado deployment that passed all gates and still broke prod</div>
+          <div class="tl-story">
+            <div class="tl-block tl-challenge"><strong>🔴 What went wrong:</strong> A validation rule change passed 100% test coverage and PMD checks but broke a managed package's behaviour in production. Automated gates didn't catch it because managed package tests run in their own namespace.</div>
+            <div class="tl-block tl-solution"><strong>🔵 How we fixed it:</strong> Added a manual regression checklist step in the Copado pipeline specifically for managed package touch-points. Also added a 30-minute post-deploy monitoring window with Slack alerts on any new error logs.</div>
+            <div class="tl-block tl-result"><strong>🟢 What we learned:</strong> CI/CD gates are not a replacement for domain knowledge. Automated checks catch what you've written tests for — human review catches everything else.</div>
+          </div>
+          <div class="tl-meta">
+            <span class="tl-chip">🕐 4-hour incident</span>
+            <span class="tl-chip">Copado</span>
+            <span class="tl-chip">Managed Packages</span>
+            <span class="tl-chip">Monitoring</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section fade-up">
+      <div class="cta-text">
+        <h3>Have a hard problem?</h3>
+        <p>I work on complex Salesforce challenges — integrations, performance, architecture, and the bugs that have been "open for months". Let's talk about what you're building.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="index.html#contact" class="cta-btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get in Touch
+        </a>
+        <a href="blogs.html" class="cta-btn-secondary">Read Articles →</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Ashish<em>.</em>dev</div>
+      <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer · Nagpur, India</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  window.addEventListener('scroll', () =>
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10)
+  );
+
+  // Fade-up on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // Filter tabs
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const allCards   = document.querySelectorAll('[data-category]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      allCards.forEach(card => {
+        const cats = card.dataset.category || '';
+        const show = filter === 'all' || cats.includes(filter);
+        card.style.transition = 'opacity 0.3s, transform 0.3s';
+        if (show) {
+          card.style.opacity   = '1';
+          card.style.transform = '';
+          card.style.display   = '';
+        } else {
+          card.style.opacity   = '0';
+          card.style.transform = 'scale(0.97)';
+          setTimeout(() => {
+            if (!cats.includes(filter) && filter !== 'all') card.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

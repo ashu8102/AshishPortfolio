@@ -15,7 +15,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
     rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -29,7 +29,8 @@
         <a href="#experience" role="menuitem">Experience</a>
         <a href="#projects" role="menuitem">Projects</a>
         <a href="#certifications" role="menuitem">Certifications</a>
-        <a href="blogs.html" role="menuitem">Blog</a>
+        <a href="blogs.html" role="menuitem">Articles</a>
+        <a href="projects.html" role="menuitem">Project Stories</a>
         <a href="#contact" class="nav-cta" role="menuitem">Get in Touch</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
@@ -493,7 +494,7 @@
       </div>
     </div>
   </section>
-  <!-- BLOG TEASER -->
+  <!-- ─── BLOG TEASER ─── -->
   <section class="section alt-bg" id="blog-teaser">
     <div class="container">
       <div class="blog-teaser-wrap fade-up">
@@ -526,8 +527,8 @@
 
         <!-- Right -->
         <div class="blog-teaser-right">
-          <a href="blog.html" class="btn-ink">
-            Visit Blog &amp; Demos
+          <a href="blogs.html" class="btn-ink">
+            Visit Articles &amp; Demos
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -539,7 +540,6 @@
             <div class="blog-feature-pill">📖 Deep-Dive Case Studies</div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -875,6 +875,25 @@
     </div>
   </footer>
   <script src="script.js"></script>
+  <script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00DgL00000GD3YL',
+				'Asha_Web_Chats_Channel',
+				'https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936',
+				{
+					scrt2URL: 'https://ashishkurzekar-dev-ed.develop.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 </body>
 
 </html>

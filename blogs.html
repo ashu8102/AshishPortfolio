@@ -161,6 +161,31 @@
             height: 13px
         }
 
+        .nav-projects-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+            color: var(--white);
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: all var(--t);
+            box-shadow: 0 3px 12px rgba(1, 118, 211, 0.25)
+        }
+
+        .nav-projects-link:hover {
+            background: linear-gradient(135deg, var(--ink), var(--ink-mid));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(1, 118, 211, 0.3)
+        }
+
+        .nav-projects-link svg {
+            width: 13px;
+            height: 13px
+        }
+
         .nav-auth-btn {
             display: inline-flex;
             align-items: center;
@@ -475,6 +500,131 @@
             color: var(--ink-xs);
             text-align: right;
             margin-top: 3px
+        }
+
+        /* RICH TEXT EDITOR */
+        .rte-wrap {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--white)
+        }
+
+        .rte-wrap:focus-within {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.10)
+        }
+
+        .rte-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            padding: 8px 10px;
+            background: var(--cream-mid);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .rte-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--ink-mid);
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: all 0.15s;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .rte-btn:hover {
+            background: var(--cream-deep);
+            color: var(--ink)
+        }
+
+        .rte-divider {
+            width: 1px;
+            height: 22px;
+            background: var(--border-md);
+            margin: 0 4px;
+            align-self: center
+        }
+
+        .rte-editor {
+            min-height: 200px;
+            max-height: 360px;
+            overflow-y: auto;
+            padding: 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--ink);
+            line-height: 1.72;
+            outline: none;
+            background: var(--white)
+        }
+
+        .rte-editor:empty::before {
+            content: attr(data-placeholder);
+            color: var(--ink-xs);
+            pointer-events: none
+        }
+
+        .rte-editor h2,
+        .rte-editor h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--ink);
+            margin: 14px 0 6px
+        }
+
+        .rte-editor h2 {
+            font-size: 1.3rem
+        }
+
+        .rte-editor h3 {
+            font-size: 1.1rem
+        }
+
+        .rte-editor blockquote {
+            border-left: 3px solid var(--blue);
+            padding: 8px 14px;
+            background: var(--blue-light);
+            border-radius: 0 6px 6px 0;
+            margin: 10px 0;
+            color: var(--ink-mid);
+            font-style: italic
+        }
+
+        .rte-editor pre {
+            background: var(--ink);
+            color: #E2E8F0;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.84rem;
+            overflow-x: auto
+        }
+
+        .rte-editor code {
+            background: var(--cream-deep);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.86em;
+            color: var(--violet)
+        }
+
+        .rte-editor ul,
+        .rte-editor ol {
+            margin: 6px 0 10px 20px
+        }
+
+        .rte-editor li {
+            margin-bottom: 3px
         }
 
         /* ── PAGE HERO ── */
@@ -1375,11 +1525,18 @@
                     </div>
                     <button class="nav-logout-btn" onclick="logout()">Sign Out</button>
                 </div>
+                <a href="projects.html" class="nav-projects-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <span>Project Stories</span>
+                </a>
                 <a href="index.html" class="nav-back">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M19 12H5M12 5l-7 7 7 7" />
                     </svg>
-                    <span>Portfolio</span>
+                    <span>Back to Profile</span>
                 </a>
             </div>
         </div>
@@ -1427,7 +1584,8 @@
                 <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:var(--ink-light)">Have account?
                     <button onclick="switchTab('login')"
                         style="color:var(--blue);font-weight:700;background:none;border:none;cursor:pointer;">Sign
-                        in</button></p>
+                        in</button>
+                </p>
             </div>
         </div>
     </div>
@@ -1437,10 +1595,10 @@
         <div class="modal modal-wide">
             <button class="modal-close" onclick="closePostModal()">✕</button>
             <div class="modal-logo" style="margin-bottom:4px;" id="postModalTitle">Write an Article</div>
-            <p class="modal-sub">Your article will be reviewed by Mr. Ashish before going live.</p>
+            <p class="modal-sub">Your article will be reviewed by Ashish before going live.</p>
             <div class="alert alert-error" id="postError"></div>
             <div class="alert alert-success" id="postSuccess"></div>
-            <div class="alert alert-info show" id="postInfo">📋 After submission, Mr. Ashish reviews and approves before
+            <div class="alert alert-info show" id="postInfo">📋 After submission, Ashish reviews and approves before
                 articles appear publicly.</div>
             <div class="fg"><label>Title *</label><input type="text" id="postTitle"
                     placeholder="e.g. How I built a WMS integration in Apex" maxlength="120"
@@ -1464,10 +1622,33 @@
                     maxlength="200" oninput="updateCount('postSummary','summaryCount',200)">
                 <div class="char-count"><span id="summaryCount">0</span>/200</div>
             </div>
-            <div class="fg"><label>Full Article *</label><textarea id="postContent"
-                    placeholder="Write your full article here..." maxlength="10000"
-                    oninput="updateCount('postContent','contentCount',10000)" style="min-height:180px"></textarea>
-                <div class="char-count"><span id="contentCount">0</span>/10,000</div>
+            <div class="fg">
+                <label>Full Article *</label>
+                <div class="rte-wrap">
+                    <div class="rte-toolbar">
+                        <button class="rte-btn" title="Bold" onclick="fmt('bold')"><b>B</b></button>
+                        <button class="rte-btn" title="Italic" onclick="fmt('italic')"><i>I</i></button>
+                        <button class="rte-btn" title="Underline" onclick="fmt('underline')"><u>U</u></button>
+                        <div class="rte-divider"></div>
+                        <button class="rte-btn" title="Heading 2" onclick="fmtBlock('h2')">H2</button>
+                        <button class="rte-btn" title="Heading 3" onclick="fmtBlock('h3')">H3</button>
+                        <button class="rte-btn" title="Paragraph" onclick="fmtBlock('p')">¶</button>
+                        <div class="rte-divider"></div>
+                        <button class="rte-btn" title="Bullet List" onclick="fmt('insertUnorderedList')">• List</button>
+                        <button class="rte-btn" title="Numbered List" onclick="fmt('insertOrderedList')">1.
+                            List</button>
+                        <div class="rte-divider"></div>
+                        <button class="rte-btn" title="Blockquote" onclick="fmtBlock('blockquote')">"</button>
+                        <button class="rte-btn" title="Code Block" onclick="insertCodeBlock()">&lt;/&gt;</button>
+                        <button class="rte-btn" title="Link" onclick="insertLink()">🔗</button>
+                        <div class="rte-divider"></div>
+                        <button class="rte-btn" title="Undo" onclick="fmt('undo')">↩</button>
+                        <button class="rte-btn" title="Redo" onclick="fmt('redo')">↪</button>
+                    </div>
+                    <div class="rte-editor" id="postContent" contenteditable="true"
+                        data-placeholder="Write your full article here. Use the toolbar to add headings, lists, code blocks and more...">
+                    </div>
+                </div>
             </div>
             <div class="fg"><label>Estimated Read Time</label><select id="postReadTime">
                     <option value="2">2 min</option>
@@ -1806,18 +1987,18 @@
             document.getElementById('editArticleId').value = currentArticle.id;
             document.getElementById('postTitle').value = currentArticle.title || '';
             document.getElementById('postSummary').value = currentArticle.summary || '';
-            document.getElementById('postContent').value = currentArticle.content || '';
+            document.getElementById('postContent').innerHTML = currentArticle.content || '';
             document.getElementById('postModalTitle').textContent = 'Edit Article';
             document.getElementById('postSubmitLabel').textContent = 'Save & Resubmit';
             document.getElementById('postInfo').style.display = 'none';
             // Pre-select category tag
+            console.log('> ' + document.querySelectorAll('.tag-option'));
             document.querySelectorAll('.tag-option').forEach(t => {
                 t.classList.toggle('selected', t.dataset.value === currentArticle.category);
             });
             selectedTag = currentArticle.category || '';
             updateCount('postTitle', 'titleCount', 120);
             updateCount('postSummary', 'summaryCount', 200);
-            updateCount('postContent', 'contentCount', 10000);
             document.getElementById('postModal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
@@ -1826,10 +2007,12 @@
             document.body.style.overflow = '';
             clearAlerts('post');
             if (!editMode) {
-                ['postTitle', 'postSummary', 'postContent'].forEach(id => document.getElementById(id).value = '');
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postSummary').value = '';
+                document.getElementById('postContent').innerHTML = '';
                 document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('selected'));
                 selectedTag = '';
-                ['titleCount', 'summaryCount', 'contentCount'].forEach(id => document.getElementById(id).textContent = '0');
+                ['titleCount', 'summaryCount'].forEach(id => document.getElementById(id).textContent = '0');
             }
         }
         function selectTag(el) {
@@ -1841,17 +2024,38 @@
             document.getElementById(countId).textContent = document.getElementById(inputId).value.length.toLocaleString();
         }
 
+        /* ── Rich Text Editor helpers ── */
+        function fmt(cmd, val) {
+            document.getElementById('postContent').focus();
+            document.execCommand(cmd, false, val || null);
+        }
+        function fmtBlock(tag) {
+            document.getElementById('postContent').focus();
+            document.execCommand('formatBlock', false, tag);
+        }
+        function insertCodeBlock() {
+            document.getElementById('postContent').focus();
+            const pre = document.createElement('pre');
+            pre.textContent = 'code here';
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount) { const r = sel.getRangeAt(0); r.deleteContents(); r.insertNode(pre); }
+        }
+        function insertLink() {
+            const url = prompt('Enter URL:');
+            if (url) fmt('createLink', url);
+        }
+
         async function handlePostArticle() {
             const title = document.getElementById('postTitle').value.trim();
             const summary = document.getElementById('postSummary').value.trim();
-            const content = document.getElementById('postContent').value.trim();
+            const content = document.getElementById('postContent').innerHTML.trim();
             const readTime = document.getElementById('postReadTime').value;
             const editId = document.getElementById('editArticleId').value;
             clearAlerts('post');
             if (!title) { showAlert('postError', 'Please add a title.'); return; }
             if (!selectedTag) { showAlert('postError', 'Please select a category.'); return; }
             if (!summary) { showAlert('postError', 'Please add a summary.'); return; }
-            if (content.length < 100) { showAlert('postError', 'Article must be at least 100 characters.'); return; }
+            if (!content || content === '<br>' || content.length < 50) { showAlert('postError', 'Article content is too short.'); return; }
 
             setLoading('postSubmitBtn', true, 'Submitting…');
             try {
@@ -1899,7 +2103,7 @@
                 return;
             }
             grid.innerHTML = articles.map(a => `
-    <div class="article-card fade-up" onclick="openDetail('${a.id}')">
+    <div class="article-card fade-up" onclick="window.location.href='blog-detail.html?id=${a.id}'">
       <div class="card-visual ${getCls(a.category)}">
         <span class="card-visual-icon">${getEmoji(a.category)}</span>
       </div>
