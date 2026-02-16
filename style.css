@@ -177,7 +177,7 @@
     .nav-cta {
       padding: 9px 22px;
       border-radius: var(--radius-sm);
-      background: var(--ink);
+      background: var(--blue);
       color: var(--white) !important;
       font-weight: 600;
       font-size: 0.84rem;
