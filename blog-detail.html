@@ -135,9 +135,9 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            padding: 8px 16px;
+            padding: 7px 8px;
             border-radius: var(--radius-sm);
-            border: 1.5px solid var(--border-md);
+            border: 1.5px solid var(--blue);
             font-size: 0.82rem;
             font-weight: 600;
             color: var(--ink-mid);
@@ -200,11 +200,11 @@
         .nav-logout-btn {
             display: inline-flex;
             align-items: center;
-            padding: 7px 14px;
+            padding: 7px 8px;
             border-radius: var(--radius-sm);
-            border: 1.5px solid var(--border-md);
+            border: 1.5px solid var(--blue);
             font-size: 0.78rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--ink-light);
             transition: all var(--t);
             cursor: pointer;
@@ -652,36 +652,15 @@
             gap: 52px;
             align-items: start
         }
-
+        .article-layout > *{min-width:0}
         /* RICH CONTENT display */
-        .article-content {
-            font-size: 1.02rem;
-            color: var(--ink-light);
-            line-height: 1.85;
-            margin-bottom: 36px
-        }
+        .article-content{font-size:1.02rem;color:var(--ink-light);line-height:1.85;margin-bottom:36px;overflow:hidden;word-break:break-word;overflow-wrap:break-word;min-width:0}
 
-        .article-content h1,
-        .article-content h2,
-        .article-content h3,
-        .article-content h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--ink);
-            margin: 32px 0 12px;
-            letter-spacing: -0.5px
-        }
-
-        .article-content h1 {
-            font-size: 1.9rem
-        }
-
-        .article-content h2 {
-            font-size: 1.5rem
-        }
-
-        .article-content h3 {
-            font-size: 1.2rem
-        }
+        
+        .article-content h1,.article-content h2,.article-content h3,.article-content h4{font-family:'Playfair Display',serif;color:var(--ink);margin:32px 0 12px;letter-spacing:-0.5px;word-break:break-word}
+.article-content h1{font-size:clamp(1.4rem,4vw,1.9rem)}
+.article-content h2{font-size:clamp(1.2rem,3.5vw,1.5rem)}
+.article-content h3{font-size:clamp(1.05rem,3vw,1.2rem)}
 
         .article-content h4 {
             font-size: 1rem;
@@ -740,22 +719,8 @@
             color: var(--violet)
         }
 
-        .article-content pre {
-            background: var(--ink);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            margin: 20px 0;
-            overflow-x: auto
-        }
-
-        .article-content pre code {
-            background: none;
-            border: none;
-            padding: 0;
-            color: #E2E8F0;
-            font-size: 0.88rem;
-            line-height: 1.7
-        }
+        .article-content pre{background:var(--ink);border-radius:var(--radius-md);padding:16px;margin:20px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.article-content pre code{background:none;border:none;padding:0;color:#E2E8F0;font-size:0.82rem;line-height:1.7;white-space:pre;word-break:normal;overflow-wrap:normal;display:block}
 
         .article-content hr {
             border: none;
@@ -763,13 +728,10 @@
             margin: 28px 0
         }
 
-        .article-content img {
-            border-radius: var(--radius-md);
-            max-width: 100%;
-            margin: 16px 0;
-            box-shadow: var(--shadow-md)
-        }
-
+        .article-content img{border-radius:var(--radius-md);max-width:100%;height:auto;margin:16px 0;box-shadow:var(--shadow-md);display:block}
+        .article-content table{width:100%;border-collapse:collapse;margin:20px 0;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.article-content th,.article-content td{padding:10px 14px;border:1px solid var(--border-md);text-align:left;font-size:0.84rem;white-space:nowrap}
+.article-content th{background:var(--cream-mid);font-weight:700;color:var(--ink)}
         /* LIKE SECTION */
         .like-section {
             display: flex;
@@ -1035,7 +997,7 @@
             border-radius: var(--radius-xl);
             padding: clamp(24px, 4vw, 40px);
             width: 100%;
-            max-width: 820px;
+            max-width: 1220px;
             box-shadow: var(--shadow-xl);
             transform: translateY(20px) scale(0.97);
             transition: transform 0.3s var(--ease);
@@ -1049,144 +1011,63 @@
         }
 
         /* RICH TEXT EDITOR */
-        .rte-wrap {
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            background: var(--white)
-        }
-
-        .rte-wrap:focus-within {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.10)
-        }
-
-        .rte-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2px;
-            padding: 8px 10px;
-            background: var(--cream-mid);
-            border-bottom: 1px solid var(--border)
-        }
-
-        .rte-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            color: var(--ink-mid);
-            font-size: 0.82rem;
-            font-weight: 700;
-            transition: all 0.15s;
-            font-family: 'Plus Jakarta Sans', sans-serif
-        }
-
-        .rte-btn:hover {
-            background: var(--cream-deep);
-            color: var(--ink)
-        }
-
-        .rte-btn.active {
-            background: var(--blue-light);
-            color: var(--blue)
-        }
-
-        .rte-divider {
-            width: 1px;
-            height: 22px;
-            background: var(--border-md);
-            margin: 0 4px;
-            align-self: center
-        }
-
-        .rte-editor {
-            min-height: 240px;
-            max-height: 420px;
-            overflow-y: auto;
-            padding: 16px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.92rem;
-            color: var(--ink);
-            line-height: 1.75;
-            outline: none;
-            background: var(--white)
-        }
-
-        .rte-editor:empty::before {
-            content: attr(data-placeholder);
-            color: var(--ink-xs);
-            pointer-events: none
-        }
-
-        .rte-editor h1,
-        .rte-editor h2,
-        .rte-editor h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--ink);
-            margin: 16px 0 8px
-        }
-
-        .rte-editor h1 {
-            font-size: 1.6rem
-        }
-
-        .rte-editor h2 {
-            font-size: 1.3rem
-        }
-
-        .rte-editor h3 {
-            font-size: 1.1rem
-        }
-
-        .rte-editor blockquote {
-            border-left: 3px solid var(--blue);
-            padding: 8px 14px;
-            background: var(--blue-light);
-            border-radius: 0 6px 6px 0;
-            margin: 12px 0;
-            color: var(--ink-mid);
-            font-style: italic
-        }
-
-        .rte-editor pre {
-            background: var(--ink);
-            color: #E2E8F0;
-            padding: 14px;
-            border-radius: 8px;
-            margin: 12px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.86rem;
-            overflow-x: auto
-        }
-
-        .rte-editor code {
-            background: var(--cream-deep);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.88em;
-            color: var(--violet)
-        }
-
-        .rte-editor ul,
-        .rte-editor ol {
-            margin: 8px 0 12px 22px
-        }
-
-        .rte-editor li {
-            margin-bottom: 4px
-        }
-
-        .rte-editor a {
-            color: var(--blue);
-            text-decoration: underline
-        }
+.rte-wrap{border:1.5px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--white);box-shadow:var(--shadow-sm)}
+.rte-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(1,118,211,0.10)}
+.rte-toolbar{display:flex;flex-wrap:wrap;gap:3px;padding:8px 10px;background:var(--cream-mid);border-bottom:1px solid var(--border);align-items:center}
+.rte-toolbar-group{display:flex;align-items:center;gap:2px}
+.rte-btn{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 6px;border-radius:5px;border:none;background:none;cursor:pointer;color:var(--ink-mid);font-size:0.78rem;font-weight:700;transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;gap:4px}
+.rte-btn:hover{background:var(--cream-deep);color:var(--ink)}
+.rte-btn.active{background:var(--blue-light);color:var(--blue)}
+.rte-btn svg{width:13px;height:13px;flex-shrink:0}
+.rte-btn-img{background:var(--blue-light);color:var(--blue);border:1px dashed rgba(1,118,211,0.4)}
+.rte-btn-img:hover{background:var(--blue);color:var(--white)}
+.rte-divider{width:1px;height:22px;background:var(--border-md);margin:0 4px;align-self:center;flex-shrink:0}
+.rte-editor{min-height:260px;max-height:480px;overflow-y:auto;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;color:var(--ink);line-height:1.78;outline:none;background:var(--white)}
+.rte-editor:empty::before{content:attr(data-placeholder);color:var(--ink-xs);pointer-events:none}
+.rte-editor h2,.rte-editor h3{font-family:'Playfair Display',serif;color:var(--ink);margin:16px 0 8px;letter-spacing:-0.3px}
+.rte-editor h2{font-size:1.35rem}.rte-editor h3{font-size:1.12rem}
+.rte-editor p{margin-bottom:12px}
+.rte-editor blockquote{border-left:3px solid var(--blue);padding:10px 16px;background:var(--blue-light);border-radius:0 8px 8px 0;margin:12px 0;color:var(--ink-mid);font-style:italic}
+.rte-editor pre{background:var(--ink);color:#E2E8F0;padding:14px 16px;border-radius:10px;margin:12px 0;font-family:'Courier New',monospace;font-size:0.84rem;overflow-x:auto;white-space:pre}
+.rte-editor code{background:var(--cream-deep);padding:2px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:0.86em;color:var(--violet)}
+.rte-editor ul,.rte-editor ol{margin:6px 0 12px 22px}
+.rte-editor li{margin-bottom:4px}
+.rte-editor a{color:var(--blue);text-decoration:underline}
+.rte-editor img{max-width:100%;height:auto;border-radius:10px;margin:10px 0;display:block;box-shadow:var(--shadow-md)}
+.rte-editor img.img-small{max-width:320px}
+.rte-editor img.img-medium{max-width:560px}
+.rte-editor img.img-full{max-width:100%}
+.rte-editor .img-caption{text-align:center;font-size:0.78rem;color:var(--ink-xs);margin-top:-6px;margin-bottom:10px;font-style:italic}
+/* Image modal */
+.img-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.img-modal-overlay.open{opacity:1;pointer-events:all}
+.img-modal{background:var(--white);border-radius:var(--radius-lg);width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-xl);transform:translateY(16px);transition:transform 0.25s;position:relative;padding:28px}
+.img-modal-overlay.open .img-modal{transform:translateY(0)}
+.img-modal h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--ink);margin-bottom:18px}
+.img-modal-tabs{display:flex;background:var(--cream-mid);border-radius:8px;padding:3px;margin-bottom:18px}
+.img-modal-tab{flex:1;padding:7px;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;color:var(--ink-light);border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
+.img-modal-tab.active{background:var(--white);color:var(--blue);box-shadow:var(--shadow-sm)}
+.img-upload-zone{border:2px dashed var(--border-md);border-radius:var(--radius-md);padding:28px 16px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream)}
+.img-upload-zone:hover,.img-upload-zone.drag-over{border-color:var(--blue);background:var(--blue-light)}
+.img-upload-zone input{display:none}
+.img-upload-icon{font-size:2rem;margin-bottom:8px}
+.img-upload-label{font-size:0.82rem;font-weight:700;color:var(--ink-mid)}
+.img-upload-hint{font-size:0.72rem;color:var(--ink-xs);margin-top:4px}
+.img-preview{margin-top:14px;display:none;text-align:center;overflow:hidden;max-width:100%}
+.img-preview img{max-width:100%;max-height:130px;width:auto;object-fit:contain;border-radius:8px;border:1.5px solid var(--border-md)}
+.img-url-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.86rem;color:var(--ink);background:var(--cream-mid);box-sizing:border-box}
+.img-url-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(1,118,211,0.12);background:var(--white)}
+.img-url-preview{margin-top:12px;text-align:center;display:none;overflow:hidden;max-width:100%}
+.img-url-preview img{max-width:100%;max-height:120px;width:auto;object-fit:contain;border-radius:8px;border:1.5px solid var(--border-md)}
+.img-size-row{display:flex;gap:8px;margin:14px 0}
+.img-size-btn{flex:1;padding:7px;border:1.5px solid var(--border-md);border-radius:7px;font-size:0.76rem;font-weight:700;cursor:pointer;text-align:center;color:var(--ink-light);background:none;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif}
+.img-size-btn.selected,.img-size-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.img-modal-actions{display:flex;gap:8px;margin-top:16px}
+.img-modal-cancel{flex:1;padding:10px;border:1.5px solid var(--border-md);border-radius:var(--radius-sm);font-size:0.84rem;font-weight:700;cursor:pointer;color:var(--ink-light);background:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
+.img-modal-cancel:hover{border-color:var(--red);color:var(--red)}
+.img-modal-insert{flex:2;padding:10px;border:none;border-radius:var(--radius-sm);background:var(--blue);color:var(--white);font-size:0.84rem;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
+.img-modal-insert:hover{background:var(--ink)}
+.img-modal-insert:disabled{background:var(--ink-xs);cursor:not-allowed}
 
         /* TOAST */
         .toast {
@@ -1254,36 +1135,54 @@
             text-align: center
         }
 
-        @media(max-width:1024px) {
-            .article-layout {
-                grid-template-columns: 1fr
-            }
+        .logout-icon {
+            display: none;
         }
 
-        @media(max-width:768px) {
-            .detail-sidebar {
-                position: static
-            }
-
-            .article-title {
-                letter-spacing: -1px
-            }
+        .logout-icon svg {
+            width: 12px;
+            height: 12px;
+            color : var(--red);
         }
 
-        @media(max-width:480px) {
-            .nav-back span {
-                display: none
-            }
-
-            .rte-toolbar {
-                gap: 1px
-            }
-
-            .rte-btn {
-                width: 26px;
-                height: 26px
-            }
+        .logout-text {
+            color : var(--red);
         }
+
+        @media(max-width:1024px){
+  .article-layout{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .detail-sidebar{position:static}
+  .article-title{letter-spacing:-1px}
+  .article-body{padding:28px 0 60px}
+  .like-section{flex-wrap:wrap;gap:10px}
+  .edit-btn{margin-left:0}
+  .article-meta-row{gap:12px}
+}
+@media(max-width:480px){
+  .nav-back span{display:none}
+  .nav-right{gap:6px;flex-wrap:nowrap}
+  .nav-auth-btn{padding:7px 12px;font-size:0.76rem}
+  .nav-user-pill{padding:5px 10px;font-size:0.72rem}
+  .nav-logout-btn{padding:6px 10px;font-size:0.72rem}
+  .article-content{font-size:0.94rem;line-height:1.78}
+  .article-content pre{padding:12px;border-radius:var(--radius-sm);margin:14px 0}
+  .article-content pre code{font-size:0.76rem;line-height:1.6}
+  .article-content blockquote{padding:10px 12px;margin:14px 0}
+  .article-content ul,.article-content ol{margin-left:16px}
+  .article-content h2{margin:20px 0 8px}
+  .article-content h3{margin:16px 0 6px}
+  .sidebar-card{padding:16px}
+  .rte-toolbar{gap:1px;padding:6px 8px}
+  .rte-btn{width:26px;height:26px;font-size:0.76rem}
+  .like-section{flex-direction:column;align-items:flex-start;gap:10px}
+  .edit-btn{width:100%;justify-content:center}
+}
+@media(max-width:360px){
+  .article-content pre code{font-size:0.72rem}
+  .nav-logo{font-size:1rem}
+}
     </style>
 </head>
 
@@ -1302,14 +1201,23 @@
                         <span class="nav-user-dot"></span>
                         <span id="navUsername"></span>
                     </div>
-                    <button class="nav-logout-btn" onclick="logout()">Sign Out</button>
+                    <a href="blogs.html" class="nav-back">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M19 12H5M12 5l-7 7 7 7" />
+                        </svg>
+                        <span>All Articles</span>
+                    </a>
+                    <button class="nav-logout-btn" onclick="logout()">
+                        <span class="logout-text">Sign Out</span>
+                        <span class="logout-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <path d="M16 17l5-5-5-5" />
+                                <path d="M21 12H9" />
+                            </svg>
+                        </span>
+                    </button>
                 </div>
-                <a href="blogs.html" class="nav-back">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M19 12H5M12 5l-7 7 7 7" />
-                    </svg>
-                    <span>All Articles</span>
-                </a>
             </div>
         </div>
     </nav>
@@ -1369,29 +1277,79 @@
                 <!-- RICH TEXT EDITOR -->
                 <div class="rte-wrap">
                     <div class="rte-toolbar">
-                        <button class="rte-btn" title="Bold" onclick="fmt('bold')"><b>B</b></button>
-                        <button class="rte-btn" title="Italic" onclick="fmt('italic')"><i>I</i></button>
-                        <button class="rte-btn" title="Underline" onclick="fmt('underline')"><u>U</u></button>
-                        <button class="rte-btn" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
-                        <div class="rte-divider"></div>
-                        <button class="rte-btn" title="Heading 2" onclick="fmtBlock('h2')">H2</button>
-                        <button class="rte-btn" title="Heading 3" onclick="fmtBlock('h3')">H3</button>
-                        <button class="rte-btn" title="Paragraph" onclick="fmtBlock('p')">¶</button>
-                        <div class="rte-divider"></div>
-                        <button class="rte-btn" title="Bullet List" onclick="fmt('insertUnorderedList')">• List</button>
-                        <button class="rte-btn" title="Numbered List" onclick="fmt('insertOrderedList')">1.
-                            List</button>
-                        <div class="rte-divider"></div>
-                        <button class="rte-btn" title="Blockquote" onclick="fmtBlock('blockquote')">"</button>
-                        <button class="rte-btn" title="Code Block" onclick="insertCodeBlock()">&lt;/&gt;</button>
-                        <button class="rte-btn" title="Inline Code" onclick="fmt('formatBlock','pre')">` `</button>
-                        <div class="rte-divider"></div>
-                        <button class="rte-btn" title="Link" onclick="insertLink()">🔗</button>
-                        <button class="rte-btn" title="Horizontal Rule" onclick="fmt('insertHorizontalRule')">—</button>
-                        <div class="rte-divider"></div>
-                        <button class="rte-btn" title="Undo" onclick="fmt('undo')">↩</button>
-                        <button class="rte-btn" title="Redo" onclick="fmt('redo')">↪</button>
-                    </div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Bold" onclick="fmt('bold')"><b>B</b></button>
+    <button class="rte-btn" title="Italic" onclick="fmt('italic')"><i>I</i></button>
+    <button class="rte-btn" title="Underline" onclick="fmt('underline')"><u>U</u></button>
+    <button class="rte-btn" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Heading 2" onclick="fmtBlock('h2')">H2</button>
+    <button class="rte-btn" title="Heading 3" onclick="fmtBlock('h3')">H3</button>
+    <button class="rte-btn" title="Paragraph" onclick="fmtBlock('p')">¶</button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Align Left" onclick="fmt('justifyLeft')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M16 14H3M21 6H3M16 18H3"/></svg>
+    </button>
+    <button class="rte-btn" title="Align Center" onclick="fmt('justifyCenter')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M17 14H7M21 6H3M17 18H7"/></svg>
+    </button>
+    <button class="rte-btn" title="Align Right" onclick="fmt('justifyRight')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M21 14H8M21 6H3M21 18H8"/></svg>
+    </button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Bullet List" onclick="fmt('insertUnorderedList')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="4" cy="7" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="4" cy="17" r="1.5" fill="currentColor"/><path d="M8 7h12M8 12h12M8 17h12"/></svg>
+    </button>
+    <button class="rte-btn" title="Numbered List" onclick="fmt('insertOrderedList')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h12M8 12h12M8 17h12"/></svg>
+    </button>
+    <button class="rte-btn" title="Outdent" onclick="fmt('outdent')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 6H20M11 12H20M11 18H20M7 9l-4 3 4 3"/></svg>
+    </button>
+    <button class="rte-btn" title="Indent" onclick="fmt('indent')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 6H20M11 12H20M11 18H20M3 9l4 3-4 3"/></svg>
+    </button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Blockquote" onclick="fmtBlock('blockquote')">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" opacity=".85"/></svg>
+    </button>
+    <button class="rte-btn" title="Code Block" onclick="insertCodeBlock()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="rte-btn" title="Inline Code" onclick="insertInlineCode()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/></svg>
+    </button>
+    <button class="rte-btn" title="Horizontal Rule" onclick="fmt('insertHorizontalRule')">—</button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn rte-btn-img" title="Insert Image" onclick="openImgModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span>Image</span>
+    </button>
+    <button class="rte-btn" title="Insert Link" onclick="insertLink()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    </button>
+  </div>
+  <div class="rte-divider"></div>
+  <div class="rte-toolbar-group">
+    <button class="rte-btn" title="Undo" onclick="fmt('undo')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 5.45 7"/></svg>
+    </button>
+    <button class="rte-btn" title="Redo" onclick="fmt('redo')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M21 13A9 9 0 1 1 18.55 7"/></svg>
+    </button>
+    <button class="rte-btn" title="Clear Formatting" onclick="fmt('removeFormat')" style="color:var(--ink-xs);font-size:0.65rem">✕fmt</button>
+  </div>
+</div>
                     <div class="rte-editor" id="rteEditor" contenteditable="true"
                         data-placeholder="Write your full article here. Use the toolbar above to format headings, lists, code blocks, and more...">
                     </div>
@@ -1416,7 +1374,55 @@
             </button>
         </div>
     </div>
-
+    <!-- IMAGE INSERT MODAL -->
+<div class="img-modal-overlay" id="imgModal">
+  <div class="img-modal">
+    <button onclick="closeImgModal()" style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:1px solid var(--border);cursor:pointer;font-size:0.9rem;color:var(--ink-light);display:flex;align-items:center;justify-content:center">✕</button>
+    <h3>Insert Image</h3>
+    <div class="img-modal-tabs">
+      <button class="img-modal-tab active" id="imgTabUpload" onclick="switchImgTab('upload')">📁 Upload File</button>
+      <button class="img-modal-tab" id="imgTabUrl" onclick="switchImgTab('url')">🔗 From URL</button>
+    </div>
+    <div id="imgPanelUpload">
+      <div class="img-upload-zone" id="imgDropZone" onclick="document.getElementById('imgFileInput').click()" ondragover="handleImgDragOver(event)" ondragleave="handleImgDragLeave(event)" ondrop="handleImgDrop(event)">
+        <input type="file" id="imgFileInput" accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml" onchange="handleImgFile(event)">
+        <div class="img-upload-icon">🖼️</div>
+        <div class="img-upload-label">Click or drag & drop an image</div>
+        <div class="img-upload-hint">PNG, JPG, GIF, WebP — max 5 MB</div>
+      </div>
+      <div class="img-preview" id="imgUploadPreview">
+        <img id="imgUploadPreviewEl" src="" alt="preview">
+        <p style="font-size:0.72rem;color:var(--ink-xs);margin-top:6px" id="imgUploadFileName"></p>
+      </div>
+    </div>
+    <div id="imgPanelUrl" style="display:none">
+      <input class="img-url-input" type="url" id="imgUrlInput" placeholder="https://example.com/image.jpg" oninput="previewImgUrl()">
+      <div class="img-url-preview" id="imgUrlPreview">
+        <img id="imgUrlPreviewEl" src="" alt="preview" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Alt text <span style="font-weight:400;color:var(--ink-xs)">(accessibility)</span></label>
+      <input class="img-url-input" type="text" id="imgAltText" placeholder="Describe the image">
+    </div>
+    <div style="margin-top:12px">
+      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:6px">Display size</label>
+      <div class="img-size-row">
+        <button class="img-size-btn" data-size="img-small" onclick="selectImgSize(this)">Small<br><span style="font-weight:400">320px</span></button>
+        <button class="img-size-btn selected" data-size="img-medium" onclick="selectImgSize(this)">Medium<br><span style="font-weight:400">560px</span></button>
+        <button class="img-size-btn" data-size="img-full" onclick="selectImgSize(this)">Full<br><span style="font-weight:400">100%</span></button>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Caption <span style="font-weight:400;color:var(--ink-xs)">(optional)</span></label>
+      <input class="img-url-input" type="text" id="imgCaption" placeholder="Photo caption or source">
+    </div>
+    <div class="img-modal-actions">
+      <button class="img-modal-cancel" onclick="closeImgModal()">Cancel</button>
+      <button class="img-modal-insert" id="imgInsertBtn" onclick="insertImageToEditor()" disabled>Insert Image</button>
+    </div>
+  </div>
+</div>
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -1510,6 +1516,7 @@
         /* ═══════════════════════════════════════
            CONFIG
         ═══════════════════════════════════════ */
+        const IMGBB_KEY = '99d9cae54e847867d065c5e388b1289e';
         const SF = 'https://ashishkurzekar-dev-ed.develop.my.salesforce-sites.com/webhook/services/apexrest';
         const API = { ARTICLES: `${SF}/articles`, COMMENTS: `${SF}/comments`, LIKES: `${SF}/likes`, LOGIN: `${SF}/users/login`, REGISTER: `${SF}/users` };
 
@@ -1605,14 +1612,26 @@
     </div>` : ''}`;
 
             // Content — render as rich HTML (from rich text editor) or plain text fallback
-            const contentEl = document.getElementById('articleContent');
-            if (a.content && a.content.trim().startsWith('<')) {
-                contentEl.innerHTML = a.content; // rich HTML from editor
-            } else {
-                // Plain text — convert line breaks to paragraphs
-                contentEl.innerHTML = (a.content || '')
-                    .split('\n\n').map(p => `<p>${esc(p.replace(/\n/g, '<br>'))}</p>`).join('');
-            }
+            // Content — render as rich HTML
+  const contentEl = document.getElementById('articleContent');
+  const raw = (a.content || '').trim();
+  if (raw) {
+    // Always use innerHTML — handles both HTML content and Salesforce rich text
+    contentEl.innerHTML = raw;
+    fixSalesforceImages(contentEl);
+    // Fix any images: ensure max-width, height:auto, and absolute URLs
+    contentEl.querySelectorAll('img').forEach(img => {
+      img.style.maxWidth = '100%';
+      img.style.height   = 'auto';
+      img.style.display  = 'block';
+      // If src is a relative Salesforce URL, make it absolute
+      if (img.getAttribute('src') && img.getAttribute('src').startsWith('/')) {
+        img.src = 'https://' + window.location.hostname + img.getAttribute('src');
+      }
+    });
+  } else {
+    contentEl.innerHTML = '<p style="color:var(--ink-xs)">No content available.</p>';
+  }
 
             // Edit button — only for article author
             if (currentUser && currentUser.id === a.authorId) {
@@ -1863,6 +1882,7 @@
                     document.getElementById('articleTitle').textContent = title;
                     const contentEl = document.getElementById('articleContent');
                     contentEl.innerHTML = content;
+                    fixSalesforceImages(contentEl);
                     showToast('Article updated and sent for review!', 'success');
                     setTimeout(closeEditModal, 2500);
                 } else { errEl.textContent = res.message || 'Update failed.'; errEl.classList.add('show'); }
@@ -1871,31 +1891,224 @@
         }
 
         /* ═══════════════════════════════════════
-           RICH TEXT EDITOR COMMANDS
-        ═══════════════════════════════════════ */
-        function fmt(cmd, val) {
-            document.getElementById('rteEditor').focus();
-            document.execCommand(cmd, false, val || null);
-        }
-        function fmtBlock(tag) {
-            document.getElementById('rteEditor').focus();
-            document.execCommand('formatBlock', false, tag);
-        }
-        function insertCodeBlock() {
-            document.getElementById('rteEditor').focus();
-            const pre = document.createElement('pre');
-            pre.textContent = 'code here';
-            const sel = window.getSelection();
-            if (sel && sel.rangeCount) {
-                const range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(pre);
+   RICH TEXT EDITOR COMMANDS
+═══════════════════════════════════════ */
+let savedRange = null;
+let imgTabActive = 'upload';
+let imgUploadData = null;
+let imgSelectedSize = 'img-medium';
+
+function rteGetEditor() { return document.getElementById('rteEditor'); }
+
+function fmt(cmd, val) {
+    rteGetEditor().focus();
+    document.execCommand(cmd, false, val || null);
+}
+function fmtBlock(tag) {
+    rteGetEditor().focus();
+    document.execCommand('formatBlock', false, tag);
+}
+function insertCodeBlock() {
+    rteGetEditor().focus();
+    const sel = window.getSelection();
+    const selectedText = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    code.textContent = selectedText || 'paste code here';
+    pre.appendChild(code);
+    if (sel && sel.rangeCount) {
+        const r = sel.getRangeAt(0);
+        r.deleteContents();
+        r.insertNode(pre);
+        const after = document.createRange();
+        after.setStartAfter(pre);
+        after.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(after);
+    }
+    document.execCommand('insertParagraph', false, null);
+}
+function insertInlineCode() {
+    const sel = window.getSelection();
+    const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+    const code = document.createElement('code');
+    code.textContent = text || 'code';
+    if (sel && sel.rangeCount) {
+        const r = sel.getRangeAt(0);
+        r.deleteContents();
+        r.insertNode(code);
+    }
+}
+function insertLink() {
+    const sel = window.getSelection();
+    const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+    const url = prompt('Enter URL:', 'https://');
+    if (!url || url === 'https://') return;
+    if (text) { fmt('createLink', url); }
+    else {
+        const a = document.createElement('a');
+        a.href = url; a.textContent = url; a.target = '_blank';
+        document.execCommand('insertHTML', false, a.outerHTML);
+    }
+}
+function rteSaveSelection() {
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) savedRange = sel.getRangeAt(0).cloneRange();
+}
+function rteRestoreSelection() {
+    if (!savedRange) return;
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+}
+function openImgModal() {
+    rteSaveSelection();
+    imgUploadData = null;
+    imgTabActive = 'upload';
+    imgSelectedSize = 'img-medium';
+    document.getElementById('imgFileInput').value = '';
+    document.getElementById('imgUrlInput').value = '';
+    document.getElementById('imgAltText').value = '';
+    document.getElementById('imgCaption').value = '';
+    document.getElementById('imgUploadPreview').style.display = 'none';
+    document.getElementById('imgUrlPreview').style.display = 'none';
+    document.getElementById('imgInsertBtn').disabled = true;
+document.getElementById('imgInsertBtn').textContent = 'Insert Image';
+    document.querySelectorAll('.img-size-btn').forEach(b => b.classList.toggle('selected', b.dataset.size === 'img-medium'));
+    switchImgTab('upload');
+    document.getElementById('imgModal').classList.add('open');
+}
+function closeImgModal() {
+    document.getElementById('imgModal').classList.remove('open');
+}
+function switchImgTab(tab) {
+    imgTabActive = tab;
+    document.getElementById('imgPanelUpload').style.display = tab === 'upload' ? 'block' : 'none';
+    document.getElementById('imgPanelUrl').style.display = tab === 'url' ? 'block' : 'none';
+    document.getElementById('imgTabUpload').classList.toggle('active', tab === 'upload');
+    document.getElementById('imgTabUrl').classList.toggle('active', tab === 'url');
+    document.getElementById('imgInsertBtn').disabled = true;
+}
+function selectImgSize(btn) {
+    document.querySelectorAll('.img-size-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    imgSelectedSize = btn.dataset.size;
+}
+function handleImgDragOver(e) { e.preventDefault(); document.getElementById('imgDropZone').classList.add('drag-over'); }
+function handleImgDragLeave(e) { document.getElementById('imgDropZone').classList.remove('drag-over'); }
+function handleImgDrop(e) {
+    e.preventDefault();
+    document.getElementById('imgDropZone').classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) processImgFile(file);
+}
+function handleImgFile(e) { const file = e.target.files[0]; if (file) processImgFile(file); }
+function processImgFile(file) {
+    if (file.size > 5 * 1024 * 1024) { alert('Image must be under 5 MB'); return; }
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        // NEVER store base64 — only use it for local preview and ImgBB upload
+        const base64full = e.target.result;
+        const base64data = base64full.split(',')[1];
+
+        // Show preview immediately
+        const previewEl   = document.getElementById('imgUploadPreviewEl');
+        const fileNameEl  = document.getElementById('imgUploadFileName');
+        const previewWrap = document.getElementById('imgUploadPreview');
+        const insertBtn   = document.getElementById('imgInsertBtn');
+
+        previewEl.src = base64full;          // local preview only, never saved
+        previewWrap.style.display = 'block';
+        fileNameEl.textContent = '⏳ Uploading…';
+        insertBtn.disabled = true;
+        insertBtn.textContent = '⏳ Uploading…';
+        imgUploadData = null;                // always null until ImgBB confirms
+
+        // Auto-fill alt text
+        if (!document.getElementById('imgAltText').value)
+            document.getElementById('imgAltText').value =
+                file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+
+        // Upload to ImgBB
+        try {
+            const form = new FormData();
+            form.append('key',   IMGBB_KEY);
+            form.append('image', base64data);
+            form.append('name',  file.name.replace(/\.[^.]+$/, ''));
+
+            const res  = await fetch('https://api.imgbb.com/1/upload', {
+                method: 'POST',
+                body: form
+            });
+            const json = await res.json();
+
+            if (json.success && json.data && json.data.url) {
+                imgUploadData = json.data.url;   // ← public CDN URL, NOT base64
+                fileNameEl.textContent = '✅ ' + file.name + ' (' + (file.size/1024).toFixed(0) + ' KB)';
+                insertBtn.textContent  = 'Insert Image';
+                insertBtn.disabled = false;
+            } else {
+                throw new Error(json.error?.message || 'ImgBB rejected the upload');
             }
+        } catch (err) {
+            imgUploadData = null;
+            fileNameEl.innerHTML =
+                '❌ Upload failed: ' + err.message +
+                '<br><small style="color:var(--ink-xs)">Check your API key or use the URL tab instead.</small>';
+            insertBtn.textContent = 'Insert Image';
+            insertBtn.disabled = true;
         }
-        function insertLink() {
-            const url = prompt('Enter URL:');
-            if (url) fmt('createLink', url);
-        }
+    };
+    reader.readAsDataURL(file);
+}
+function previewImgUrl() {
+    const url = document.getElementById('imgUrlInput').value.trim();
+    if (url) {
+        document.getElementById('imgUrlPreviewEl').src = url;
+        document.getElementById('imgUrlPreview').style.display = 'block';
+        document.getElementById('imgInsertBtn').disabled = false;
+    } else {
+        document.getElementById('imgUrlPreview').style.display = 'none';
+        document.getElementById('imgInsertBtn').disabled = true;
+    }
+}
+function insertImageToEditor() {
+    const alt     = document.getElementById('imgAltText').value.trim();
+    const caption = document.getElementById('imgCaption').value.trim();
+    const src     = imgTabActive === 'upload'
+        ? imgUploadData
+        : document.getElementById('imgUrlInput').value.trim();
+    if (!src) return;
+
+    // SAFETY: block base64 — should never happen now, but just in case
+    if (src.startsWith('data:')) {
+        alert('Image is still uploading or upload failed. Please wait or use a URL instead.');
+        return;
+    }
+
+    const img    = document.createElement('img');
+    img.src      = src;
+    img.alt      = alt || 'image';
+    img.className = imgSelectedSize;
+
+    let html = img.outerHTML;
+    if (caption) html += `<p class="img-caption">${caption}</p>`;
+    html += '<p><br></p>';
+
+    rteGetEditor().focus();
+    rteRestoreSelection();
+    document.execCommand('insertHTML', false, html);
+    closeImgModal();
+}
+function fixSalesforceImages(container) {
+    container.querySelectorAll('img').forEach(img => {
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        if (img.getAttribute('src') && img.getAttribute('src').startsWith('/'))
+            img.src = 'https://' + window.location.hostname + img.getAttribute('src');
+    });
+}
 
         /* ═══════════════════════════════════════
            SF API HELPERS
@@ -1956,6 +2169,7 @@
         /* Close modals on overlay click / Escape */
         document.getElementById('authModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAuthModal(); });
         document.getElementById('editModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
+        document.getElementById('imgModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeImgModal(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAuthModal(); closeEditModal(); } });
 
         init();
