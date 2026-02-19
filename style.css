@@ -41,7 +41,7 @@
       --space-xs: clamp(8px, 1.5vw, 12px);
       --space-sm: clamp(12px, 2vw, 18px);
       --space-md: clamp(18px, 3vw, 28px);
-      --space-lg: clamp(20px, 5vw, 52px);
+      --space-lg: clamp(20px, 5vw, 10px);
       --space-xl: clamp(40px, 7vw, 20px);
     }
 
@@ -270,14 +270,14 @@
        HERO
     ─────────────────────────────────────────── */
     .hero {
-      min-height: calc(100vh - 66px);
-      display: flex;
-      align-items: center;
-      padding: var(--space-lg) 0;
-      position: relative;
-      overflow: hidden;
-      background: var(--white);
-    }
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: calc(0px + var(--space-lg)) 0 var(--space-lg);
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
 
     .hero::before {
       content: '';
@@ -2210,7 +2210,7 @@
     ─────────────────────────────────────────── */
     .footer {
       background: var(--ink);
-      padding: clamp(36px, 6vw, 52px) 0 32px;
+      padding: clamp(36px, 6vw, 2px) 0 10px;
     }
 
     .footer-inner {
@@ -2245,11 +2245,11 @@
       height: 40px;
       border-radius: var(--radius-sm);
       background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--white);
       transition: all var(--t);
     }
 
@@ -2268,15 +2268,9 @@
 
     .footer-copy {
       font-size: 0.76rem;
-      color: rgba(255, 255, 255, 0.35);
+      color: var(--white);
       text-align: center;
       line-height: 1.7;
-    }
-
-    .footer-divider {
-      width: 1px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.12);
     }
 
     /* ───────────────────────────────────────────

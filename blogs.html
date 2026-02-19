@@ -506,67 +506,458 @@
         }
 
         /* RICH TEXT EDITOR */
-        .rte-wrap{border:1.5px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--white);box-shadow:var(--shadow-sm)}
-.rte-wrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(1,118,211,0.10)}
-.rte-toolbar{display:flex;flex-wrap:wrap;gap:3px;padding:8px 10px;background:var(--cream-mid);border-bottom:1px solid var(--border);align-items:center}
-.rte-toolbar-group{display:flex;align-items:center;gap:2px}
-.rte-btn{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 6px;border-radius:5px;border:none;background:none;cursor:pointer;color:var(--ink-mid);font-size:0.78rem;font-weight:700;transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;gap:4px}
-.rte-btn:hover{background:var(--cream-deep);color:var(--ink)}
-.rte-btn.active{background:var(--blue-light);color:var(--blue)}
-.rte-btn svg{width:13px;height:13px;flex-shrink:0}
-.rte-btn-img{background:var(--blue-light);color:var(--blue);border:1px dashed rgba(1,118,211,0.4)}
-.rte-btn-img:hover{background:var(--blue);color:var(--white)}
-.rte-divider{width:1px;height:22px;background:var(--border-md);margin:0 4px;align-self:center;flex-shrink:0}
-.rte-editor{min-height:260px;max-height:420px;overflow-y:auto;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;color:var(--ink);line-height:1.78;outline:none;background:var(--white)}
-.rte-editor:empty::before{content:attr(data-placeholder);color:var(--ink-xs);pointer-events:none}
-.rte-editor h2,.rte-editor h3{font-family:'Playfair Display',serif;color:var(--ink);margin:16px 0 8px;letter-spacing:-0.3px}
-.rte-editor h2{font-size:1.35rem}.rte-editor h3{font-size:1.12rem}
-.rte-editor p{margin-bottom:12px}
-.rte-editor blockquote{border-left:3px solid var(--blue);padding:10px 16px;background:var(--blue-light);border-radius:0 8px 8px 0;margin:12px 0;color:var(--ink-mid);font-style:italic}
-.rte-editor pre{background:var(--ink);color:#E2E8F0;padding:14px 16px;border-radius:10px;margin:12px 0;font-family:'Courier New',monospace;font-size:0.84rem;overflow-x:auto;white-space:pre}
-.rte-editor code{background:var(--cream-deep);padding:2px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:0.86em;color:var(--violet)}
-.rte-editor ul,.rte-editor ol{margin:6px 0 12px 22px}
-.rte-editor li{margin-bottom:4px}
-.rte-editor a{color:var(--blue);text-decoration:underline}
-.rte-editor img{max-width:100%;height:auto;border-radius:10px;margin:10px 0;display:block;box-shadow:var(--shadow-md);cursor:pointer;border:2px solid transparent;transition:border-color 0.2s}
-.rte-editor img:hover{border-color:var(--blue)}
-.rte-editor img.img-small{max-width:320px}
-.rte-editor img.img-medium{max-width:560px}
-.rte-editor img.img-full{max-width:100%}
-.rte-editor .img-caption{text-align:center;font-size:0.78rem;color:var(--ink-xs);margin-top:-6px;margin-bottom:10px;font-style:italic}
-.rte-char-count{padding:5px 12px;background:var(--cream-mid);border-top:1px solid var(--border);font-size:0.7rem;color:var(--ink-xs);text-align:right}
-/* image modal */
-.img-modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.25s}
-.img-modal-overlay.open{opacity:1;pointer-events:all}
-.img-modal{background:var(--white);border-radius:var(--radius-lg);padding:28px;width:100%;max-width:520px;box-shadow:var(--shadow-xl);transform:translateY(16px);transition:transform 0.25s;position:relative}
-.img-modal-overlay.open .img-modal{transform:translateY(0)}
-.img-modal h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--ink);margin-bottom:18px}
-.img-modal-tabs{display:flex;gap:0;background:var(--cream-mid);border-radius:8px;padding:3px;margin-bottom:18px}
-.img-modal-tab{flex:1;padding:7px;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;text-align:center;color:var(--ink-light);border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
-.img-modal-tab.active{background:var(--white);color:var(--blue);box-shadow:var(--shadow-sm)}
-.img-upload-zone{border:2px dashed var(--border-md);border-radius:var(--radius-md);padding:32px 16px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream)}
-.img-upload-zone:hover,.img-upload-zone.drag-over{border-color:var(--blue);background:var(--blue-light)}
-.img-upload-zone input{display:none}
-.img-upload-icon{font-size:2rem;margin-bottom:8px}
-.img-upload-label{font-size:0.82rem;font-weight:700;color:var(--ink-mid)}
-.img-upload-hint{font-size:0.72rem;color:var(--ink-xs);margin-top:4px}
-.img-preview{margin-top:14px;display:none;text-align:center}
-.img-preview img{max-height:160px;border-radius:8px;border:1.5px solid var(--border-md)}
-.img-url-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.86rem;color:var(--ink);background:var(--cream-mid)}
-.img-url-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(1,118,211,0.12);background:var(--white)}
-.img-url-preview{margin-top:12px;text-align:center;display:none}
-.img-url-preview img{max-height:140px;border-radius:8px;border:1.5px solid var(--border-md)}
-.img-size-row{display:flex;gap:8px;margin:14px 0}
-.img-size-btn{flex:1;padding:7px;border:1.5px solid var(--border-md);border-radius:7px;font-size:0.76rem;font-weight:700;cursor:pointer;text-align:center;color:var(--ink-light);background:none;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif}
-.img-size-btn.selected,.img-size-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
-.img-modal-actions{display:flex;gap:8px;margin-top:16px}
-.img-modal-cancel{flex:1;padding:10px;border:1.5px solid var(--border-md);border-radius:var(--radius-sm);font-size:0.84rem;font-weight:700;cursor:pointer;color:var(--ink-light);background:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
-.img-modal-cancel:hover{border-color:var(--red);color:var(--red)}
-.img-modal-insert{flex:2;padding:10px;border:none;border-radius:var(--radius-sm);background:var(--blue);color:var(--white);font-size:0.84rem;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
-.img-modal-insert:hover{background:var(--ink)}
-.img-modal-insert:disabled{background:var(--ink-xs);cursor:not-allowed}
-/* SF image fix — convert Salesforce blob refs to visible images */
-.rte-editor img[src^="/sfc/"],.rte-editor img[src^="https://"],.article-content img{max-width:100%;height:auto}
+        .rte-wrap {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: var(--shadow-sm)
+        }
+
+        .rte-wrap:focus-within {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.10)
+        }
+
+        .rte-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            padding: 8px 10px;
+            background: var(--cream-mid);
+            border-bottom: 1px solid var(--border);
+            align-items: center
+        }
+
+        .rte-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 2px
+        }
+
+        .rte-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            height: 30px;
+            padding: 0 6px;
+            border-radius: 5px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--ink-mid);
+            font-size: 0.78rem;
+            font-weight: 700;
+            transition: all 0.15s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            white-space: nowrap;
+            gap: 4px
+        }
+
+        .rte-btn:hover {
+            background: var(--cream-deep);
+            color: var(--ink)
+        }
+
+        .rte-btn.active {
+            background: var(--blue-light);
+            color: var(--blue)
+        }
+
+        .rte-btn svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0
+        }
+
+        .rte-btn-img {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px dashed rgba(1, 118, 211, 0.4)
+        }
+
+        .rte-btn-img:hover {
+            background: var(--blue);
+            color: var(--white)
+        }
+
+        .rte-divider {
+            width: 1px;
+            height: 22px;
+            background: var(--border-md);
+            margin: 0 4px;
+            align-self: center;
+            flex-shrink: 0
+        }
+
+        .rte-editor {
+            min-height: 260px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            color: var(--ink);
+            line-height: 1.78;
+            outline: none;
+            background: var(--white)
+        }
+
+        .rte-editor:empty::before {
+            content: attr(data-placeholder);
+            color: var(--ink-xs);
+            pointer-events: none
+        }
+
+        .rte-editor h2,
+        .rte-editor h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--ink);
+            margin: 16px 0 8px;
+            letter-spacing: -0.3px
+        }
+
+        .rte-editor h2 {
+            font-size: 1.35rem
+        }
+
+        .rte-editor h3 {
+            font-size: 1.12rem
+        }
+
+        .rte-editor p {
+            margin-bottom: 12px
+        }
+
+        .rte-editor blockquote {
+            border-left: 3px solid var(--blue);
+            padding: 10px 16px;
+            background: var(--blue-light);
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            color: var(--ink-mid);
+            font-style: italic
+        }
+
+        .rte-editor pre {
+            background: var(--ink);
+            color: #E2E8F0;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.84rem;
+            overflow-x: auto;
+            white-space: pre
+        }
+
+        .rte-editor code {
+            background: var(--cream-deep);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.86em;
+            color: var(--violet)
+        }
+
+        .rte-editor ul,
+        .rte-editor ol {
+            margin: 6px 0 12px 22px
+        }
+
+        .rte-editor li {
+            margin-bottom: 4px
+        }
+
+        .rte-editor a {
+            color: var(--blue);
+            text-decoration: underline
+        }
+
+        .rte-editor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: block;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s
+        }
+
+        .rte-editor img:hover {
+            border-color: var(--blue)
+        }
+
+        .rte-editor img.img-small {
+            max-width: 320px
+        }
+
+        .rte-editor img.img-medium {
+            max-width: 560px
+        }
+
+        .rte-editor img.img-full {
+            max-width: 100%
+        }
+
+        .rte-editor .img-caption {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--ink-xs);
+            margin-top: -6px;
+            margin-bottom: 10px;
+            font-style: italic
+        }
+
+        .rte-char-count {
+            padding: 5px 12px;
+            background: var(--cream-mid);
+            border-top: 1px solid var(--border);
+            font-size: 0.7rem;
+            color: var(--ink-xs);
+            text-align: right
+        }
+
+        /* image modal */
+        .img-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s
+        }
+
+        .img-modal-overlay.open {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .img-modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(16px);
+            transition: transform 0.25s;
+            position: relative
+        }
+
+        .img-modal-overlay.open .img-modal {
+            transform: translateY(0)
+        }
+
+        .img-modal h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--ink);
+            margin-bottom: 18px
+        }
+
+        .img-modal-tabs {
+            display: flex;
+            gap: 0;
+            background: var(--cream-mid);
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 18px
+        }
+
+        .img-modal-tab {
+            flex: 1;
+            padding: 7px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            color: var(--ink-light);
+            border: none;
+            background: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.2s
+        }
+
+        .img-modal-tab.active {
+            background: var(--white);
+            color: var(--blue);
+            box-shadow: var(--shadow-sm)
+        }
+
+        .img-upload-zone {
+            border: 2px dashed var(--border-md);
+            border-radius: var(--radius-md);
+            padding: 32px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--cream)
+        }
+
+        .img-upload-zone:hover,
+        .img-upload-zone.drag-over {
+            border-color: var(--blue);
+            background: var(--blue-light)
+        }
+
+        .img-upload-zone input {
+            display: none
+        }
+
+        .img-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 8px
+        }
+
+        .img-upload-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--ink-mid)
+        }
+
+        .img-upload-hint {
+            font-size: 0.72rem;
+            color: var(--ink-xs);
+            margin-top: 4px
+        }
+
+        .img-preview {
+            margin-top: 14px;
+            display: none;
+            text-align: center
+        }
+
+        .img-preview img {
+            max-height: 160px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border-md)
+        }
+
+        .img-url-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.86rem;
+            color: var(--ink);
+            background: var(--cream-mid)
+        }
+
+        .img-url-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.12);
+            background: var(--white)
+        }
+
+        .img-url-preview {
+            margin-top: 12px;
+            text-align: center;
+            display: none
+        }
+
+        .img-url-preview img {
+            max-height: 140px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border-md)
+        }
+
+        .img-size-row {
+            display: flex;
+            gap: 8px;
+            margin: 14px 0
+        }
+
+        .img-size-btn {
+            flex: 1;
+            padding: 7px;
+            border: 1.5px solid var(--border-md);
+            border-radius: 7px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            color: var(--ink-light);
+            background: none;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif
+        }
+
+        .img-size-btn.selected,
+        .img-size-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light)
+        }
+
+        .img-modal-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px
+        }
+
+        .img-modal-cancel {
+            flex: 1;
+            padding: 10px;
+            border: 1.5px solid var(--border-md);
+            border-radius: var(--radius-sm);
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--ink-light);
+            background: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.2s
+        }
+
+        .img-modal-cancel:hover {
+            border-color: var(--red);
+            color: var(--red)
+        }
+
+        .img-modal-insert {
+            flex: 2;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.2s
+        }
+
+        .img-modal-insert:hover {
+            background: var(--ink)
+        }
+
+        .img-modal-insert:disabled {
+            background: var(--ink-xs);
+            cursor: not-allowed
+        }
+
+        /* SF image fix — convert Salesforce blob refs to visible images */
+        .rte-editor img[src^="/sfc/"],
+        .rte-editor img[src^="https://"],
+        .article-content img {
+            max-width: 100%;
+            height: auto
+        }
 
         /* ── PAGE HERO ── */
         .page-hero {
@@ -669,6 +1060,106 @@
         .hero-btn svg {
             width: 16px;
             height: 16px
+        }
+
+        /* Search Bar */
+        .search-bar {
+            padding: 20px 0 16px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--ink-xs);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 13px 50px 13px 48px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            color: var(--ink);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            transition: all 0.3s var(--ease);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(1, 118, 211, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--ink-xs);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--cream-mid);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .search-clear:hover {
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        .search-clear svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .search-results-count {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.84rem;
+            color: var(--ink-light);
+            font-weight: 600;
+        }
+
+        .search-highlight {
+            background: var(--amber-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 700;
+            color: var(--amber);
+        }
+
+        @media(max-width: 768px) {
+            .search-input {
+                font-size: 0.88rem;
+                padding: 11px 45px 11px 44px;
+            }
+
+            .search-icon {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         .filter-bar {
@@ -1093,15 +1584,15 @@
             margin-bottom: 40px
         }*/
         .detail-content {
-    font-size: 1rem;
-    color: var(--ink-light);
-    line-height: 1.85;
-    margin-bottom: 40px;
-    overflow: hidden;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    min-width: 0;
-}
+            font-size: 1rem;
+            color: var(--ink-light);
+            line-height: 1.85;
+            margin-bottom: 40px;
+            overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            min-width: 0;
+        }
 
         /* ── LIKE BUTTON ── */
         .like-section {
@@ -1377,6 +1868,149 @@
             background: var(--blue)
         }
 
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 20px 0;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0FAFA 100%);
+        }
+
+        .newsletter-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 10px 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1.5px solid var(--border);
+            text-align: center;
+        }
+
+        .newsletter-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .newsletter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--ink);
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .newsletter-desc {
+            font-size: 0.92rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .newsletter-form {
+            margin-bottom: 16px;
+        }
+
+        .newsletter-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 13px 18px;
+            border: 1.5px solid var(--blue);
+            border-radius: var(--radius-sm);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.92rem;
+            transition: all 0.3s;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.1);
+        }
+
+        .newsletter-btn {
+            padding: 13px 24px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--white);
+            color: var(--blue);
+            border: 1.5px solid var(--blue);
+            transform: translateY(-2px);
+        }
+
+        .newsletter-btn:disabled {
+            background: var(--ink-xs);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .newsletter-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .newsletter-alert {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.84rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .newsletter-success {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid rgba(22, 101, 52, 0.2);
+        }
+
+        .newsletter-error {
+            background: var(--red-bg);
+            color: var(--red);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .newsletter-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--ink-xs);
+            font-weight: 500;
+        }
+
+        @media(max-width: 768px) {
+            .newsletter-card {
+                padding: 32px 24px;
+            }
+
+            .newsletter-input-group {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                justify-content: center;
+            }
+        }
+
         /* ── FOOTER ── */
         .footer {
             background: var(--ink);
@@ -1453,6 +2087,75 @@
             background: var(--red-bg)
         }
 
+        /* Avatar Upload */
+        .avatar-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: var(--cream-mid);
+            position: relative;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .avatar-preview img.loaded {
+            display: block;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink-xs);
+        }
+
+        .avatar-placeholder svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .avatar-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-md);
+            background: var(--white);
+            color: var(--ink);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .avatar-upload-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light);
+        }
+
+        .avatar-upload-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
         @media(max-width:400px) {
             .otp-box {
                 width: 38px;
@@ -1501,10 +2204,6 @@
                 display: none
             }
 
-            .nav-user-pill {
-                display: none;
-            }
-
             .nav-back span {
                 display: none
             }
@@ -1530,7 +2229,6 @@
 
             .nav-user-pill {
                 padding: 5px 10px;
-                font-size: 0.72rem
             }
 
             .nav-logout-btn {
@@ -1552,10 +2250,15 @@
                     <button class="nav-auth-btn" onclick="openAuthModal('login')">Sign In / Register</button>
                 </div>
                 <div id="navLoggedIn" style="display:none;align-items:center;gap:10px;">
-                    <div class="nav-user-pill">
-                        <span class="nav-user-dot"></span>
-                        <span id="navUsername"></span>
-                    </div>
+                    <button class="nav-user-pill" onclick="openProfileModal()"
+                        style="cursor:pointer;border:none;background:var(--green-bg)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"
+                            fill="#0176D3">
+                            <path
+                                d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                        </svg>
+                        <!-- <span id="navUsername"></span> -->
+                    </button>
                     <button class="nav-logout-btn" onclick="logout()"><span>Sign Out</span></button>
                 </div>
                 <a href="projects.html" class="nav-projects-link">
@@ -1843,87 +2546,129 @@
                 <label>Full Article *</label>
                 <div class="rte-wrap">
                     <div class="rte-toolbar">
-          <!-- Text style -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Bold (Ctrl+B)" onclick="fmt('bold')"><b>B</b></button>
-            <button class="rte-btn" title="Italic (Ctrl+I)" onclick="fmt('italic')"><i>I</i></button>
-            <button class="rte-btn" title="Underline (Ctrl+U)" onclick="fmt('underline')"><u>U</u></button>
-            <button class="rte-btn" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- Headings -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Heading 2" onclick="fmtBlock('h2')">H2</button>
-            <button class="rte-btn" title="Heading 3" onclick="fmtBlock('h3')">H3</button>
-            <button class="rte-btn" title="Paragraph" onclick="fmtBlock('p')">¶</button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- Alignment -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Align Left"   onclick="fmt('justifyLeft')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M16 14H3M21 6H3M16 18H3"/></svg>
-            </button>
-            <button class="rte-btn" title="Align Center" onclick="fmt('justifyCenter')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M17 14H7M21 6H3M17 18H7"/></svg>
-            </button>
-            <button class="rte-btn" title="Align Right"  onclick="fmt('justifyRight')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M21 14H8M21 6H3M21 18H8"/></svg>
-            </button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- Lists -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Bullet List"   onclick="fmt('insertUnorderedList')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="4" cy="7" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="4" cy="17" r="1.5" fill="currentColor"/><path d="M8 7h12M8 12h12M8 17h12"/></svg>
-            </button>
-            <button class="rte-btn" title="Numbered List" onclick="fmt('insertOrderedList')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h12M8 12h12M8 17h12"/><path d="M3 7h1v3M3 12h2M3 15h2M4 15v1.5a.5.5 0 01-1 0" stroke-width="1.5"/></svg>
-            </button>
-            <button class="rte-btn" title="Decrease indent" onclick="fmt('outdent')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 6H20M11 12H20M11 18H20M7 9l-4 3 4 3"/></svg>
-            </button>
-            <button class="rte-btn" title="Increase indent" onclick="fmt('indent')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 6H20M11 12H20M11 18H20M3 9l4 3-4 3"/></svg>
-            </button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- Insert -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Blockquote" onclick="fmtBlock('blockquote')">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" opacity=".85"/></svg>
-            </button>
-            <button class="rte-btn" title="Code Block" onclick="insertCodeBlock()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
-            </button>
-            <button class="rte-btn" title="Inline Code" onclick="insertInlineCode()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 11l2 2-2 2M11 15h4" stroke-width="1.8"/></svg>
-            </button>
-            <button class="rte-btn" title="Horizontal Rule" onclick="fmt('insertHorizontalRule')">—</button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- Image & Link -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn rte-btn-img" title="Insert Image" onclick="openImgModal()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span>Image</span>
-            </button>
-            <button class="rte-btn" title="Insert Link" onclick="insertLink()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-            </button>
-          </div>
-          <div class="rte-divider"></div>
-          <!-- History -->
-          <div class="rte-toolbar-group">
-            <button class="rte-btn" title="Undo (Ctrl+Z)" onclick="fmt('undo')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 5.45 7"/></svg>
-            </button>
-            <button class="rte-btn" title="Redo (Ctrl+Y)" onclick="fmt('redo')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 7v6h-6"/><path d="M21 13A9 9 0 1 1 18.55 7"/></svg>
-            </button>
-            <button class="rte-btn" title="Clear Formatting" onclick="fmt('removeFormat')" style="color:var(--ink-xs)">✕<span style="font-size:0.65rem">fmt</span></button>
-          </div>
-        </div>
-        <div class="rte-char-count" id="rteCharCount">0 characters</div>
+                        <!-- Text style -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Bold (Ctrl+B)" onclick="fmt('bold')"><b>B</b></button>
+                            <button class="rte-btn" title="Italic (Ctrl+I)" onclick="fmt('italic')"><i>I</i></button>
+                            <button class="rte-btn" title="Underline (Ctrl+U)"
+                                onclick="fmt('underline')"><u>U</u></button>
+                            <button class="rte-btn" title="Strikethrough"
+                                onclick="fmt('strikeThrough')"><s>S</s></button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- Headings -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Heading 2" onclick="fmtBlock('h2')">H2</button>
+                            <button class="rte-btn" title="Heading 3" onclick="fmtBlock('h3')">H3</button>
+                            <button class="rte-btn" title="Paragraph" onclick="fmtBlock('p')">¶</button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- Alignment -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Align Left" onclick="fmt('justifyLeft')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 10H3M16 14H3M21 6H3M16 18H3" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Align Center" onclick="fmt('justifyCenter')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 10H3M17 14H7M21 6H3M17 18H7" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Align Right" onclick="fmt('justifyRight')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 10H3M21 14H8M21 6H3M21 18H8" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- Lists -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Bullet List" onclick="fmt('insertUnorderedList')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="4" cy="7" r="1.5" fill="currentColor" />
+                                    <circle cx="4" cy="12" r="1.5" fill="currentColor" />
+                                    <circle cx="4" cy="17" r="1.5" fill="currentColor" />
+                                    <path d="M8 7h12M8 12h12M8 17h12" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Numbered List" onclick="fmt('insertOrderedList')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 7h12M8 12h12M8 17h12" />
+                                    <path d="M3 7h1v3M3 12h2M3 15h2M4 15v1.5a.5.5 0 01-1 0" stroke-width="1.5" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Decrease indent" onclick="fmt('outdent')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M11 6H20M11 12H20M11 18H20M7 9l-4 3 4 3" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Increase indent" onclick="fmt('indent')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M11 6H20M11 12H20M11 18H20M3 9l4 3-4 3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- Insert -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Blockquote" onclick="fmtBlock('blockquote')">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" opacity=".85" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Code Block" onclick="insertCodeBlock()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Inline Code" onclick="insertInlineCode()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="7" width="18" height="10" rx="2" />
+                                    <path d="M7 11l2 2-2 2M11 15h4" stroke-width="1.8" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Horizontal Rule"
+                                onclick="fmt('insertHorizontalRule')">—</button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- Image & Link -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn rte-btn-img" title="Insert Image" onclick="openImgModal()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="3" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none" />
+                                    <path d="M21 15l-5-5L5 21" />
+                                </svg>
+                                <span>Image</span>
+                            </button>
+                            <button class="rte-btn" title="Insert Link" onclick="insertLink()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+                                    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="rte-divider"></div>
+                        <!-- History -->
+                        <div class="rte-toolbar-group">
+                            <button class="rte-btn" title="Undo (Ctrl+Z)" onclick="fmt('undo')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M3 7v6h6" />
+                                    <path d="M3 13A9 9 0 1 0 5.45 7" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Redo (Ctrl+Y)" onclick="fmt('redo')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 7v6h-6" />
+                                    <path d="M21 13A9 9 0 1 1 18.55 7" />
+                                </svg>
+                            </button>
+                            <button class="rte-btn" title="Clear Formatting" onclick="fmt('removeFormat')"
+                                style="color:var(--ink-xs)">✕<span style="font-size:0.65rem">fmt</span></button>
+                        </div>
+                    </div>
+                    <div class="rte-char-count" id="rteCharCount">0 characters</div>
                     <div class="rte-editor" id="postContent" contenteditable="true"
                         data-placeholder="Write your full article here. Use the toolbar to add headings, lists, code blocks and more...">
                     </div>
@@ -1946,61 +2691,79 @@
         </div>
     </div>
     <!-- IMAGE INSERT MODAL -->
-<div class="img-modal-overlay" id="imgModal">
-  <div class="img-modal">
-    <button onclick="closeImgModal()" style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:1px solid var(--border);cursor:pointer;font-size:0.9rem;color:var(--ink-light);display:flex;align-items:center;justify-content:center">✕</button>
-    <h3>Insert Image</h3>
-    <!-- Tabs -->
-    <div class="img-modal-tabs">
-      <button class="img-modal-tab active" id="imgTabUpload" onclick="switchImgTab('upload')">📁 Upload File</button>
-      <button class="img-modal-tab"        id="imgTabUrl"    onclick="switchImgTab('url')">🔗 From URL</button>
+    <div class="img-modal-overlay" id="imgModal">
+        <div class="img-modal">
+            <button onclick="closeImgModal()"
+                style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--cream);border:1px solid var(--border);cursor:pointer;font-size:0.9rem;color:var(--ink-light);display:flex;align-items:center;justify-content:center">✕</button>
+            <h3>Insert Image</h3>
+            <!-- Tabs -->
+            <div class="img-modal-tabs">
+                <button class="img-modal-tab active" id="imgTabUpload" onclick="switchImgTab('upload')">📁 Upload
+                    File</button>
+                <button class="img-modal-tab" id="imgTabUrl" onclick="switchImgTab('url')">🔗 From URL</button>
+            </div>
+            <!-- Upload tab -->
+            <div id="imgPanelUpload">
+                <div class="img-upload-zone" id="imgDropZone" onclick="document.getElementById('imgFileInput').click()"
+                    ondragover="handleImgDragOver(event)" ondragleave="handleImgDragLeave(event)"
+                    ondrop="handleImgDrop(event)">
+                    <input type="file" id="imgFileInput"
+                        accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml"
+                        onchange="handleImgFile(event)">
+                    <div class="img-upload-icon">🖼️</div>
+                    <div class="img-upload-label">Click or drag & drop an image</div>
+                    <div class="img-upload-hint">PNG, JPG, GIF, WebP, SVG — max 5 MB</div>
+                </div>
+                <div class="img-preview" id="imgUploadPreview">
+                    <img id="imgUploadPreviewEl" src="" alt="preview">
+                    <p style="font-size:0.72rem;color:var(--ink-xs);margin-top:6px" id="imgUploadFileName"></p>
+                </div>
+            </div>
+            <!-- URL tab -->
+            <div id="imgPanelUrl" style="display:none">
+                <input class="img-url-input" type="url" id="imgUrlInput" placeholder="https://example.com/image.jpg"
+                    oninput="previewImgUrl()">
+                <div class="img-url-preview" id="imgUrlPreview">
+                    <img id="imgUrlPreviewEl" src="" alt="preview" onerror="this.parentElement.style.display='none'">
+                </div>
+            </div>
+            <!-- Alt text -->
+            <div style="margin-top:14px">
+                <label
+                    style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Alt
+                    text <span style="font-weight:400;color:var(--ink-xs)">(recommended for
+                        accessibility)</span></label>
+                <input class="img-url-input" type="text" id="imgAltText" placeholder="Describe the image">
+            </div>
+            <!-- Size -->
+            <div style="margin-top:12px">
+                <label
+                    style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:6px">Display
+                    size</label>
+                <div class="img-size-row">
+                    <button class="img-size-btn" data-size="img-small" onclick="selectImgSize(this)">Small<br><span
+                            style="font-weight:400">320px</span></button>
+                    <button class="img-size-btn selected" data-size="img-medium"
+                        onclick="selectImgSize(this)">Medium<br><span style="font-weight:400">560px</span></button>
+                    <button class="img-size-btn" data-size="img-full" onclick="selectImgSize(this)">Full width<br><span
+                            style="font-weight:400">100%</span></button>
+                </div>
+            </div>
+            <!-- Caption -->
+            <div style="margin-top:12px">
+                <label
+                    style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Caption
+                    <span style="font-weight:400;color:var(--ink-xs)">(optional)</span></label>
+                <input class="img-url-input" type="text" id="imgCaption" placeholder="Photo caption or source">
+            </div>
+            <!-- Actions -->
+            <div class="img-modal-actions">
+                <button class="img-modal-cancel" onclick="closeImgModal()">Cancel</button>
+                <button class="img-modal-insert" id="imgInsertBtn" onclick="insertImageToEditor()" disabled>Insert
+                    Image</button>
+            </div>
+        </div>
     </div>
-    <!-- Upload tab -->
-    <div id="imgPanelUpload">
-      <div class="img-upload-zone" id="imgDropZone" onclick="document.getElementById('imgFileInput').click()" ondragover="handleImgDragOver(event)" ondragleave="handleImgDragLeave(event)" ondrop="handleImgDrop(event)">
-        <input type="file" id="imgFileInput" accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml" onchange="handleImgFile(event)">
-        <div class="img-upload-icon">🖼️</div>
-        <div class="img-upload-label">Click or drag & drop an image</div>
-        <div class="img-upload-hint">PNG, JPG, GIF, WebP, SVG — max 5 MB</div>
-      </div>
-      <div class="img-preview" id="imgUploadPreview">
-        <img id="imgUploadPreviewEl" src="" alt="preview">
-        <p style="font-size:0.72rem;color:var(--ink-xs);margin-top:6px" id="imgUploadFileName"></p>
-      </div>
-    </div>
-    <!-- URL tab -->
-    <div id="imgPanelUrl" style="display:none">
-      <input class="img-url-input" type="url" id="imgUrlInput" placeholder="https://example.com/image.jpg" oninput="previewImgUrl()">
-      <div class="img-url-preview" id="imgUrlPreview">
-        <img id="imgUrlPreviewEl" src="" alt="preview" onerror="this.parentElement.style.display='none'">
-      </div>
-    </div>
-    <!-- Alt text -->
-    <div style="margin-top:14px">
-      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Alt text <span style="font-weight:400;color:var(--ink-xs)">(recommended for accessibility)</span></label>
-      <input class="img-url-input" type="text" id="imgAltText" placeholder="Describe the image">
-    </div>
-    <!-- Size -->
-    <div style="margin-top:12px">
-      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:6px">Display size</label>
-      <div class="img-size-row">
-        <button class="img-size-btn" data-size="img-small"  onclick="selectImgSize(this)">Small<br><span style="font-weight:400">320px</span></button>
-        <button class="img-size-btn selected" data-size="img-medium" onclick="selectImgSize(this)">Medium<br><span style="font-weight:400">560px</span></button>
-        <button class="img-size-btn" data-size="img-full"   onclick="selectImgSize(this)">Full width<br><span style="font-weight:400">100%</span></button>
-      </div>
-    </div>
-    <!-- Caption -->
-    <div style="margin-top:12px">
-      <label style="font-size:0.74rem;font-weight:700;color:var(--ink-mid);display:block;margin-bottom:5px">Caption <span style="font-weight:400;color:var(--ink-xs)">(optional)</span></label>
-      <input class="img-url-input" type="text" id="imgCaption" placeholder="Photo caption or source">
-    </div>
-    <!-- Actions -->
-    <div class="img-modal-actions">
-      <button class="img-modal-cancel" onclick="closeImgModal()">Cancel</button>
-      <button class="img-modal-insert" id="imgInsertBtn" onclick="insertImageToEditor()" disabled>Insert Image</button>
-    </div>
-  </div>
-</div>
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -2026,6 +2789,24 @@
                     </svg>
                     Sign In to Write
                 </button>
+            </div>
+            <!-- Add this RIGHT BEFORE the filter-bar div -->
+            <div class="search-bar">
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Search articles by title, content, or category..." oninput="handleSearch()" />
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="search-results-count" id="searchCount" style="display:none"></div>
             </div>
             <div class="filter-bar">
                 <button class="filter-btn active" data-filter="all" onclick="filterArticles(this)">All</button>
@@ -2130,7 +2911,39 @@
 
         </div>
     </main>
+    <!-- Newsletter Section (add before footer or in sidebar) -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-card">
+                <div class="newsletter-icon">📧</div>
+                <h3 class="newsletter-title">Stay Updated</h3>
+                <p class="newsletter-desc">Get notified when new Salesforce articles are published. No spam, unsubscribe
+                    anytime.</p>
 
+                <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+                    <div class="newsletter-input-group">
+                        <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="your@email.com"
+                            required />
+                        <button type="submit" class="newsletter-btn" id="newsletterBtn">
+                            <span id="newsletterBtnText">Subscribe</span>
+                            <svg id="newsletterBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="newsletter-alert newsletter-success" id="newsletterSuccess" style="display:none">
+                        ✅ Subscribed! Check your email to confirm.
+                    </div>
+                    <div class="newsletter-alert newsletter-error" id="newsletterError" style="display:none"></div>
+                </form>
+
+                <div class="newsletter-stats">
+                    <span id="subscriberCount">Joined 300+ subscribers</span>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -2140,7 +2953,78 @@
             </div>
         </div>
     </footer>
+    <!-- User Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeProfileModal()">✕</button>
+            <div class="modal-logo" style="margin-bottom:4px;">Your Profile</div>
+            <p class="modal-sub">Update your public profile information</p>
+            <span style="color: #10B981;" id="navUsername"></span>
+            <div class="alert alert-error" id="profileError"></div>
+            <div class="alert alert-success" id="profileSuccess"></div>
 
+            <!-- Avatar Upload -->
+            <div class="fg">
+                <label>Profile Picture</label>
+                <div class="avatar-upload-wrapper">
+                    <div class="avatar-preview" id="avatarPreview">
+                        <img src="" alt="Avatar" id="avatarImg">
+                        <div class="avatar-placeholder" id="avatarPlaceholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                    </div>
+                    <button type="button" class="avatar-upload-btn"
+                        onclick="document.getElementById('avatarInput').click()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="M21 15l-5-5L5 21" />
+                        </svg>
+                        Choose Image
+                    </button>
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none"
+                        onchange="handleAvatarUpload(event)">
+                </div>
+                <p style="font-size:0.74rem;color:var(--ink-xs);margin-top:6px">JPG, PNG, or GIF. Max 2MB.</p>
+            </div>
+
+            <!-- Bio -->
+            <div class="fg">
+                <label>Bio <span style="font-weight:400;color:var(--ink-xs)">(optional)</span></label>
+                <textarea id="profileBio" placeholder="Salesforce Developer | 4x Certified | Building awesome apps..."
+                    maxlength="200" style="min-height:80px;resize:vertical"></textarea>
+                <div class="char-count"><span id="bioCount">0</span>/200</div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="fg">
+                <label>LinkedIn Profile URL</label>
+                <input type="url" id="profileLinkedIn" placeholder="https://linkedin.com/in/yourname">
+            </div>
+
+            <div class="fg">
+                <label>GitHub Profile URL</label>
+                <input type="url" id="profileGitHub" placeholder="https://github.com/yourname">
+            </div>
+
+            <div class="fg">
+                <label>Twitter Handle</label>
+                <input type="text" id="profileTwitter" placeholder="@yourhandle">
+            </div>
+
+            <button class="btn-primary" id="profileSaveBtn" onclick="handleProfileSave()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                </svg>
+                Save Profile
+            </button>
+        </div>
+    </div>
     <script>
         /* ═══════════════════════════════════════════════════════
            CONFIG
@@ -2150,6 +3034,7 @@
         const API = {
             REGISTER: `${SF}/users`,
             LOGIN: `${SF}/users/login`,
+            PROFILE: `${SF}/users/login`,
             ARTICLES: `${SF}/articles`,
             COMMENTS: `${SF}/comments`,
             LIKES: `${SF}/likes`,
@@ -2287,6 +3172,7 @@
                     document.getElementById('fpotp' + Math.min(pasted.length, 5))?.focus();
                 });
             }
+            loadSubscriberCount();
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -2322,11 +3208,6 @@
             document.getElementById('authModal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
-        /*function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('open');
-            document.body.style.overflow = '';
-            clearAlerts();
-        }*/
         function closeAuthModal() {
             document.getElementById('authModal').classList.remove('open');
             document.body.style.overflow = '';
@@ -2766,273 +3647,268 @@
         /* ═══════════════════════════════════════════════════════
    RICH TEXT EDITOR
 ═══════════════════════════════════════════════════════ */
-let savedRange = null; // saves cursor position before modal opens
+        let savedRange = null; // saves cursor position before modal opens
 
-function rteGetEditor() { return document.getElementById('postContent'); }
+        function rteGetEditor() { return document.getElementById('postContent'); }
 
-function fmt(cmd, val) {
-  rteGetEditor().focus();
-  document.execCommand(cmd, false, val || null);
-  updateRteCharCount();
-}
-
-function fmtBlock(tag) {
-  rteGetEditor().focus();
-  document.execCommand('formatBlock', false, tag);
-  updateRteCharCount();
-}
-
-function updateRteCharCount() {
-  const el = document.getElementById('rteCharCount');
-  if (!el) return;
-  const len = rteGetEditor().innerText.replace(/\n/g,'').length;
-  el.textContent = len.toLocaleString() + ' characters';
-}
-
-function rteSaveSelection() {
-  const sel = window.getSelection();
-  if (sel && sel.rangeCount > 0) savedRange = sel.getRangeAt(0).cloneRange();
-}
-
-function rteRestoreSelection() {
-  if (!savedRange) return;
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(savedRange);
-}
-
-function insertCodeBlock() {
-  rteGetEditor().focus();
-  const sel = window.getSelection();
-  const selectedText = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
-  const pre  = document.createElement('pre');
-  const code = document.createElement('code');
-  code.textContent = selectedText || 'paste code here';
-  pre.appendChild(code);
-  if (sel && sel.rangeCount) {
-    const r = sel.getRangeAt(0);
-    r.deleteContents();
-    r.insertNode(pre);
-    // move cursor after pre
-    const after = document.createRange();
-    after.setStartAfter(pre);
-    after.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(after);
-  }
-  // add a newline after so user can continue typing
-  document.execCommand('insertParagraph', false, null);
-  updateRteCharCount();
-}
-
-function insertInlineCode() {
-  const sel = window.getSelection();
-  const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
-  const code = document.createElement('code');
-  code.textContent = text || 'code';
-  if (sel && sel.rangeCount) {
-    const r = sel.getRangeAt(0);
-    r.deleteContents();
-    r.insertNode(code);
-  }
-  updateRteCharCount();
-}
-
-function insertLink() {
-  const sel = window.getSelection();
-  const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
-  const url  = prompt('Enter URL:', 'https://');
-  if (!url || url === 'https://') return;
-  if (text) {
-    fmt('createLink', url);
-  } else {
-    const a = document.createElement('a');
-    a.href = url; a.textContent = url; a.target = '_blank';
-    document.execCommand('insertHTML', false, a.outerHTML);
-  }
-  updateRteCharCount();
-}
-
-/* ── Image Modal ── */
-let imgTabActive   = 'upload';
-let imgUploadData  = null; // base64 string
-let imgSelectedSize = 'img-medium';
-
-function openImgModal() {
-  rteSaveSelection();
-  imgUploadData = null;
-  imgTabActive  = 'upload';
-  imgSelectedSize = 'img-medium';
-  // reset form
-  document.getElementById('imgFileInput').value  = '';
-  document.getElementById('imgUrlInput').value   = '';
-  document.getElementById('imgAltText').value    = '';
-  document.getElementById('imgCaption').value    = '';
-  document.getElementById('imgUploadPreview').style.display = 'none';
-  document.getElementById('imgUrlPreview').style.display    = 'none';
-  document.getElementById('imgInsertBtn').disabled = true;
-document.getElementById('imgInsertBtn').textContent = 'Insert Image';
-  document.querySelectorAll('.img-size-btn').forEach(b => b.classList.toggle('selected', b.dataset.size === 'img-medium'));
-  switchImgTab('upload');
-  document.getElementById('imgModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeImgModal() {
-  document.getElementById('imgModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function switchImgTab(tab) {
-  imgTabActive = tab;
-  document.getElementById('imgPanelUpload').style.display = tab === 'upload' ? 'block' : 'none';
-  document.getElementById('imgPanelUrl').style.display    = tab === 'url'    ? 'block' : 'none';
-  document.getElementById('imgTabUpload').classList.toggle('active', tab === 'upload');
-  document.getElementById('imgTabUrl').classList.toggle('active', tab === 'url');
-  document.getElementById('imgInsertBtn').disabled = true;
-}
-
-function selectImgSize(btn) {
-  document.querySelectorAll('.img-size-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  imgSelectedSize = btn.dataset.size;
-}
-
-function handleImgDragOver(e) {
-  e.preventDefault();
-  document.getElementById('imgDropZone').classList.add('drag-over');
-}
-function handleImgDragLeave(e) {
-  document.getElementById('imgDropZone').classList.remove('drag-over');
-}
-function handleImgDrop(e) {
-  e.preventDefault();
-  document.getElementById('imgDropZone').classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (file) processImgFile(file);
-}
-function handleImgFile(e) {
-  const file = e.target.files[0];
-  if (file) processImgFile(file);
-}
-
-
-function processImgFile(file) {
-    if (file.size > 5 * 1024 * 1024) { alert('Image must be under 5 MB'); return; }
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-        // NEVER store base64 — only use it for local preview and ImgBB upload
-        const base64full = e.target.result;
-        const base64data = base64full.split(',')[1];
-
-        // Show preview immediately
-        const previewEl   = document.getElementById('imgUploadPreviewEl');
-        const fileNameEl  = document.getElementById('imgUploadFileName');
-        const previewWrap = document.getElementById('imgUploadPreview');
-        const insertBtn   = document.getElementById('imgInsertBtn');
-
-        previewEl.src = base64full;          // local preview only, never saved
-        previewWrap.style.display = 'block';
-        fileNameEl.textContent = '⏳ Uploading…';
-        insertBtn.disabled = true;
-        insertBtn.textContent = '⏳ Uploading…';
-        imgUploadData = null;                // always null until ImgBB confirms
-
-        // Auto-fill alt text
-        if (!document.getElementById('imgAltText').value)
-            document.getElementById('imgAltText').value =
-                file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-
-        // Upload to ImgBB
-        try {
-            const form = new FormData();
-            form.append('key',   IMGBB_KEY);
-            form.append('image', base64data);
-            form.append('name',  file.name.replace(/\.[^.]+$/, ''));
-
-            const res  = await fetch('https://api.imgbb.com/1/upload', {
-                method: 'POST',
-                body: form
-            });
-            const json = await res.json();
-
-            if (json.success && json.data && json.data.url) {
-                imgUploadData = json.data.url;   // ← public CDN URL, NOT base64
-                fileNameEl.textContent = '✅ ' + file.name + ' (' + (file.size/1024).toFixed(0) + ' KB)';
-                insertBtn.textContent  = 'Insert Image';
-                insertBtn.disabled = false;
-            } else {
-                throw new Error(json.error?.message || 'ImgBB rejected the upload');
-            }
-        } catch (err) {
-            imgUploadData = null;
-            fileNameEl.innerHTML =
-                '❌ Upload failed: ' + err.message +
-                '<br><small style="color:var(--ink-xs)">Check your API key or use the URL tab instead.</small>';
-            insertBtn.textContent = 'Insert Image';
-            insertBtn.disabled = true;
+        function fmt(cmd, val) {
+            rteGetEditor().focus();
+            document.execCommand(cmd, false, val || null);
+            updateRteCharCount();
         }
-    };
-    reader.readAsDataURL(file);
-}
 
-function previewImgUrl() {
-  const url = document.getElementById('imgUrlInput').value.trim();
-  const preview = document.getElementById('imgUrlPreview');
-  if (url) {
-    document.getElementById('imgUrlPreviewEl').src = url;
-    preview.style.display = 'block';
-    document.getElementById('imgInsertBtn').disabled = false;
-  } else {
-    preview.style.display = 'none';
-    document.getElementById('imgInsertBtn').disabled = true;
-  }
-}
+        function fmtBlock(tag) {
+            rteGetEditor().focus();
+            document.execCommand('formatBlock', false, tag);
+            updateRteCharCount();
+        }
 
-function insertImageToEditor() {
-    const alt     = document.getElementById('imgAltText').value.trim();
-    const caption = document.getElementById('imgCaption').value.trim();
-    const src     = imgTabActive === 'upload'
-        ? imgUploadData
-        : document.getElementById('imgUrlInput').value.trim();
-    if (!src) return;
+        function updateRteCharCount() {
+            const el = document.getElementById('rteCharCount');
+            if (!el) return;
+            const len = rteGetEditor().innerText.replace(/\n/g, '').length;
+            el.textContent = len.toLocaleString() + ' characters';
+        }
 
-    // SAFETY: block base64 — should never happen now, but just in case
-    if (src.startsWith('data:')) {
-        alert('Image is still uploading or upload failed. Please wait or use a URL instead.');
-        return;
-    }
+        function rteSaveSelection() {
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) savedRange = sel.getRangeAt(0).cloneRange();
+        }
 
-    const img    = document.createElement('img');
-    img.src      = src;
-    img.alt      = alt || 'image';
-    img.className = imgSelectedSize;
+        function rteRestoreSelection() {
+            if (!savedRange) return;
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(savedRange);
+        }
 
-    let html = img.outerHTML;
-    if (caption) html += `<p class="img-caption">${caption}</p>`;
-    html += '<p><br></p>';
+        function insertCodeBlock() {
+            rteGetEditor().focus();
+            const sel = window.getSelection();
+            const selectedText = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+            const pre = document.createElement('pre');
+            const code = document.createElement('code');
+            code.textContent = selectedText || 'paste code here';
+            pre.appendChild(code);
+            if (sel && sel.rangeCount) {
+                const r = sel.getRangeAt(0);
+                r.deleteContents();
+                r.insertNode(pre);
+                // move cursor after pre
+                const after = document.createRange();
+                after.setStartAfter(pre);
+                after.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(after);
+            }
+            // add a newline after so user can continue typing
+            document.execCommand('insertParagraph', false, null);
+            updateRteCharCount();
+        }
 
-    rteGetEditor().focus();
-    rteRestoreSelection();
-    document.execCommand('insertHTML', false, html);
-    closeImgModal();
-}
+        function insertInlineCode() {
+            const sel = window.getSelection();
+            const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+            const code = document.createElement('code');
+            code.textContent = text || 'code';
+            if (sel && sel.rangeCount) {
+                const r = sel.getRangeAt(0);
+                r.deleteContents();
+                r.insertNode(code);
+            }
+            updateRteCharCount();
+        }
 
-/* ── Fix Salesforce-hosted images ── */
-function fixSalesforceImages(container) {
-  // SF rich text stores images as <img> with src="/sfc/servlet..." or base64
-  // These need no fix — the browser loads them directly.
-  // But if SF stores them as text like "[Image: filename.jpg]" we convert them.
-  container.querySelectorAll('img').forEach(img => {
-    // if src is a relative SF URL, make it absolute
-    if (img.src && img.src.startsWith('/')) {
-      // already absolute after browser resolves it — nothing to do
-    }
-    // ensure responsive
-    img.style.maxWidth = '100%';
-    img.style.height   = 'auto';
-  });
-}
+        function insertLink() {
+            const sel = window.getSelection();
+            const text = sel && sel.rangeCount ? sel.getRangeAt(0).toString() : '';
+            const url = prompt('Enter URL:', 'https://');
+            if (!url || url === 'https://') return;
+            if (text) {
+                fmt('createLink', url);
+            } else {
+                const a = document.createElement('a');
+                a.href = url; a.textContent = url; a.target = '_blank';
+                document.execCommand('insertHTML', false, a.outerHTML);
+            }
+            updateRteCharCount();
+        }
+
+        /* ── Image Modal ── */
+        let imgTabActive = 'upload';
+        let imgUploadData = null; // base64 string
+        let imgSelectedSize = 'img-medium';
+
+        function openImgModal() {
+            rteSaveSelection();
+            imgUploadData = null;
+            imgTabActive = 'upload';
+            imgSelectedSize = 'img-medium';
+            // reset form
+            document.getElementById('imgFileInput').value = '';
+            document.getElementById('imgUrlInput').value = '';
+            document.getElementById('imgAltText').value = '';
+            document.getElementById('imgCaption').value = '';
+            document.getElementById('imgUploadPreview').style.display = 'none';
+            document.getElementById('imgUrlPreview').style.display = 'none';
+            document.getElementById('imgInsertBtn').disabled = true;
+            document.getElementById('imgInsertBtn').textContent = 'Insert Image';
+            document.querySelectorAll('.img-size-btn').forEach(b => b.classList.toggle('selected', b.dataset.size === 'img-medium'));
+            switchImgTab('upload');
+            document.getElementById('imgModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImgModal() {
+            document.getElementById('imgModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function switchImgTab(tab) {
+            imgTabActive = tab;
+            document.getElementById('imgPanelUpload').style.display = tab === 'upload' ? 'block' : 'none';
+            document.getElementById('imgPanelUrl').style.display = tab === 'url' ? 'block' : 'none';
+            document.getElementById('imgTabUpload').classList.toggle('active', tab === 'upload');
+            document.getElementById('imgTabUrl').classList.toggle('active', tab === 'url');
+            document.getElementById('imgInsertBtn').disabled = true;
+        }
+
+        function selectImgSize(btn) {
+            document.querySelectorAll('.img-size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            imgSelectedSize = btn.dataset.size;
+        }
+
+        function handleImgDragOver(e) {
+            e.preventDefault();
+            document.getElementById('imgDropZone').classList.add('drag-over');
+        }
+        function handleImgDragLeave(e) {
+            document.getElementById('imgDropZone').classList.remove('drag-over');
+        }
+        function handleImgDrop(e) {
+            e.preventDefault();
+            document.getElementById('imgDropZone').classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file) processImgFile(file);
+        }
+        function handleImgFile(e) {
+            const file = e.target.files[0];
+            if (file) processImgFile(file);
+        }
+        function processImgFile(file) {
+            if (file.size > 5 * 1024 * 1024) { alert('Image must be under 5 MB'); return; }
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                // NEVER store base64 — only use it for local preview and ImgBB upload
+                const base64full = e.target.result;
+                const base64data = base64full.split(',')[1];
+
+                // Show preview immediately
+                const previewEl = document.getElementById('imgUploadPreviewEl');
+                const fileNameEl = document.getElementById('imgUploadFileName');
+                const previewWrap = document.getElementById('imgUploadPreview');
+                const insertBtn = document.getElementById('imgInsertBtn');
+
+                previewEl.src = base64full;          // local preview only, never saved
+                previewWrap.style.display = 'block';
+                fileNameEl.textContent = '⏳ Uploading…';
+                insertBtn.disabled = true;
+                insertBtn.textContent = '⏳ Uploading…';
+                imgUploadData = null;                // always null until ImgBB confirms
+
+                // Auto-fill alt text
+                if (!document.getElementById('imgAltText').value)
+                    document.getElementById('imgAltText').value =
+                        file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+
+                // Upload to ImgBB
+                try {
+                    const form = new FormData();
+                    form.append('key', IMGBB_KEY);
+                    form.append('image', base64data);
+                    form.append('name', file.name.replace(/\.[^.]+$/, ''));
+
+                    const res = await fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: form
+                    });
+                    const json = await res.json();
+
+                    if (json.success && json.data && json.data.url) {
+                        imgUploadData = json.data.url;   // ← public CDN URL, NOT base64
+                        fileNameEl.textContent = '✅ ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+                        insertBtn.textContent = 'Insert Image';
+                        insertBtn.disabled = false;
+                    } else {
+                        throw new Error(json.error?.message || 'ImgBB rejected the upload');
+                    }
+                } catch (err) {
+                    imgUploadData = null;
+                    fileNameEl.innerHTML =
+                        '❌ Upload failed: ' + err.message +
+                        '<br><small style="color:var(--ink-xs)">Check your API key or use the URL tab instead.</small>';
+                    insertBtn.textContent = 'Insert Image';
+                    insertBtn.disabled = true;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        function previewImgUrl() {
+            const url = document.getElementById('imgUrlInput').value.trim();
+            const preview = document.getElementById('imgUrlPreview');
+            if (url) {
+                document.getElementById('imgUrlPreviewEl').src = url;
+                preview.style.display = 'block';
+                document.getElementById('imgInsertBtn').disabled = false;
+            } else {
+                preview.style.display = 'none';
+                document.getElementById('imgInsertBtn').disabled = true;
+            }
+        }
+        function insertImageToEditor() {
+            const alt = document.getElementById('imgAltText').value.trim();
+            const caption = document.getElementById('imgCaption').value.trim();
+            const src = imgTabActive === 'upload'
+                ? imgUploadData
+                : document.getElementById('imgUrlInput').value.trim();
+            if (!src) return;
+
+            // SAFETY: block base64 — should never happen now, but just in case
+            if (src.startsWith('data:')) {
+                alert('Image is still uploading or upload failed. Please wait or use a URL instead.');
+                return;
+            }
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = alt || 'image';
+            img.className = imgSelectedSize;
+
+            let html = img.outerHTML;
+            if (caption) html += `<p class="img-caption">${caption}</p>`;
+            html += '<p><br></p>';
+
+            rteGetEditor().focus();
+            rteRestoreSelection();
+            document.execCommand('insertHTML', false, html);
+            closeImgModal();
+        }
+        /* ── Fix Salesforce-hosted images ── */
+        function fixSalesforceImages(container) {
+            // SF rich text stores images as <img> with src="/sfc/servlet..." or base64
+            // These need no fix — the browser loads them directly.
+            // But if SF stores them as text like "[Image: filename.jpg]" we convert them.
+            container.querySelectorAll('img').forEach(img => {
+                // if src is a relative SF URL, make it absolute
+                if (img.src && img.src.startsWith('/')) {
+                    // already absolute after browser resolves it — nothing to do
+                }
+                // ensure responsive
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+            });
+        }
 
         async function handlePostArticle() {
             const title = document.getElementById('postTitle').value.trim();
@@ -3163,9 +4039,9 @@ function fixSalesforceImages(container) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             // Load likes & comments in parallel
-            loadLikes(a.id);
-            loadComments(a.id);
-            renderCommentForm();
+            //loadLikes(a.id);
+            //loadComments(a.id);
+            //renderCommentForm();
         }
 
         function closeDetail() {
@@ -3403,8 +4279,307 @@ function fixSalesforceImages(container) {
 
         /* ─── START ─── */
         init();
-    </script>
 
+        /* ═══════════════════════════════════════════════════════
+   SEARCH FUNCTIONALITY
+═══════════════════════════════════════════════════════ */
+        let searchQuery = '';
+        let filteredArticles = [];
+
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('searchClear');
+            const countEl = document.getElementById('searchCount');
+
+            searchQuery = input.value.trim().toLowerCase();
+
+            // Show/hide clear button
+            clearBtn.style.display = searchQuery ? 'flex' : 'none';
+
+            if (!searchQuery) {
+                // No search - show all articles (respecting category filter)
+                const activeFilter = document.querySelector('.filter-btn.active');
+                const category = activeFilter ? activeFilter.dataset.filter : 'all';
+                filteredArticles = category === 'all'
+                    ? allArticles
+                    : allArticles.filter(a => (a.category || '').toLowerCase() === category.toLowerCase());
+                countEl.style.display = 'none';
+            } else {
+                // Search across title, summary, content, category
+                filteredArticles = allArticles.filter(a => {
+                    return (a.title || '').toLowerCase().includes(searchQuery) ||
+                        (a.summary || '').toLowerCase().includes(searchQuery) ||
+                        (a.content || '').toLowerCase().includes(searchQuery) ||
+                        (a.category || '').toLowerCase().includes(searchQuery) ||
+                        (a.authorName || '').toLowerCase().includes(searchQuery);
+                });
+
+                // Show result count
+                countEl.textContent = `Found ${filteredArticles.length} article${filteredArticles.length !== 1 ? 's' : ''}`;
+                countEl.style.display = 'block';
+            }
+
+            renderArticles(filteredArticles);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchQuery = '';
+            handleSearch();
+        }
+
+        // Update filterArticles to work with search
+        function filterArticles(btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.dataset.filter;
+
+            // If search is active, filter within search results
+            let articles = searchQuery ? filteredArticles : allArticles;
+
+            const filtered = category === 'all'
+                ? articles
+                : articles.filter(a => (a.category || '').toLowerCase() === category.toLowerCase());
+
+            renderArticles(filtered);
+        }
+        /* ═══════════════════════════════════════════════════════
+   NEWSLETTER SUBSCRIPTION
+═══════════════════════════════════════════════════════ */
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('newsletterEmail').value.trim();
+            const btn = document.getElementById('newsletterBtn');
+            const btnText = document.getElementById('newsletterBtnText');
+            const btnIcon = document.getElementById('newsletterBtnIcon');
+            const successEl = document.getElementById('newsletterSuccess');
+            const errorEl = document.getElementById('newsletterError');
+
+            // Clear previous alerts
+            successEl.style.display = 'none';
+            errorEl.style.display = 'none';
+
+            if (!email) {
+                errorEl.textContent = 'Please enter a valid email address.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // Show loading state
+            btn.disabled = true;
+            btnText.textContent = 'Subscribing...';
+            btnIcon.style.display = 'none';
+
+            try {
+                const res = await sfPost(`${SF}/newsletter`, {
+                    email: email,
+                    source: 'blog_page',
+                    subscribedDate: new Date().toISOString()
+                });
+
+                if (res.success) {
+                    successEl.style.display = 'block';
+                    document.getElementById('newsletterEmail').value = '';
+
+                    // Update subscriber count (if API returns it)
+                    if (res.totalSubscribers) {
+                        document.getElementById('subscriberCount').textContent =
+                            `Join ${res.totalSubscribers}+ subscribers`;
+                    }
+
+                    // Track event
+                    if (currentUser) {
+                        console.log('Newsletter subscription:', email);
+                    }
+                } else {
+                    errorEl.textContent = res.message || 'Subscription failed. Please try again.';
+                    errorEl.style.display = 'block';
+                }
+            } catch (error) {
+                errorEl.textContent = 'Connection failed. Please try again later.';
+                errorEl.style.display = 'block';
+            }
+
+            // Reset button
+            btn.disabled = false;
+            btnText.textContent = 'Subscribe';
+            btnIcon.style.display = 'block';
+        }
+
+        // Load subscriber count on page load
+        async function loadSubscriberCount() {
+            try {
+                const res = await sfGet(`${SF}/newsletter/count`);
+                if (res.success && res.count) {
+                    document.getElementById('subscriberCount').textContent =
+                        `Join ${res.count}+ subscribers`;
+                }
+            } catch (e) {
+                // Silently fail
+            }
+        }
+        /* ═══════════════════════════════════════════════════════
+   USER PROFILE
+═══════════════════════════════════════════════════════ */
+        let profileAvatarUrl = null;
+
+        function openProfileModal() {
+            if (!currentUser) { openAuthModal('login'); return; }
+
+            // Load current user data
+            document.getElementById('profileBio').value = currentUser.bio || '';
+            document.getElementById('profileLinkedIn').value = currentUser.linkedIn || '';
+            document.getElementById('profileGitHub').value = currentUser.github || '';
+            document.getElementById('profileTwitter').value = currentUser.twitter || '';
+
+            // Set avatar
+            const avatarImg = document.getElementById('avatarImg');
+            const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+            if (currentUser.avatar) {
+                avatarImg.src = currentUser.avatar;
+                avatarImg.classList.add('loaded');
+                avatarPlaceholder.style.display = 'none';
+            } else {
+                avatarImg.classList.remove('loaded');
+                avatarPlaceholder.style.display = 'flex';
+            }
+
+            updateBioCount();
+
+            document.getElementById('profileModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('open');
+            document.body.style.overflow = '';
+            clearProfileAlerts();
+        }
+
+        function clearProfileAlerts() {
+            document.getElementById('profileError').classList.remove('show');
+            document.getElementById('profileSuccess').classList.remove('show');
+        }
+
+        function updateBioCount() {
+            const bio = document.getElementById('profileBio').value;
+            document.getElementById('bioCount').textContent = bio.length;
+        }
+
+        // Listen for bio changes
+        document.addEventListener('DOMContentLoaded', () => {
+            const bioField = document.getElementById('profileBio');
+            if (bioField) {
+                bioField.addEventListener('input', updateBioCount);
+            }
+        });
+
+        async function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image must be under 2MB');
+                return;
+            }
+
+            if (!file.type.match(/^image\/(jpeg|png|gif)$/)) {
+                alert('Please upload a JPG, PNG, or GIF image');
+                return;
+            }
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const avatarImg = document.getElementById('avatarImg');
+                const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+
+                // Upload to ImgBB
+                const IMGBB_KEY = 'YOUR_API_KEY_HERE'; // Same as before
+                const base64data = e.target.result.split(',')[1];
+
+                try {
+                    const form = new FormData();
+                    form.append('key', IMGBB_KEY);
+                    form.append('image', base64data);
+
+                    const res = await fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: form
+                    });
+                    const json = await res.json();
+
+                    if (json.success) {
+                        profileAvatarUrl = json.data.url;
+                        avatarImg.src = profileAvatarUrl;
+                        avatarImg.classList.add('loaded');
+                        avatarPlaceholder.style.display = 'none';
+                    } else {
+                        alert('Upload failed. Please try again.');
+                    }
+                } catch (err) {
+                    alert('Upload failed: ' + err.message);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function handleProfileSave() {
+            const bio = document.getElementById('profileBio').value.trim();
+            const linkedIn = document.getElementById('profileLinkedIn').value.trim();
+            const github = document.getElementById('profileGitHub').value.trim();
+            const twitter = document.getElementById('profileTwitter').value.trim();
+
+            clearProfileAlerts();
+            setLoading('profileSaveBtn', true, 'Saving...');
+
+            try {
+                const res = await sfPatch(`${API.REGISTER}`, {
+                    userId: currentUser.id,
+                    bio: bio,
+                    avatar: profileAvatarUrl || currentUser.avatar || '',
+                    linkedIn: linkedIn,
+                    github: github,
+                    twitter: twitter
+                });
+
+                if (res.success && res.user) {
+                    // Update current user
+                    currentUser = res.user;
+                    Session.set(currentUser);
+
+                    // Show success
+                    const successEl = document.getElementById('profileSuccess');
+                    successEl.textContent = '✅ Profile updated successfully!';
+                    successEl.classList.add('show');
+
+                    // Update nav display
+                    document.getElementById('navUsername').textContent = currentUser.name;
+
+                    // Close after 2 seconds
+                    setTimeout(closeProfileModal, 2000);
+                } else {
+                    const errorEl = document.getElementById('profileError');
+                    errorEl.textContent = res.message || 'Failed to update profile.';
+                    errorEl.classList.add('show');
+                }
+            } catch (e) {
+                const errorEl = document.getElementById('profileError');
+                errorEl.textContent = 'Connection failed. Please try again.';
+                errorEl.classList.add('show');
+            }
+
+            setLoading('profileSaveBtn', false, 'Save Profile');
+        }
+
+        // Close profile modal on overlay click
+        document.getElementById('profileModal')?.addEventListener('click', e => {
+            if (e.target === e.currentTarget) closeProfileModal();
+        });
+    </script>
 </body>
 
 </html>
