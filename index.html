@@ -19,6 +19,102 @@
 </head>
 
 <body>
+  <!-- Confetti Canvas -->
+  <canvas id="cert-celebration-canvas"
+    style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;display:none;"></canvas>
+  <div class="cert-modal-backdrop" id="certModalBackdrop"></div>
+  <div class="cert-celebrate-modal" id="certCelebModal" role="dialog" aria-modal="true"
+    aria-label="Achievement unlocked">
+    <div class="cert-modal-inner">
+      <div class="cert-modal-shimmer"></div>
+      <div class="cert-modal-deco"></div>
+      <div class="cert-modal-deco2"></div>
+      <div class="cert-modal-stars" aria-hidden="true">
+        <span>⭐</span><span>✨</span><span>🌟</span><span>💫</span><span>⚡</span><span>🎯</span>
+      </div>
+      <span class="cert-modal-emoji" aria-hidden="true">🏆</span>
+      <div class="cert-modal-eyebrow">
+        <span>🎉</span> Achievement Unlocked
+      </div>
+      <h2 class="cert-modal-title">4× Salesforce<br>Certified!</h2>
+      <p class="cert-modal-sub">
+        Validated expertise across platform development, advanced architecture, AI, and DevOps — each certification
+        earned through real-world application.
+      </p>
+      <div class="cert-modal-img-row">
+        <div class="cert-modal-img-wrap">
+          <img
+            src="https://www.salesforceben.com/wp-content/uploads/2021/08/SF-Certified_Platform-Developer-I-1024x1024.png"
+            alt="Platform Developer I" loading="lazy">
+        </div>
+        <div class="cert-modal-img-wrap">
+          <img
+            src="https://drm.my.salesforce.com/servlet/servlet.ImageServer?id=015Rf00000M9w3J&oid=00DF0000000gZsu&lastMod=1746772244000"
+            alt="Platform Developer II" loading="lazy">
+        </div>
+        <div class="cert-modal-img-wrap">
+          <img src="https://www.apexhours.com/wp-content/uploads/2025/02/ai-specialist-badge-1024x1003.png"
+            alt="AI Specialist" loading="lazy">
+        </div>
+        <div class="cert-modal-img-wrap">
+          <img
+            src="https://cdn.prod.website-files.com/62d8507d84c54d359ad063bc/657bf97e282ca3db1c5a7d3d_Copado%20Certified%20Badges%20FY24_Fundamentals%20II%20Certification%202.svg"
+            alt="Copado Certified I" loading="lazy">
+        </div>
+      </div>
+      <div class="cert-modal-stats">
+        <div class="cert-modal-stat">
+          <div class="cert-modal-stat-num">4+</div>
+          <div class="cert-modal-stat-lbl">Yrs Exp.</div>
+        </div>
+        <div class="cert-modal-stat">
+          <div class="cert-modal-stat-num">4×</div>
+          <div class="cert-modal-stat-lbl">Certified</div>
+        </div>
+        <div class="cert-modal-stat">
+          <div class="cert-modal-stat-num">10+</div>
+          <div class="cert-modal-stat-lbl">Projects</div>
+        </div>
+      </div>
+      <button class="cert-modal-close" id="certModalCloseBtn">
+        Awesome!
+      </button>
+    </div>
+  </div>
+  <!-- Popup 1: B2B Commerce Demo -->
+  <div class="float-popup float-popup-commerce" id="floatPopupCommerce" role="dialog"
+    aria-label="Commerce Cloud demo popup" aria-hidden="true">
+    <button class="float-popup-close" id="closePopupCommerce" aria-label="Dismiss">✕</button>
+    <span class="float-popup-emoji">🛒</span>
+    <span class="float-popup-eyebrow">✦ Live Demo Available</span>
+    <div class="float-popup-title">Have you seen my B2B Commerce Cloud demo?</div>
+    <p class="float-popup-desc">A fully functional B2B storefront with account-based pricing, self-service ordering
+      &amp; ERP sync — live on Salesforce Experience Cloud.</p>
+    <div class="float-popup-actions">
+      <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank" rel="noopener noreferrer" class="float-popup-cta primary">
+        🚀 Check it Out
+      </a>
+      <button class="float-popup-cta secondary" id="laterPopupCommerce">I'll check later</button>
+    </div>
+  </div>
+
+  <!-- Popup 2: Most Complex Project -->
+  <div class="float-popup float-popup-project" id="floatPopupProject" role="dialog" aria-label="Complex project popup"
+    aria-hidden="true">
+    <button class="float-popup-close" id="closePopupProject" aria-label="Dismiss">✕</button>
+    <span class="float-popup-emoji">🏗️</span>
+    <span class="float-popup-eyebrow">✦ Deep Dive</span>
+    <div class="float-popup-title">Want to see the most complex project I built?</div>
+    <p class="float-popup-desc">Full architecture breakdown — MISMO 3.4 XML parsing, WMS sync, and the decisions behind
+      building it all. Real trade-offs, real outcomes.</p>
+    <div class="float-popup-actions">
+      <a href="blogs.html" target="_blank" rel="noopener noreferrer" class="float-popup-cta primary">
+        🔍 Read the Story
+      </a>
+      <button class="float-popup-cta secondary" id="laterPopupProject">I'll check later</button>
+    </div>
+  </div>
+  
   <!-- ─── NAV ─── -->
   <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
     <div class="container nav-inner">
@@ -163,6 +259,7 @@
       </div>
     </div>
   </section>
+
   <!-- ─── SKILLS ─── -->
   <section class="section alt-bg" id="skills" aria-labelledby="skills-heading">
     <div class="container">
@@ -323,6 +420,7 @@
       </div>
     </div>
   </section>
+
   <!-- ─── EXPERIENCE ─── -->
   <section class="exp-section section" id="experience" aria-labelledby="exp-heading">
     <div class="container">
@@ -338,7 +436,6 @@
       </div>
 
       <div class="timeline">
-        <!-- Job 1 -->
         <div class="timeline-gap" aria-hidden="true">
           <div class="gap-line-col"></div>
           <div class="gap-label">1 year 2 months</div>
@@ -419,13 +516,11 @@
           </div>
         </div>
 
-        <!-- Gap connector -->
         <div class="timeline-gap" aria-hidden="true">
           <div class="gap-line-col"></div>
           <div class="gap-label">3 years 3 months</div>
         </div>
 
-        <!-- Job 2 -->
         <div class="exp-card fade-up">
           <div class="exp-node" aria-hidden="true">
             <div class="exp-node-ring">💼</div>
@@ -494,13 +589,13 @@
       </div>
     </div>
   </section>
+
   <!-- ─── BLOG TEASER ─── -->
   <section class="section alt-bg" id="blog-teaser">
     <div class="container">
       <div class="blog-teaser-wrap fade-up">
         <div class="blog-teaser-deco1"></div>
         <div class="blog-teaser-deco2"></div>
-        <!-- Left -->
         <div class="blog-teaser-left">
           <span class="section-label">✍️ Articles · Demos · Videos</span>
           <h2 class="section-heading">Want to go deeper on<br>my projects &amp; experience?</h2>
@@ -524,8 +619,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Right -->
         <div class="blog-teaser-right">
           <a href="blogs.html" class="btn-ink">
             Visit Articles &amp; Demos
@@ -534,7 +627,7 @@
             </svg>
           </a>
           <span class="blog-no-login">No login required</span>
-          <a href="blogs.html" class="btn-ink">
+          <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank" class="btn-ink">
             B2B Commerce Demo
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
@@ -549,6 +642,7 @@
       </div>
     </div>
   </section>
+
   <!-- ─── PROJECTS ─── -->
   <section class="section alt-bg" id="projects" aria-labelledby="projects-heading">
     <div class="container">
@@ -559,7 +653,6 @@
           usability, and business impact.</p>
       </div>
       <div class="projects-grid">
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-int">Integration</span><span class="proj-num"
               aria-hidden="true">01</span></div>
@@ -580,7 +673,6 @@
             </div>
           </div>
         </article>
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-dat">Data Processing</span><span class="proj-num"
               aria-hidden="true">02</span></div>
@@ -600,7 +692,6 @@
             </div>
           </div>
         </article>
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-aut">Automation</span><span class="proj-num"
               aria-hidden="true">03</span></div>
@@ -620,7 +711,6 @@
             </div>
           </div>
         </article>
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-ui">UI / UX</span><span class="proj-num"
               aria-hidden="true">04</span></div>
@@ -639,7 +729,6 @@
             </div>
           </div>
         </article>
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-mkt">Marketing Ops</span><span class="proj-num"
               aria-hidden="true">05</span></div>
@@ -659,7 +748,6 @@
             </div>
           </div>
         </article>
-
         <article class="proj-card fade-up">
           <div class="proj-card-top"><span class="proj-badge b-com">B2B Commerce</span><span class="proj-num"
               aria-hidden="true">06</span></div>
@@ -680,10 +768,10 @@
             </div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
+
   <!-- ─── CERTIFICATIONS ─── -->
   <section class="section" id="certifications" aria-labelledby="certs-heading">
     <div class="container">
@@ -692,42 +780,115 @@
         <div class="divider divider-centered" aria-hidden="true"></div>
         <p class="section-sub" style="margin-top:14px">Validated expertise through the official Salesforce certification
           programme.</p>
+        <!-- Desktop / Mobile hint line -->
+        <p style="margin-top:10px; font-size:0.75rem; color:#9C9990; font-weight:500;" class="cert-interaction-hint">
+          <span class="desktop-hint" style="display:none;">✦ Hover over a badge to see details</span>
+          <span class="mobile-hint-global">✦ Tap any badge to see details</span>
+        </p>
       </div>
+
       <div class="certs-grid">
-        <div class="cert-card fade-up">
+
+        <!-- Card 1: Platform Developer I -->
+        <div class="cert-card fade-up" role="button" tabindex="0"
+          aria-label="Platform Developer I — hover or tap and hold for details">
           <img
             src="https://www.salesforceben.com/wp-content/uploads/2021/08/SF-Certified_Platform-Developer-I-1024x1024.png"
             alt="Salesforce Platform Developer I certification badge" loading="lazy">
           <div class="cert-name">Platform Developer I</div>
           <div class="cert-sub">Apex &amp; LWC Fundamentals</div>
           <div class="cert-badge-pill" role="status">✓ Certified</div>
+          <span class="cert-mobile-hint">✦ Tap &amp; hold for details</span>
+
+          <!-- Detail overlay -->
+          <div class="cert-detail-overlay" aria-hidden="true">
+            <div class="cert-detail-name">Platform Developer I</div>
+            <div class="cert-detail-issuer">Salesforce · 2024</div>
+            <!-- <div class="cert-detail-desc">Core Apex programming, SOQL, triggers, governor limits, and LWC fundamentals.</div> -->
+            <div class="cert-detail-tags">
+              <span class="cert-detail-tag">Apex</span>
+              <span class="cert-detail-tag">LWC</span>
+              <span class="cert-detail-tag">SOQL</span>
+              <span class="cert-detail-tag">Triggers</span>
+            </div>
+            <div class="cert-detail-status">✓ Active &amp; Verified</div>
+          </div>
         </div>
-        <div class="cert-card fade-up">
+
+        <!-- Card 2: Platform Developer II -->
+        <div class="cert-card fade-up" role="button" tabindex="0"
+          aria-label="Platform Developer II — hover or tap and hold for details">
           <img
             src="https://drm.my.salesforce.com/servlet/servlet.ImageServer?id=015Rf00000M9w3J&oid=00DF0000000gZsu&lastMod=1746772244000"
             alt="Salesforce Platform Developer II certification badge" loading="lazy">
           <div class="cert-name">Platform Developer II</div>
           <div class="cert-sub">Advanced Architecture</div>
           <div class="cert-badge-pill" role="status">✓ Certified</div>
+          <span class="cert-mobile-hint">✦ Tap for details</span>
+
+          <div class="cert-detail-overlay" aria-hidden="true">
+            <div class="cert-detail-name">Platform Developer II</div>
+            <div class="cert-detail-issuer">Salesforce · 2024</div>
+            <!-- <div class="cert-detail-desc">Advanced Apex patterns, integration architecture, performance optimisation, design.</div> -->
+            <div class="cert-detail-tags">
+              <span class="cert-detail-tag">Design Patterns</span>
+              <span class="cert-detail-tag">Integration</span>
+              <span class="cert-detail-tag">Performance</span>
+            </div>
+            <div class="cert-detail-status">✓ Active &amp; Verified</div>
+          </div>
         </div>
-        <div class="cert-card fade-up">
+
+        <!-- Card 3: AI Specialist -->
+        <div class="cert-card fade-up" role="button" tabindex="0"
+          aria-label="AI Specialist — hover or tap and hold for details">
           <img src="https://www.apexhours.com/wp-content/uploads/2025/02/ai-specialist-badge-1024x1003.png"
             alt="Salesforce AI Specialist certification badge" loading="lazy">
           <div class="cert-name">AI Specialist</div>
           <div class="cert-sub">AI Fundamentals</div>
           <div class="cert-badge-pill" role="status">✓ Certified</div>
+          <span class="cert-mobile-hint">✦ Tap for details</span>
+
+          <div class="cert-detail-overlay" aria-hidden="true">
+            <div class="cert-detail-name">AI Specialist</div>
+            <div class="cert-detail-issuer">Salesforce · 2025</div>
+            <!-- <div class="cert-detail-desc">Agentforce, prompt engineering, predictive analytics, and building intelligent workflows on the Salesforce platform.</div> -->
+            <div class="cert-detail-tags">
+              <span class="cert-detail-tag">Agentforce</span>
+              <span class="cert-detail-tag">Einstein</span>
+              <span class="cert-detail-tag">Prompts</span>
+            </div>
+            <div class="cert-detail-status">✓ Active &amp; Verified</div>
+          </div>
         </div>
-        <div class="cert-card fade-up">
+
+        <!-- Card 4: Copado Certified I -->
+        <div class="cert-card fade-up" role="button" tabindex="0"
+          aria-label="Copado Certified I — hover or tap and hold for details">
           <img
             src="https://cdn.prod.website-files.com/62d8507d84c54d359ad063bc/657bf97e282ca3db1c5a7d3d_Copado%20Certified%20Badges%20FY24_Fundamentals%20II%20Certification%202.svg"
             alt="Copado Certified I certification badge" loading="lazy">
-          <div class="cert-name">Copado Certified I</div>
           <div class="cert-sub">DevOps &amp; Deployments</div>
           <div class="cert-badge-pill" role="status">✓ Certified</div>
+          <span class="cert-mobile-hint">✦ Tap &amp; hold for details</span>
+
+          <div class="cert-detail-overlay" aria-hidden="true">
+            <div class="cert-detail-name">Copado Certified I</div>
+            <div class="cert-detail-issuer">Copado · 2025</div>
+            <!-- <div class="cert-detail-desc">CI/CD pipeline, Git branching, automated testing, deployment environments, and Salesforce DevOps best practices.</div> -->
+            <div class="cert-detail-tags">
+              <span class="cert-detail-tag">CI/CD</span>
+              <span class="cert-detail-tag">Git</span>
+              <span class="cert-detail-tag">DevOps</span>
+            </div>
+            <div class="cert-detail-status">✓ Active &amp; Verified</div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
+
   <!-- ─── CONTACT ─── -->
   <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
     <div class="container">
@@ -738,15 +899,13 @@
           full-time roles worldwide.</p>
       </div>
       <div class="contact-layout">
-        <!-- Channels -->
         <div class="contact-form-wrap fade-up">
           <p class="contact-intro">Whether you need custom Apex development, LWC dashboards, complex integrations, or
             architecture consulting — I bring both technical depth and delivery discipline. Let's talk about your
             project.</p>
           <div class="channels" role="list" aria-label="Contact channels">
-
             <a href="mailto:ashishkurzekar.ak@gmail.com" class="channel-link ch-email" role="listitem"
-              aria-label="Email Ashish at ashishkurzekar.ak@gmail.com">
+              aria-label="Email Ashish">
               <div class="ch-icon email-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4Z"
@@ -761,9 +920,8 @@
               </div>
               <span class="ch-arrow" aria-hidden="true">→</span>
             </a>
-
             <a href="https://wa.me/917770060991" target="_blank" rel="noopener noreferrer"
-              class="channel-link ch-whatsapp" role="listitem" aria-label="WhatsApp Ashish at +91 7770060991">
+              class="channel-link ch-whatsapp" role="listitem" aria-label="WhatsApp Ashish">
               <div class="ch-icon whatsapp-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -776,9 +934,8 @@
               </div>
               <span class="ch-arrow" aria-hidden="true">→</span>
             </a>
-
             <a href="https://linkedin.com/in/ashish-kurzekar-2020" target="_blank" rel="noopener noreferrer"
-              class="channel-link ch-linkedin" role="listitem" aria-label="Ashish's LinkedIn profile">
+              class="channel-link ch-linkedin" role="listitem" aria-label="LinkedIn">
               <div class="ch-icon linkedin-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -791,9 +948,8 @@
               </div>
               <span class="ch-arrow" aria-hidden="true">→</span>
             </a>
-
             <a href="https://github.com/ashu8102/portfolio" target="_blank" rel="noopener noreferrer"
-              class="channel-link ch-github" role="listitem" aria-label="Ashish's GitHub profile">
+              class="channel-link ch-github" role="listitem" aria-label="GitHub">
               <div class="ch-icon github-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -806,11 +962,9 @@
               </div>
               <span class="ch-arrow" aria-hidden="true">→</span>
             </a>
-
           </div>
         </div>
 
-        <!-- Form -->
         <form class="contact-form-wrap fade-up" onsubmit="handleSubmit(event)" aria-label="Contact form" novalidate>
           <p class="contact-intro">If you're searching for innovative solutions, modern dashboards, seamless
             integrations, or strategic guidance — I combine creativity with precision to deliver results.</p>
@@ -836,6 +990,7 @@
       </div>
     </div>
   </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -879,26 +1034,29 @@
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
-  <script type='text/javascript'>
-	function initEmbeddedMessaging() {
-		try {
-			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
-			embeddedservice_bootstrap.init(
-				'00DgL00000GD3YL',
-				'Asha_Web_Chats_Channel',
-				'https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936',
-				{
-					scrt2URL: 'https://ashishkurzekar-dev-ed.develop.my.salesforce-scrt.com'
-				}
-			);
-		} catch (err) {
-			console.error('Error loading Embedded Messaging: ', err);
-		}
-	};
-</script>
-<script type='text/javascript' src='https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+  <script src="script.js"></script>
+
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+        embeddedservice_bootstrap.init(
+          '00DgL00000GD3YL',
+          'Asha_Web_Chats_Channel',
+          'https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936',
+          {
+            scrt2URL: 'https://ashishkurzekar-dev-ed.develop.my.salesforce-scrt.com'
+          }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+      }
+    };
+  </script>
+  <script type='text/javascript'
+    src='https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936/assets/js/bootstrap.min.js'
+    onload='initEmbeddedMessaging()'></script>
 </body>
 
 </html>

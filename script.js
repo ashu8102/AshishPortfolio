@@ -200,3 +200,351 @@ document.addEventListener("DOMContentLoaded", () => {
     counters.forEach(counter => observer.observe(counter));
 });
 
+/* ─────────────────────────────────────────────────────────────
+   CERTIFICATIONS: CELEBRATION CONFETTI + MODAL
+   + HOVER / TAP-HOLD DETAIL OVERLAY
+───────────────────────────────────────────────────────────── */
+
+// ── Detect desktop hint ──
+(function () {
+    const isTouch = !window.matchMedia('(hover: hover)').matches;
+    const desktopHint = document.querySelector('.desktop-hint');
+    const mobileHintGlobal = document.querySelector('.mobile-hint-global');
+    if (desktopHint && mobileHintGlobal) {
+        if (isTouch) {
+            mobileHintGlobal.style.display = 'inline';
+            desktopHint.style.display = 'none';
+        } else {
+            desktopHint.style.display = 'inline';
+            mobileHintGlobal.style.display = 'none';
+        }
+    }
+})();
+
+// ── Confetti Engine ──
+const canvas = document.getElementById('cert-celebration-canvas');
+const ctx = canvas ? canvas.getContext('2d') : null;
+let confettiParticles = [];
+let confettiAnim = null;
+let confettiRunning = false;
+
+function resizeCanvas() {
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+const CONFETTI_COLORS = [
+    '#0176D3', '#00C6FF', '#A855F7', '#EC4899', '#F59E0B',
+    '#10B981', '#F97316', '#6366F1', '#FBBF24', '#34D399'
+];
+
+function createConfettiParticles() {
+    confettiParticles = [];
+    for (let i = 0; i < 160; i++) {
+        confettiParticles.push({
+            x: Math.random() * canvas.width,
+            y: -10 - Math.random() * 200,
+            w: 6 + Math.random() * 10,
+            h: 3 + Math.random() * 6,
+            color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+            rotation: Math.random() * Math.PI * 2,
+            rotSpeed: (Math.random() - 0.5) * 0.15,
+            vx: (Math.random() - 0.5) * 3,
+            vy: 2.5 + Math.random() * 4,
+            opacity: 1,
+            shape: Math.random() > 0.5 ? 'rect' : 'circle'
+        });
+    }
+}
+
+function drawConfetti() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let allDone = true;
+
+    confettiParticles.forEach(p => {
+        if (p.y < canvas.height + 20) allDone = false;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.04; // gravity
+        p.rotation += p.rotSpeed;
+        if (p.y > canvas.height * 0.6) {
+            p.opacity = Math.max(0, p.opacity - 0.015);
+        }
+
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+        if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+            ctx.fill();
+        } else {
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        }
+        ctx.restore();
+    });
+
+    if (!allDone) {
+        confettiAnim = requestAnimationFrame(drawConfetti);
+    } else {
+        stopConfetti();
+    }
+}
+
+function startConfetti() {
+    if (!canvas || confettiRunning) return;
+    confettiRunning = true;
+    canvas.style.display = 'block';
+    createConfettiParticles();
+    confettiAnim = requestAnimationFrame(drawConfetti);
+}
+
+function stopConfetti() {
+    if (!canvas) return;
+    confettiRunning = false;
+    if (confettiAnim) cancelAnimationFrame(confettiAnim);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = 'none';
+}
+
+// ── Modal controls ──
+const modal = document.getElementById('certCelebModal');
+const backdrop = document.getElementById('certModalBackdrop');
+const closeBtn = document.getElementById('certModalCloseBtn');
+let celebrationShown = false;
+
+function showCelebration() {
+    if (celebrationShown) return;
+    celebrationShown = true;
+
+    startConfetti();
+
+    setTimeout(() => {
+        backdrop.classList.add('show');
+        modal.classList.add('show');
+    }, 500);
+}
+
+function hideCelebration() {
+    modal.classList.remove('show');
+    backdrop.classList.remove('show');
+    setTimeout(stopConfetti, 600);
+}
+
+closeBtn && closeBtn.addEventListener('click', hideCelebration);
+backdrop && backdrop.addEventListener('click', hideCelebration);
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('show')) hideCelebration();
+});
+
+// ── Scroll trigger for cert section ──
+const certSection = document.getElementById('certifications');
+if (certSection) {
+    const certObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !celebrationShown) {
+                showCelebration();
+            }
+        });
+    }, { threshold: 0.3 });
+    certObserver.observe(certSection);
+}
+
+// ── Cert card tap-and-hold (mobile) ──
+const certCards = document.querySelectorAll('.cert-card');
+let tapHoldTimer = null;
+let activeTappedCard = null;
+
+certCards.forEach(card => {
+    // Touch start → begin hold timer
+    card.addEventListener('touchstart', (e) => {
+        //tapHoldTimer = setTimeout(() => {
+            // Remove tapped from others
+            certCards.forEach(c => c !== card && c.classList.remove('tapped'));
+            card.classList.add('tapped');
+            activeTappedCard = card;
+            // Subtle haptic if supported
+            if (navigator.vibrate) navigator.vibrate(30);
+        //}, 0);
+    }, { passive: true });
+
+    card.addEventListener('touchend', () => {
+        clearTimeout(tapHoldTimer);
+    });
+
+    card.addEventListener('touchmove', () => {
+        clearTimeout(tapHoldTimer);
+    });
+
+    // Keyboard accessibility
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            certCards.forEach(c => c !== card && c.classList.remove('tapped'));
+            card.classList.toggle('tapped');
+        }
+        if (e.key === 'Escape') {
+            card.classList.remove('tapped');
+        }
+    });
+});
+
+// Tap elsewhere to dismiss on mobile
+document.addEventListener('touchstart', (e) => {
+    if (activeTappedCard && !activeTappedCard.contains(e.target)) {
+        activeTappedCard.classList.remove('tapped');
+        activeTappedCard = null;
+    }
+}, { passive: true });
+
+    // Popups for commerce + project sections
+    
+  (function () {
+    const DISMISS_KEY = 'ashish_popup_dismissed_';
+
+    // Target delays (active time on tab, NOT wall clock time)
+    const TARGET_DELAYS = { commerce: 20000, project: 40000 };
+    const AUTO_HIDE_AFTER = 60000; // hide popup after 60s if ignored
+
+    const POSITIONS = ['pos-bottom-left', 'pos-bottom-right', 'pos-top-right', 'pos-top-left'];
+
+    function pickPositions() {
+      if (window.innerWidth < 600) return ['pos-bottom-left', 'pos-bottom-right'];
+      const shuffled = [...POSITIONS].sort(() => Math.random() - 0.5);
+      return [shuffled[0], shuffled[1]];
+    }
+
+    function wasDismissed(key) {
+      try { return localStorage.getItem(DISMISS_KEY + key) === '1'; } catch(e) { return false; }
+    }
+
+    function dismissForever(el, key) {
+      try { localStorage.setItem(DISMISS_KEY + key, '1'); } catch(e) {}
+      hidePopup(el);
+    }
+
+    function showPopup(el, posClass) {
+      el.classList.add(posClass);
+      el.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+    }
+
+    function hidePopup(el) {
+      el.classList.remove('visible');
+      el.setAttribute('aria-hidden', 'true');
+      setTimeout(() => { el.style.display = 'none'; }, 400);
+    }
+
+    // ── Tab-aware timer ──────────────────────────────────────────
+    // Instead of setTimeout (counts even when tab is hidden),
+    // we track how many milliseconds the tab has actually been ACTIVE.
+    // When the tab goes hidden, the timer pauses. When it comes back, it resumes.
+
+    function createTabAwareTimer(callback, delayMs) {
+      let elapsed = 0;          // ms of active time accumulated so far
+      let lastVisible = null;   // timestamp when tab became visible
+      let ticker = null;        // setInterval reference
+      let fired = false;
+
+      function startTicking() {
+        if (fired || ticker) return;
+        lastVisible = performance.now();
+        ticker = setInterval(() => {
+          if (document.hidden) return; // safety guard
+          elapsed += performance.now() - lastVisible;
+          lastVisible = performance.now();
+          if (elapsed >= delayMs) {
+            clearInterval(ticker);
+            ticker = null;
+            fired = true;
+            callback();
+          }
+        }, 250); // checks 4× per second — lightweight
+      }
+
+      function pauseTicking() {
+        if (ticker) {
+          // Bank whatever time passed since we last checked
+          if (lastVisible !== null) {
+            elapsed += performance.now() - lastVisible;
+            lastVisible = null;
+          }
+          clearInterval(ticker);
+          ticker = null;
+        }
+      }
+
+      // Page Visibility API listener
+      function onVisibilityChange() {
+        if (document.hidden) {
+          pauseTicking();
+        } else {
+          startTicking();
+        }
+      }
+
+      document.addEventListener('visibilitychange', onVisibilityChange);
+
+      // Start immediately if tab is already visible
+      if (!document.hidden) startTicking();
+
+      // Return a cancel function in case needed
+      return function cancel() {
+        fired = true;
+        clearInterval(ticker);
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      };
+    }
+    // ─────────────────────────────────────────────────────────────
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const popupCommerce = document.getElementById('floatPopupCommerce');
+      const popupProject  = document.getElementById('floatPopupProject');
+      const [pos1, pos2]  = pickPositions();
+
+      // ── Commerce popup ──
+      if (!wasDismissed('commerce') && popupCommerce) {
+        createTabAwareTimer(() => {
+          showPopup(popupCommerce, pos1);
+          // Auto-hide after 12s if user ignores it
+          createTabAwareTimer(() => {
+            if (popupCommerce.classList.contains('visible')) hidePopup(popupCommerce);
+          }, AUTO_HIDE_AFTER);
+        }, TARGET_DELAYS.commerce);
+
+        document.getElementById('closePopupCommerce')
+          .addEventListener('click', () => hidePopup(popupCommerce));
+        document.getElementById('laterPopupCommerce')
+          .addEventListener('click', () => dismissForever(popupCommerce, 'commerce'));
+      } else if (popupCommerce) {
+        popupCommerce.style.display = 'none';
+      }
+
+      // ── Project popup ──
+      if (!wasDismissed('project') && popupProject) {
+        createTabAwareTimer(() => {
+          showPopup(popupProject, pos2);
+          createTabAwareTimer(() => {
+            if (popupProject.classList.contains('visible')) hidePopup(popupProject);
+          }, AUTO_HIDE_AFTER);
+        }, TARGET_DELAYS.project);
+
+        document.getElementById('closePopupProject')
+          .addEventListener('click', () => hidePopup(popupProject));
+        document.getElementById('laterPopupProject')
+          .addEventListener('click', () => dismissForever(popupProject, 'project'));
+      } else if (popupProject) {
+        popupProject.style.display = 'none';
+      }
+    });
+  })();
+
+
+  
+
