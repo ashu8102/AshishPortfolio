@@ -102,6 +102,15 @@ button {
 /* ───────────────────────────────────────────
        NAVIGATION
     ─────────────────────────────────────────── */
+.redirect-icon svg {
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.redirect-icon:hover svg {
+  transform: translate(2px, -2px);
+}
+
 .nav {
   position: fixed;
   top: 0;
@@ -142,7 +151,7 @@ button {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: 24px;
 }
 
 .nav-links a {
@@ -152,6 +161,9 @@ button {
   letter-spacing: 0.2px;
   transition: color var(--t);
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-links a::after {
@@ -233,7 +245,7 @@ button {
     flex-direction: column;
     gap: 0;
     position: absolute;
-    top: 66px;
+    top: 46px;
     left: 0;
     right: 0;
     background: var(--white);
@@ -251,6 +263,7 @@ button {
     border-bottom: 1px solid var(--border);
     font-size: 0.95rem;
     width: 100%;
+    justify-content: center;
   }
 
   .nav-links a:last-child {
@@ -702,6 +715,10 @@ button {
   .btn-outline {
     justify-content: center;
     text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: none;
   }
 }
 
@@ -3093,9 +3110,11 @@ button {
     right: 16px !important;
     width: auto;
   }
+
   .float-popup-title {
     font-size: 1rem;
   }
+
   .float-popup.pos-bottom-left,
   .float-popup.pos-bottom-right {
     bottom: 16px;

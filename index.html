@@ -21,7 +21,8 @@
 <body>
   <!-- Confetti Canvas -->
   <canvas id="cert-celebration-canvas"
-    style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;display:none;"></canvas>
+    style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;display:none;">
+  </canvas>
   <div class="cert-modal-backdrop" id="certModalBackdrop"></div>
   <div class="cert-celebrate-modal" id="certCelebModal" role="dialog" aria-modal="true"
     aria-label="Achievement unlocked">
@@ -81,6 +82,7 @@
       </button>
     </div>
   </div>
+
   <!-- Popup 1: B2B Commerce Demo -->
   <div class="float-popup float-popup-commerce" id="floatPopupCommerce" role="dialog"
     aria-label="Commerce Cloud demo popup" aria-hidden="true">
@@ -91,7 +93,8 @@
     <p class="float-popup-desc">A fully functional B2B storefront with account-based pricing, self-service ordering
       &amp; ERP sync — live on Salesforce Experience Cloud.</p>
     <div class="float-popup-actions">
-      <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank" rel="noopener noreferrer" class="float-popup-cta primary">
+      <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank"
+        rel="noopener noreferrer" class="float-popup-cta primary">
         🚀 Check it Out
       </a>
       <button class="float-popup-cta secondary" id="laterPopupCommerce">I'll check later</button>
@@ -108,13 +111,13 @@
     <p class="float-popup-desc">Full architecture breakdown — MISMO 3.4 XML parsing, WMS sync, and the decisions behind
       building it all. Real trade-offs, real outcomes.</p>
     <div class="float-popup-actions">
-      <a href="blogs.html" target="_blank" rel="noopener noreferrer" class="float-popup-cta primary">
+      <a href="projects.html#deep-dive" target="_blank" rel="noopener noreferrer" class="float-popup-cta primary">
         🔍 Read the Story
       </a>
       <button class="float-popup-cta secondary" id="laterPopupProject">I'll check later</button>
     </div>
   </div>
-  
+
   <!-- ─── NAV ─── -->
   <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
     <div class="container nav-inner">
@@ -125,9 +128,32 @@
         <a href="#experience" role="menuitem">Experience</a>
         <a href="#projects" role="menuitem">Projects</a>
         <a href="#certifications" role="menuitem">Certifications</a>
-        <a href="blogs.html" role="menuitem">Articles</a>
-        <a href="projects.html" role="menuitem">Project Stories</a>
-        <a href="#contact" class="nav-cta" role="menuitem">Get in Touch</a>
+        <a href="blogs.html" role="menuitem" target="_blank" class="redirect-icon">Articles
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="20" height="20">
+            <path d="M14 3h7v7"></path>
+            <path d="M10 14L21 3"></path>
+            <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
+          </svg>
+        </a>
+        <a href="projects.html" role="menuitem" target="_blank" class="redirect-icon">Project Stories
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="20" height="20">
+            <path d="M14 3h7v7"></path>
+            <path d="M10 14L21 3"></path>
+            <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
+          </svg>
+        </a>
+        <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" role="menuitem" target="_blank"
+          class="redirect-icon">B2B Live Demo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="20" height="20">
+            <path d="M14 3h7v7"></path>
+            <path d="M10 14L21 3"></path>
+            <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
+          </svg>
+        </a>
+        <a href="#contactForm" class="nav-cta" role="menuitem">Get in Touch</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
@@ -174,7 +200,7 @@
               <div class="lbl">Years Experience</div>
             </div>
             <div class="stat" role="listitem">
-              <div class="num" data-target="10" data-suffix="+" aria-label="10 plus projects">0</div>
+              <div class="num" data-target="12" data-suffix="+" aria-label="12 plus projects">0</div>
               <div class="lbl">Projects Shipped</div>
             </div>
             <div class="stat" role="listitem">
@@ -620,17 +646,22 @@
           </div>
         </div>
         <div class="blog-teaser-right">
-          <a href="blogs.html" class="btn-ink">
-            Visit Articles &amp; Demos
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
+          <a href="blogs.html" target="_blank" class="redirect-icon btn-ink">Visit Articles &amp; Demos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" width="20" height="20">
+              <path d="M14 3h7v7"></path>
+              <path d="M10 14L21 3"></path>
+              <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
             </svg>
           </a>
           <span class="blog-no-login">No login required</span>
-          <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank" class="btn-ink">
-            B2B Commerce Demo
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
+          <a href="https://ashishkurzekar-dev-ed.develop.my.site.com/premiumcellar" target="_blank"
+            class="redirect-icon btn-ink">B2B Commerce Demo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" width="20" height="20">
+              <path d="M14 3h7v7"></path>
+              <path d="M10 14L21 3"></path>
+              <path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
             </svg>
           </a>
           <div class="blog-feature-pills">
@@ -965,7 +996,7 @@
           </div>
         </div>
 
-        <form class="contact-form-wrap fade-up" onsubmit="handleSubmit(event)" aria-label="Contact form" novalidate>
+        <form class="contact-form-wrap fade-up" id="contactForm" onsubmit="handleSubmit(event)" aria-label="Contact form" novalidate>
           <p class="contact-intro">If you're searching for innovative solutions, modern dashboards, seamless
             integrations, or strategic guidance — I combine creativity with precision to deliver results.</p>
           <div class="form-row2">
@@ -1029,7 +1060,7 @@
             </svg>
           </a>
         </div>
-        <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer · Nagpur, India<br>Open to remote
+        <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer<br>Open to remote
           opportunities worldwide</div>
       </div>
     </div>
@@ -1056,7 +1087,9 @@
   </script>
   <script type='text/javascript'
     src='https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936/assets/js/bootstrap.min.js'
-    onload='initEmbeddedMessaging()'></script>
+    onload='initEmbeddedMessaging()'>
+  </script>
+  <script src="tracker.js" defer></script>
 </body>
 
 </html>

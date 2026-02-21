@@ -1,34 +1,5 @@
 
 
-// Disable right-click
-document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-// Disable common keyboard shortcuts for Inspect Element
-// document.addEventListener('keydown', (e) => {
-//   // Disable F12
-//   if (e.key === 'F12') {
-//     e.preventDefault();
-//   }
-
-//   // Disable Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elements)
-//   if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
-//     e.preventDefault();
-//   }
-
-//   // Disable Ctrl+U (View Source)
-//   if (e.ctrlKey && e.key === 'u') {
-//     e.preventDefault();
-//   }
-
-//   // Disable Ctrl+S (Save Page)
-//   if (e.ctrlKey && e.key === 's') {
-//     e.preventDefault();
-//   }
-// });
-
-
-
-
 const element = document.getElementById("typing-text");
 
 // Dynamic words that cycle
@@ -439,8 +410,8 @@ document.addEventListener('touchstart', (e) => {
     const DISMISS_KEY = 'ashish_popup_dismissed_';
 
     // Target delays (active time on tab, NOT wall clock time)
-    const TARGET_DELAYS = { commerce: 20000, project: 40000 };
-    const AUTO_HIDE_AFTER = 60000; // hide popup after 60s if ignored
+    const TARGET_DELAYS = { commerce: 30000, project: 50000 };
+    const AUTO_HIDE_AFTER = 90000; // hide popup after 60s if ignored
 
     const POSITIONS = ['pos-bottom-left', 'pos-bottom-right', 'pos-top-right', 'pos-top-left'];
 
@@ -574,7 +545,3 @@ document.addEventListener('touchstart', (e) => {
       }
     });
   })();
-
-
-  
-

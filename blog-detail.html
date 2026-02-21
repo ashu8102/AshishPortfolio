@@ -2639,14 +2639,6 @@
             document.getElementById('pageError').style.display = 'flex';
         }
 
-        /* ═══════════════════════════════════════
-           AUTH UI
-        ═══════════════════════════════════════ */
-        /*function setLoggedInUI(name) {
-          document.getElementById('navLoggedOut').style.display = 'none';
-          document.getElementById('navLoggedIn').style.display  = 'flex';
-          document.getElementById('navUsername').textContent    = name;
-        }*/
         function setLoggedInUI(name) {
             document.getElementById('navLoggedOut').style.display = 'none';
             document.getElementById('navLoggedIn').style.display = 'flex';
@@ -3286,7 +3278,9 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAuthModal(); closeEditModal(); } });
 
         init();
+
     </script>
+    <script src="tracker.js" defer></script>
 </body>
 
 </html>
