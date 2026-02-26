@@ -366,12 +366,12 @@ certCards.forEach(card => {
     // Touch start → begin hold timer
     card.addEventListener('touchstart', (e) => {
         //tapHoldTimer = setTimeout(() => {
-            // Remove tapped from others
-            certCards.forEach(c => c !== card && c.classList.remove('tapped'));
-            card.classList.add('tapped');
-            activeTappedCard = card;
-            // Subtle haptic if supported
-            if (navigator.vibrate) navigator.vibrate(30);
+        // Remove tapped from others
+        certCards.forEach(c => c !== card && c.classList.remove('tapped'));
+        card.classList.add('tapped');
+        activeTappedCard = card;
+        // Subtle haptic if supported
+        if (navigator.vibrate) navigator.vibrate(30);
         //}, 0);
     }, { passive: true });
 
@@ -404,9 +404,9 @@ document.addEventListener('touchstart', (e) => {
     }
 }, { passive: true });
 
-    // Popups for commerce + project sections
-    
-  (function () {
+// Popups for commerce + project sections
+
+(function () {
     const DISMISS_KEY = 'ashish_popup_dismissed_';
 
     // Target delays (active time on tab, NOT wall clock time)
@@ -416,30 +416,30 @@ document.addEventListener('touchstart', (e) => {
     const POSITIONS = ['pos-bottom-left', 'pos-bottom-right', 'pos-top-right', 'pos-top-left'];
 
     function pickPositions() {
-      if (window.innerWidth < 600) return ['pos-bottom-left', 'pos-bottom-right'];
-      const shuffled = [...POSITIONS].sort(() => Math.random() - 0.5);
-      return [shuffled[0], shuffled[1]];
+        if (window.innerWidth < 600) return ['pos-bottom-left', 'pos-bottom-right'];
+        const shuffled = [...POSITIONS].sort(() => Math.random() - 0.5);
+        return [shuffled[0], shuffled[1]];
     }
 
     function wasDismissed(key) {
-      try { return localStorage.getItem(DISMISS_KEY + key) === '1'; } catch(e) { return false; }
+        try { return localStorage.getItem(DISMISS_KEY + key) === '1'; } catch (e) { return false; }
     }
 
     function dismissForever(el, key) {
-      try { localStorage.setItem(DISMISS_KEY + key, '1'); } catch(e) {}
-      hidePopup(el);
+        try { localStorage.setItem(DISMISS_KEY + key, '1'); } catch (e) { }
+        hidePopup(el);
     }
 
     function showPopup(el, posClass) {
-      el.classList.add(posClass);
-      el.setAttribute('aria-hidden', 'false');
-      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+        el.classList.add(posClass);
+        el.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
     }
 
     function hidePopup(el) {
-      el.classList.remove('visible');
-      el.setAttribute('aria-hidden', 'true');
-      setTimeout(() => { el.style.display = 'none'; }, 400);
+        el.classList.remove('visible');
+        el.setAttribute('aria-hidden', 'true');
+        setTimeout(() => { el.style.display = 'none'; }, 400);
     }
 
     // ── Tab-aware timer ──────────────────────────────────────────
@@ -448,100 +448,142 @@ document.addEventListener('touchstart', (e) => {
     // When the tab goes hidden, the timer pauses. When it comes back, it resumes.
 
     function createTabAwareTimer(callback, delayMs) {
-      let elapsed = 0;          // ms of active time accumulated so far
-      let lastVisible = null;   // timestamp when tab became visible
-      let ticker = null;        // setInterval reference
-      let fired = false;
+        let elapsed = 0;          // ms of active time accumulated so far
+        let lastVisible = null;   // timestamp when tab became visible
+        let ticker = null;        // setInterval reference
+        let fired = false;
 
-      function startTicking() {
-        if (fired || ticker) return;
-        lastVisible = performance.now();
-        ticker = setInterval(() => {
-          if (document.hidden) return; // safety guard
-          elapsed += performance.now() - lastVisible;
-          lastVisible = performance.now();
-          if (elapsed >= delayMs) {
-            clearInterval(ticker);
-            ticker = null;
+        function startTicking() {
+            if (fired || ticker) return;
+            lastVisible = performance.now();
+            ticker = setInterval(() => {
+                if (document.hidden) return; // safety guard
+                elapsed += performance.now() - lastVisible;
+                lastVisible = performance.now();
+                if (elapsed >= delayMs) {
+                    clearInterval(ticker);
+                    ticker = null;
+                    fired = true;
+                    callback();
+                }
+            }, 250); // checks 4× per second — lightweight
+        }
+
+        function pauseTicking() {
+            if (ticker) {
+                // Bank whatever time passed since we last checked
+                if (lastVisible !== null) {
+                    elapsed += performance.now() - lastVisible;
+                    lastVisible = null;
+                }
+                clearInterval(ticker);
+                ticker = null;
+            }
+        }
+
+        // Page Visibility API listener
+        function onVisibilityChange() {
+            if (document.hidden) {
+                pauseTicking();
+            } else {
+                startTicking();
+            }
+        }
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        // Start immediately if tab is already visible
+        if (!document.hidden) startTicking();
+
+        // Return a cancel function in case needed
+        return function cancel() {
             fired = true;
-            callback();
-          }
-        }, 250); // checks 4× per second — lightweight
-      }
-
-      function pauseTicking() {
-        if (ticker) {
-          // Bank whatever time passed since we last checked
-          if (lastVisible !== null) {
-            elapsed += performance.now() - lastVisible;
-            lastVisible = null;
-          }
-          clearInterval(ticker);
-          ticker = null;
-        }
-      }
-
-      // Page Visibility API listener
-      function onVisibilityChange() {
-        if (document.hidden) {
-          pauseTicking();
-        } else {
-          startTicking();
-        }
-      }
-
-      document.addEventListener('visibilitychange', onVisibilityChange);
-
-      // Start immediately if tab is already visible
-      if (!document.hidden) startTicking();
-
-      // Return a cancel function in case needed
-      return function cancel() {
-        fired = true;
-        clearInterval(ticker);
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-      };
+            clearInterval(ticker);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
     }
     // ─────────────────────────────────────────────────────────────
 
     document.addEventListener('DOMContentLoaded', function () {
-      const popupCommerce = document.getElementById('floatPopupCommerce');
-      const popupProject  = document.getElementById('floatPopupProject');
-      const [pos1, pos2]  = pickPositions();
+        const popupCommerce = document.getElementById('floatPopupCommerce');
+        const popupProject = document.getElementById('floatPopupProject');
+        const [pos1, pos2] = pickPositions();
 
-      // ── Commerce popup ──
-      if (!wasDismissed('commerce') && popupCommerce) {
-        createTabAwareTimer(() => {
-          showPopup(popupCommerce, pos1);
-          // Auto-hide after 12s if user ignores it
-          createTabAwareTimer(() => {
-            if (popupCommerce.classList.contains('visible')) hidePopup(popupCommerce);
-          }, AUTO_HIDE_AFTER);
-        }, TARGET_DELAYS.commerce);
+        // ── Commerce popup ──
+        if (!wasDismissed('commerce') && popupCommerce) {
+            createTabAwareTimer(() => {
+                showPopup(popupCommerce, pos1);
+                // Auto-hide after 12s if user ignores it
+                createTabAwareTimer(() => {
+                    if (popupCommerce.classList.contains('visible')) hidePopup(popupCommerce);
+                }, AUTO_HIDE_AFTER);
+            }, TARGET_DELAYS.commerce);
 
-        document.getElementById('closePopupCommerce')
-          .addEventListener('click', () => hidePopup(popupCommerce));
-        document.getElementById('laterPopupCommerce')
-          .addEventListener('click', () => dismissForever(popupCommerce, 'commerce'));
-      } else if (popupCommerce) {
-        popupCommerce.style.display = 'none';
-      }
+            document.getElementById('closePopupCommerce')
+                .addEventListener('click', () => hidePopup(popupCommerce));
+            document.getElementById('laterPopupCommerce')
+                .addEventListener('click', () => dismissForever(popupCommerce, 'commerce'));
+        } else if (popupCommerce) {
+            popupCommerce.style.display = 'none';
+        }
 
-      // ── Project popup ──
-      if (!wasDismissed('project') && popupProject) {
-        createTabAwareTimer(() => {
-          showPopup(popupProject, pos2);
-          createTabAwareTimer(() => {
-            if (popupProject.classList.contains('visible')) hidePopup(popupProject);
-          }, AUTO_HIDE_AFTER);
-        }, TARGET_DELAYS.project);
+        // ── Project popup ──
+        if (!wasDismissed('project') && popupProject) {
+            createTabAwareTimer(() => {
+                showPopup(popupProject, pos2);
+                createTabAwareTimer(() => {
+                    if (popupProject.classList.contains('visible')) hidePopup(popupProject);
+                }, AUTO_HIDE_AFTER);
+            }, TARGET_DELAYS.project);
 
-        document.getElementById('closePopupProject')
-          .addEventListener('click', () => hidePopup(popupProject));
-        document.getElementById('laterPopupProject')
-          .addEventListener('click', () => dismissForever(popupProject, 'project'));
-      } else if (popupProject) {
-        popupProject.style.display = 'none';
-      }
+            document.getElementById('closePopupProject')
+                .addEventListener('click', () => hidePopup(popupProject));
+            document.getElementById('laterPopupProject')
+                .addEventListener('click', () => dismissForever(popupProject, 'project'));
+        } else if (popupProject) {
+            popupProject.style.display = 'none';
+        }
     });
-  })();
+})();
+
+
+/* ─── SKILLS CLOUD CELEBRATION MODAL ─── */
+(function () {
+    const modal = document.getElementById('cloudCelebModal');
+    const backdrop = document.getElementById('cloudModalBackdrop');
+    const closeBtn = document.getElementById('cloudModalCloseBtn');
+    if (!modal) return;
+
+    let cloudShown = false;
+
+    function showCloudModal() {
+        if (cloudShown) return;
+        cloudShown = true;
+        backdrop.classList.add('show');
+        modal.classList.add('show');
+    }
+
+    function hideCloudModal() {
+        modal.classList.remove('show');
+        backdrop.classList.remove('show');
+    }
+
+    // Trigger when skills section scrolls into view
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !cloudShown) {
+                    setTimeout(showCloudModal, 600);
+                }
+            });
+        }, { threshold: 0.3 });
+        observer.observe(skillsSection);
+    }
+
+    closeBtn && closeBtn.addEventListener('click', hideCloudModal);
+    backdrop && backdrop.addEventListener('click', hideCloudModal);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) hideCloudModal();
+    });
+})();

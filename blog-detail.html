@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article — Ashish Kurzekar</title>
-
+    <title>Article — Detail</title>
+    <link rel="icon" type="image/png" href="https://www.salesforce.com/favicon.ico">
     <!-- Add these Open Graph tags AFTER the title -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="" id="ogUrl">
@@ -102,7 +102,8 @@
             margin: 0 auto;
             padding: 0 clamp(16px, 4vw, 32px)
         }
-        .news-container{
+
+        .news-container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 clamp(1px, 4vw, 0px)
@@ -2423,37 +2424,37 @@
                         <!-- Newsletter Section (add before footer or in sidebar) newsletter-section-->
                         <section class="news-container">
                             <!-- <div class="container"> -->
-                                <div class="newsletter-card">
-                                    <div class="newsletter-icon">📧</div>
-                                    <h3 class="newsletter-title">Stay Updated</h3>
-                                    <p class="newsletter-desc">Get notified when new Salesforce articles are published.
-                                        No spam, unsubscribe anytime.</p>
+                            <div class="newsletter-card">
+                                <div class="newsletter-icon">📧</div>
+                                <h3 class="newsletter-title">Stay Updated</h3>
+                                <p class="newsletter-desc">Get notified when new Salesforce articles are published.
+                                    No spam, unsubscribe anytime.</p>
 
-                                    <form class="newsletter-form" id="newsletterForm"
-                                        onsubmit="handleNewsletterSubmit(event)">
-                                        <div class="newsletter-input-group">
-                                            <input type="email" id="newsletterEmail" class="newsletter-input"
-                                                placeholder="your@email.com" required />
-                                            <button type="submit" class="newsletter-btn" id="newsletterBtn">
-                                                <span id="newsletterBtnText">Subscribe</span>
-                                                <svg id="newsletterBtnIcon" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2.5">
-                                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="newsletter-alert newsletter-success" id="newsletterSuccess"
-                                            style="display:none">
-                                            ✅ Subscribed! Check your email to confirm.
-                                        </div>
-                                        <div class="newsletter-alert newsletter-error" id="newsletterError"
-                                            style="display:none"></div>
-                                    </form>
-
-                                    <div class="newsletter-stats">
-                                        <span id="subscriberCount">Joined 300+ subscribers</span>
+                                <form class="newsletter-form" id="newsletterForm"
+                                    onsubmit="handleNewsletterSubmit(event)">
+                                    <div class="newsletter-input-group">
+                                        <input type="email" id="newsletterEmail" class="newsletter-input"
+                                            placeholder="your@email.com" required />
+                                        <button type="submit" class="newsletter-btn" id="newsletterBtn">
+                                            <span id="newsletterBtnText">Subscribe</span>
+                                            <svg id="newsletterBtnIcon" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2.5">
+                                                <path d="M5 12h14M12 5l7 7-7 7" />
+                                            </svg>
+                                        </button>
                                     </div>
+                                    <div class="newsletter-alert newsletter-success" id="newsletterSuccess"
+                                        style="display:none">
+                                        ✅ Subscribed! Check your email to confirm.
+                                    </div>
+                                    <div class="newsletter-alert newsletter-error" id="newsletterError"
+                                        style="display:none"></div>
+                                </form>
+
+                                <div class="newsletter-stats">
+                                    <span id="subscriberCount">Joined 300+ subscribers</span>
                                 </div>
+                            </div>
                             <!-- </div> -->
                         </section>
                     </div>
@@ -2466,7 +2467,7 @@
         <div class="container">
             <div class="footer-inner">
                 <div class="footer-logo">Ashish<em>.</em>dev</div>
-                <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer · Nagpur, India</div>
+                <div class="footer-copy">© 2025 Ashish Kurzekar · Salesforce Developer</div>
             </div>
         </div>
     </footer>

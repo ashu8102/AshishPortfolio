@@ -117,6 +117,73 @@
       <button class="float-popup-cta secondary" id="laterPopupProject">I'll check later</button>
     </div>
   </div>
+  <!-- clouds -->
+  <div class="cloud-modal-backdrop" id="cloudModalBackdrop"></div>
+  <div class="cloud-celebrate-modal" id="cloudCelebModal" role="dialog" aria-modal="true"
+    aria-label="Salesforce Clouds">
+    <div class="cloud-modal-inner">
+      <div class="cloud-modal-shimmer"></div>
+      <div class="cloud-modal-orb cloud-modal-orb-1"></div>
+      <div class="cloud-modal-orb cloud-modal-orb-2"></div>
+      <div class="cloud-modal-orb cloud-modal-orb-3"></div>
+      <div class="cloud-modal-header">
+        <h2 class="cloud-modal-title">Clouds I've <span class="accent"> Built On</span></h2>
+        <div class="cloud-modal-divider"></div>
+        <p class="cloud-modal-sub">End-to-end delivery across the entire Salesforce platform — from lead capture to
+          commerce checkout.</p>
+      </div>
+      <div class="cloud-chips-grid">
+        <div class="cloud-chip-item" style="--i:0;--chip-color:#0176D3">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#0176D3,#00A9E0)">💼</div><span
+            class="cloud-chip-name">Sales Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:1;--chip-color:#0E7490">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#0E7490,#22D3EE)">🎧</div><span
+            class="cloud-chip-name">Service Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:2;--chip-color:#7C3AED">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#7C3AED,#A855F7)">📣</div><span
+            class="cloud-chip-name">Marketing Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:3;--chip-color:#EA580C">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#EA580C,#FB923C)">🛒</div><span
+            class="cloud-chip-name">Commerce Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:4;--chip-color:#166534">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#166534,#4ADE80)">💰</div><span
+            class="cloud-chip-name">Revenue Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:5;--chip-color:#BE185D">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#BE185D,#F472B6)">🌐</div><span
+            class="cloud-chip-name">Experience Cloud</span>
+        </div>
+        <div class="cloud-chip-item" style="--i:6;--chip-color:#FF7A59">
+          <div class="cloud-chip-icon" style="background:linear-gradient(135deg,#FF7A59,#FF9F7F)">🔗</div><span
+            class="cloud-chip-name">HubSpot CRM</span>
+        </div>
+      </div>
+      <div class="cloud-modal-stats">
+        <div class="cloud-modal-stat" style="--s:0">
+          <div class="cloud-modal-stat-num">7</div>
+          <div class="cloud-modal-stat-lbl">Platforms</div>
+        </div>
+        <div class="cloud-modal-stat" style="--s:1">
+          <div class="cloud-modal-stat-num">12+</div>
+          <div class="cloud-modal-stat-lbl">Projects</div>
+        </div>
+        <div class="cloud-modal-stat" style="--s:2">
+          <div class="cloud-modal-stat-num">4+</div>
+          <div class="cloud-modal-stat-lbl">Yrs Exp.</div>
+        </div>
+        <div class="cloud-modal-stat" style="--s:3">
+          <div class="cloud-modal-stat-num">4×</div>
+          <div class="cloud-modal-stat-lbl">Certified</div>
+        </div>
+      </div>
+      <button class="cloud-modal-cta" id="cloudModalCloseBtn">That's My Stack! 💪 <span
+          class="cta-arrow">→</span></button>
+    </div>
+  </div>
 
   <!-- ─── NAV ─── -->
   <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
@@ -996,7 +1063,8 @@
           </div>
         </div>
 
-        <form class="contact-form-wrap fade-up" id="contactForm" onsubmit="handleSubmit(event)" aria-label="Contact form" novalidate>
+        <form class="contact-form-wrap fade-up" id="contactForm" onsubmit="handleSubmit(event)"
+          aria-label="Contact form" novalidate>
           <p class="contact-intro">If you're searching for innovative solutions, modern dashboards, seamless
             integrations, or strategic guidance — I combine creativity with precision to deliver results.</p>
           <div class="form-row2">
@@ -1060,8 +1128,8 @@
             </svg>
           </a>
         </div>
-        <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer<br>Open to remote
-          opportunities worldwide</div>
+        <div class="footer-copy">© 2025 Ashish Kurzekar · Senior Salesforce Developer<br>Open to remote opportunities
+          worldwide</div>
       </div>
     </div>
   </footer>
@@ -1088,7 +1156,7 @@
   <script type='text/javascript'
     src='https://ashishkurzekar-dev-ed.develop.my.site.com/ESWAshaWebChatsChannel1765013869936/assets/js/bootstrap.min.js'
     onload='initEmbeddedMessaging()'>
-  </script>
+    </script>
   <script src="tracker.js" defer></script>
 </body>
 
