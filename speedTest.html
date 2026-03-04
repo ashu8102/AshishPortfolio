@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY · Speed Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --blue: #2563eb;
+            --blue-lt: #eff6ff;
+            --blue-mid: #bfdbfe;
+            --indigo: #6366f1;
+            --green: #059669;
+            --text: #0f172a;
+            --text2: #334155;
+            --muted: #94a3b8;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 24px 24px 40px;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-main {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 22px;
+            color: #0f172a;
+            letter-spacing: 1.5px;
+        }
+
+        .brand-dot {
+            width: 8px;
+            height: 8px;
+            background: #2563eb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 10px 0 0 0;
+        }
+
+        .brand-sub {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.28em;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: clamp(16px, 3.5vw, 22px);
+            letter-spacing: 0.18em;
+            color: var(--text);
+        }
+
+        .logo em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo small {
+            display: block;
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            -webkit-text-fill-color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 6px 14px;
+            box-shadow: var(--shadow-sm);
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text2);
+            letter-spacing: 0.1em;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2)
+            }
+
+            50% {
+                box-shadow: 0 0 0 5px rgba(5, 150, 105, 0.08)
+            }
+        }
+
+        /* ── IP BAR ── */
+        .ip-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .ip-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 13px;
+            box-shadow: var(--shadow-sm);
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+        }
+
+        .ip-chip .lbl {
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .ip-chip .val {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ── MAIN GRID ── */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1.2fr;
+            gap: 16px;
+            margin-bottom: 18px;
+            align-items: stretch;
+        }
+
+        @media(max-width:680px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── GAUGE CARD ── */
+        .gauge-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 28px 22px 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gauge-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--indigo));
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .gauge-card.testing::after {
+            opacity: 1;
+        }
+
+        .gauge-phase {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            min-height: 1em;
+            transition: color 0.3s;
+        }
+
+        .gauge-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 270px;
+            margin-bottom: 6px;
+        }
+
+        #gauge-svg {
+            width: 100%;
+            display: block;
+            overflow: visible;
+        }
+
+        .g-track {
+            fill: none;
+            stroke: #e8eef6;
+            stroke-width: 10;
+            stroke-linecap: round;
+        }
+
+        .g-fill {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke: url(#fillGrad);
+            filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.3));
+        }
+
+        .g-tick {
+            stroke: #dde4ef;
+            stroke-width: 1.5;
+        }
+
+        .g-tickM {
+            stroke: #c8d4e8;
+            stroke-width: 2;
+        }
+
+        .g-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 7px;
+            fill: #94a3b8;
+            text-anchor: middle;
+        }
+
+        .readout {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .spd-num {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(36px, 8vw, 54px);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            transition: color 0.3s;
+        }
+
+        .spd-unit {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.25em;
+            margin-top: 3px;
+        }
+
+        /* ── METRIC CARDS ── */
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card.active {
+            border-color: var(--blue-mid);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08), var(--shadow-sm);
+        }
+
+        .m-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .m-icon.dl {
+            background: #eff6ff;
+        }
+
+        .m-icon.ul {
+            background: #f5f3ff;
+        }
+
+        .m-icon.ping {
+            background: #ecfdf5;
+        }
+
+        .m-icon.jitter {
+            background: #fff7ed;
+        }
+
+        .m-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .m-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .m-val {
+            font-family: 'Orbitron', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .m-unit {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            margin-left: 3px;
+        }
+
+        .m-bar {
+            height: 3px;
+            background: #e8eef6;
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .m-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            width: 0;
+            transition: width 0.3s ease-out;
+        }
+
+        /* ── STATUS + BUTTON ── */
+        .status-bar {
+            text-align: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 18px;
+            letter-spacing: 0.1em;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .status-bar .s-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+            display: none;
+            animation: blink 0.7s ease-in-out infinite;
+        }
+
+        .status-bar.running .s-dot {
+            display: block;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.2
+            }
+        }
+
+        .btn-section {
+            display: flex;
+            justify-content: center;
+            margin: 0 0 18px;
+        }
+
+        #start-btn {
+            position: relative;
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            transition: transform 0.12s;
+        }
+
+        #start-btn:active {
+            transform: scale(0.95);
+        }
+
+        #start-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .btn-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5px solid rgba(37, 99, 235, 0.18);
+            animation: ripple 2.4s ease-out infinite;
+        }
+
+        .btn-ring:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .btn-ring:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0.88);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.28);
+                opacity: 0;
+            }
+        }
+
+        .btn-core {
+            position: absolute;
+            inset: 13px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #2563eb, #4f46e5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            box-shadow: 0 6px 24px rgba(37, 99, 235, 0.4), 0 2px 6px rgba(37, 99, 235, 0.25);
+            transition: box-shadow 0.2s, transform 0.12s;
+        }
+
+        #start-btn:hover .btn-core {
+            box-shadow: 0 10px 32px rgba(37, 99, 235, 0.5), 0 2px 8px rgba(37, 99, 235, 0.3);
+            transform: scale(1.04);
+        }
+
+        #start-btn.running .btn-core {
+            background: linear-gradient(145deg, #dc2626, #ea580c);
+            box-shadow: 0 6px 24px rgba(220, 38, 38, 0.4);
+        }
+
+        #start-btn.running .btn-ring {
+            animation: spin 1.2s linear infinite;
+            border-color: transparent;
+            border-top-color: rgba(37, 99, 235, 0.35);
+        }
+
+        #start-btn.running .btn-ring:nth-child(2) {
+            animation: spin 0.9s linear infinite reverse;
+            border-top-color: rgba(99, 102, 241, 0.25);
+        }
+
+        #start-btn.running .btn-ring:nth-child(3) {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .btn-txt {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ── GRAPH ── */
+        .graph-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            padding: 16px 20px;
+            margin-bottom: 14px;
+        }
+
+        .graph-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .graph-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .graph-legend {
+            display: flex;
+            gap: 12px;
+        }
+
+        .leg {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--muted);
+        }
+
+        .leg-dot {
+            width: 10px;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        #speed-graph {
+            width: 100%;
+            height: 70px;
+            display: block;
+        }
+
+        /* ── RESULTS ── */
+        .results-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .results-card.show {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .res-header {
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--blue), var(--indigo));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .res-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+        }
+
+        .quality-tag {
+            font-family: 'Orbitron', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .res-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .res-row:last-child {
+            border-bottom: none;
+        }
+
+        .res-row:hover {
+            background: #f8fafc;
+        }
+
+        .res-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+
+        .res-val {
+            font-family: 'Orbitron', monospace;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* ── ACTIONS ── */
+        .action-row {
+            display: none;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 22px;
+        }
+
+        .action-row.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        .act-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: var(--text2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.18s;
+        }
+
+        .act-btn:hover {
+            background: var(--blue-lt);
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* ══════════════════════════════════════
+   DEBUG CONSOLE
+══════════════════════════════════════ */
+        .debug-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .debug-hdr {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 18px;
+            background: #0f172a;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .debug-hdr-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .debug-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .debug-dots span {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .debug-dots .d1 {
+            background: #ff5f56;
+        }
+
+        .debug-dots .d2 {
+            background: #ffbd2e;
+        }
+
+        .debug-dots .d3 {
+            background: #27c93f;
+        }
+
+        .debug-hdr-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .debug-hdr-title b {
+            color: #94a3b8;
+        }
+
+        .debug-toggle-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: #475569;
+            background: none;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+
+        .debug-body {
+            background: #0f172a;
+            border-top: 1px solid #1e293b;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .debug-body::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .debug-body::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        .debug-body::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 2px;
+        }
+
+        .log-line {
+            display: flex;
+            gap: 8px;
+            padding: 2px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .log-line:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .l-ts {
+            color: #dce0e7;
+            flex-shrink: 0;
+            font-size: 10px;
+            margin-top: 1px;
+        }
+
+        .l-tag {
+            flex-shrink: 0;
+            width: 44px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding-top: 1px;
+        }
+
+        .l-msg {
+            color: #94a3b8;
+            word-break: break-all;
+        }
+
+        .t-info {
+            color: #60a5fa;
+        }
+
+        .t-ok {
+            color: #4ade80;
+        }
+
+        .t-warn {
+            color: #fbbf24;
+        }
+
+        .t-error {
+            color: #f87171;
+        }
+
+        .t-data {
+            color: #c084fc;
+        }
+
+        .t-step {
+            color: #22d3ee;
+        }
+
+        /* Log line coloring by tag */
+        .log-line.log-ok .l-msg {
+            color: #86efac;
+        }
+
+        .log-line.log-error .l-msg {
+            color: #fca5a5;
+        }
+
+        .log-line.log-warn .l-msg {
+            color: #fde68a;
+        }
+
+        .log-line.log-step .l-msg {
+            color: #67e8f9;
+        }
+
+        .log-line.log-data .l-msg {
+            color: #d8b4fe;
+        }
+
+        .debug-toolbar {
+            background: #0c1424;
+            border-top: 1px solid #1e293b;
+            padding: 8px 16px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .f-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            background: #1e293b;
+            border: 1px solid #2d3f55;
+            border-radius: 5px;
+            padding: 3px 9px;
+            color: #64748b;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.15s;
+        }
+
+        .f-btn.active {
+            background: #1d4ed8;
+            border-color: #3b82f6;
+            color: #bfdbfe;
+        }
+
+        .f-btn:hover:not(.active) {
+            border-color: #4a5f7a;
+            color: #94a3b8;
+        }
+
+        .f-clear {
+            margin-left: auto;
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            background: none;
+            border: 1px solid #2d3f55;
+            border-radius: 5px;
+            padding: 3px 9px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .f-clear:hover {
+            border-color: #ef4444;
+            color: #f87171;
+        }
+
+        .debug-empty {
+            padding: 20px;
+            text-align: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: #334155;
+        }
+
+        /* ── FOOTER + TOAST ── */
+        footer {
+            text-align: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--text);
+            color: #fff;
+            border-radius: 10px;
+            padding: 11px 20px;
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            z-index: 999;
+            white-space: nowrap;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .graph-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media(max-width:480px) {
+            .ip-bar .ip-chip:nth-child(n+4) {
+                display: none;
+            }
+
+            .spd-num {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+
+        <header>
+            <div class="brand">
+
+                <div class="brand-title">
+                    <span class="brand-main">Ashish</span><span class="brand-dot"></span><span
+                        class="brand-main">dev</span>
+                </div>
+
+                <div class="brand-sub">INTERNET SPEED TEST</div>
+
+            </div>
+            <div class="status-pill">
+                <div class="live-dot"></div><span id="clock">--:--:--</span>
+            </div>
+        </header>
+
+        <div class="ip-bar">
+            <div class="ip-chip">
+                <div class="lbl">IP Address</div>
+                <div class="val" id="ip-val">Fetching…</div>
+            </div>
+            <div class="ip-chip">
+                <div class="lbl">Location</div>
+                <div class="val" id="loc-val">—</div>
+            </div>
+            <div class="ip-chip">
+                <div class="lbl">ISP</div>
+                <div class="val" id="isp-val">—</div>
+            </div>
+            <div class="ip-chip">
+                <div class="lbl">Protocol</div>
+                <div class="val" id="proto-val">—</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- GAUGE -->
+            <div class="gauge-card" id="gauge-card">
+                <div class="gauge-phase" id="gauge-phase">READY TO TEST</div>
+                <div class="gauge-wrap">
+                    <svg id="gauge-svg" viewBox="0 0 270 168">
+                        <defs>
+                            <linearGradient id="fillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#2563eb" />
+                                <stop offset="55%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#059669" />
+                            </linearGradient>
+                        </defs>
+                        <path class="g-track" id="g-track" d="" />
+                        <path class="g-fill" id="g-fill" d="" />
+                        <g id="g-ticks"></g>
+                        <g id="g-lbls"></g>
+                        <g id="needle" style="transform-origin:135px 150px;transform:rotate(-90deg);">
+                            <line x1="135" y1="150" x2="135" y2="60" stroke="#cbd5e1" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <circle cx="135" cy="150" r="5.5" fill="#1e293b" />
+                            <circle cx="135" cy="150" r="2.5" fill="white" />
+                        </g>
+                    </svg>
+                    <div class="readout">
+                        <div class="spd-num" id="spd-num">0</div>
+                        <div class="spd-unit">Mbps</div>
+                    </div>
+                </div>
+                <div class="btn-section">
+                    <div class="btn-section">
+                        <button id="start-btn" onclick="startTest()">
+
+                            <div class="btn-ring"></div>
+                            <div class="btn-ring"></div>
+                            <div class="btn-ring"></div>
+
+                            <div class="btn-core">
+                                <div class="btn-icon" id="btn-icon">▶</div>
+                                <div class="btn-txt" id="btn-txt">GO</div>
+                            </div>
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- METRICS -->
+            <div class="right-col">
+                <div class="metric-card" id="mc-dl">
+                    <div class="m-icon dl">⬇️</div>
+                    <div class="m-info">
+                        <div class="m-label">Download</div>
+                        <div><span class="m-val" id="dl-val">—</span><span class="m-unit">Mbps</span></div>
+                        <div class="m-bar">
+                            <div class="m-bar-fill" id="dl-bar"
+                                style="background:linear-gradient(90deg,#2563eb,#6366f1)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card" id="mc-ul">
+                    <div class="m-icon ul">⬆️</div>
+                    <div class="m-info">
+                        <div class="m-label">Upload</div>
+                        <div><span class="m-val" id="ul-val">—</span><span class="m-unit">Mbps</span></div>
+                        <div class="m-bar">
+                            <div class="m-bar-fill" id="ul-bar"
+                                style="background:linear-gradient(90deg,#6366f1,#0891b2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card" id="mc-ping">
+                    <div class="m-icon ping">⚡</div>
+                    <div class="m-info">
+                        <div class="m-label">Ping (Latency)</div>
+                        <div><span class="m-val" id="ping-val">—</span><span class="m-unit">ms</span></div>
+                    </div>
+                </div>
+                <div class="metric-card" id="mc-jitter">
+                    <div class="m-icon jitter">〰</div>
+                    <div class="m-info">
+                        <div class="m-label">Jitter</div>
+                        <div><span class="m-val" id="jitter-val">—</span><span class="m-unit">ms</span></div>
+                    </div>
+                </div>
+                <div class="status-bar" id="status-bar">
+                    <div class="s-dot"></div>
+                    <span id="status-txt">Press GO to begin your speed test</span>
+                </div>
+
+                <div class="action-row" id="action-row">
+                    <button class="act-btn" onclick="copyResults()">📋 Copy Results</button>
+                    <button class="act-btn" onclick="startTest()">↺ Retest</button>
+                </div>
+            </div>
+            <div class="graph-col">
+                <div class="graph-card">
+                    <div class="graph-hdr">
+                        <div class="graph-title">Live Throughput</div>
+                        <div class="graph-legend">
+                            <div class="leg">
+                                <div class="leg-dot" style="background:#2563eb"></div>Download
+                            </div>
+                            <div class="leg">
+                                <div class="leg-dot" style="background:#6366f1"></div>Upload
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="speed-graph"></canvas>
+                </div>
+
+                <div class="results-card" id="results-card">
+                    <div class="res-header">
+                        <div class="res-title">Test Results</div>
+                        <div class="quality-tag" id="quality-tag">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Download Speed</div>
+                        <div class="res-val" id="r-dl">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Upload Speed</div>
+                        <div class="res-val" id="r-ul">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Ping / Latency</div>
+                        <div class="res-val" id="r-ping">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Jitter</div>
+                        <div class="res-val" id="r-jitter">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Tested At</div>
+                        <div class="res-val" style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)"
+                            id="r-time">—</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════ DEBUG CONSOLE ══════════ -->
+        <div class="debug-card">
+            <div class="debug-hdr" onclick="toggleDebug()">
+                <div class="debug-hdr-left">
+                    <div class="debug-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span>
+                    </div>
+                    <div class="debug-hdr-title">🔍 Debug Console &nbsp;—&nbsp; <b id="log-count">0</b> entries</div>
+                </div>
+                <button class="debug-toggle-btn" id="dbg-toggle">▼ SHOW</button>
+            </div>
+            <div id="debug-body" class="debug-body" style="display:none">
+                <div id="log-container">
+                    <div class="debug-empty">No logs yet. Run a test to see debug output.</div>
+                </div>
+            </div>
+            <div id="debug-toolbar" class="debug-toolbar" style="display:none">
+                <button class="f-btn active" onclick="setFilter('all',this)">ALL</button>
+                <button class="f-btn" onclick="setFilter('info',this)">INFO</button>
+                <button class="f-btn" onclick="setFilter('step',this)">STEP</button>
+                <button class="f-btn" onclick="setFilter('data',this)">DATA</button>
+                <button class="f-btn" onclick="setFilter('warn',this)">WARN</button>
+                <button class="f-btn" onclick="setFilter('error',this)">ERROR</button>
+                <button class="f-clear" onclick="clearLogs()">✕ Clear</button>
+            </div>
+        </div>
+
+        <footer>VELOCITY SPEED TEST · REAL NETWORK MEASUREMENTS · © 2026</footer>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ════════════════════════════════════════════
+        //  DEBUG SYSTEM
+        // ════════════════════════════════════════════
+        let allLogs = [];
+        let activeFilter = 'all';
+        let debugOpen = false;
+
+        function log(tag, msg, extra) {
+            const now = new Date();
+            const ts = now.toLocaleTimeString('en-US', { hour12: false }) + '.' + String(now.getMilliseconds()).padStart(3, '0');
+            const full = extra !== undefined ? `${msg}  →  ${typeof extra === 'object' ? JSON.stringify(extra) : extra}` : msg;
+            const entry = { tag, ts, msg: full };
+            allLogs.push(entry);
+            document.getElementById('log-count').textContent = allLogs.length;
+            if (debugOpen) appendLogLine(entry);
+        }
+
+        function appendLogLine(entry) {
+            if (activeFilter !== 'all' && activeFilter !== entry.tag) return;
+            const container = document.getElementById('log-container');
+            // Remove empty placeholder
+            const emp = container.querySelector('.debug-empty');
+            if (emp) emp.remove();
+
+            const div = document.createElement('div');
+            div.className = `log-line log-${entry.tag}`;
+            div.dataset.tag = entry.tag;
+            div.innerHTML =
+                `<span class="l-ts">${entry.ts}</span>` +
+                `<span class="l-tag t-${entry.tag}">${entry.tag.toUpperCase()}</span>` +
+                `<span class="l-msg">${esc(entry.msg)}</span>`;
+            container.appendChild(div);
+            const body = document.getElementById('debug-body');
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function esc(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function toggleDebug() {
+            debugOpen = !debugOpen;
+            document.getElementById('debug-body').style.display = debugOpen ? 'block' : 'none';
+            document.getElementById('debug-toolbar').style.display = debugOpen ? 'flex' : 'none';
+            document.getElementById('dbg-toggle').textContent = debugOpen ? '▲ HIDE' : '▼ SHOW';
+            if (debugOpen) rebuildLog();
+        }
+
+        function rebuildLog() {
+            const container = document.getElementById('log-container');
+            container.innerHTML = '';
+            const filtered = activeFilter === 'all' ? allLogs : allLogs.filter(e => e.tag === activeFilter);
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="debug-empty">No entries match this filter.</div>';
+                return;
+            }
+            filtered.forEach(appendLogLine);
+            setTimeout(() => { document.getElementById('debug-body').scrollTop = 9999; }, 30);
+        }
+
+        function setFilter(f, btn) {
+            activeFilter = f;
+            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            rebuildLog();
+        }
+
+        function clearLogs() {
+            allLogs = [];
+            document.getElementById('log-container').innerHTML = '<div class="debug-empty">Cleared.</div>';
+            document.getElementById('log-count').textContent = '0';
+        }
+
+        // ════════════════════════════════════════════
+        //  CLOCK
+        // ════════════════════════════════════════════
+        function updateClock() {
+            document.getElementById('clock').textContent =
+                new Date().toLocaleTimeString('en-US', { hour12: false });
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ════════════════════════════════════════════
+        //  IP GEOLOCATION
+        // ════════════════════════════════════════════
+        async function fetchIP() {
+            log('step', 'Fetching IP info from ipapi.co');
+            try {
+                const r = await fetch('https://ipapi.co/json/');
+                log('data', `ipapi.co HTTP status: ${r.status}`);
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                const d = await r.json();
+                log('ok', 'IP info received', { ip: d.ip, city: d.city, country: d.country_code, org: d.org });
+                document.getElementById('ip-val').textContent = d.ip || '—';
+                document.getElementById('loc-val').textContent = d.city ? `${d.city}, ${d.country_code}` : (d.country_name || '—');
+                document.getElementById('isp-val').textContent = d.org ? d.org.replace(/^AS\d+\s+/, '').substring(0, 22) : '—';
+                document.getElementById('proto-val').textContent = d.ip?.includes(':') ? 'IPv6' : 'IPv4';
+            } catch (e) {
+                log('error', 'ipapi.co failed: ' + e.message + ' — trying fallback api.ipify.org');
+                try {
+                    const r2 = await fetch('https://api.ipify.org?format=json');
+                    const d2 = await r2.json();
+                    document.getElementById('ip-val').textContent = d2.ip || 'N/A';
+                    log('ok', 'Fallback IP: ' + d2.ip);
+                } catch (e2) {
+                    log('error', 'Fallback IP also failed: ' + e2.message);
+                    document.getElementById('ip-val').textContent = 'N/A';
+                }
+            }
+        }
+        fetchIP();
+
+        // ════════════════════════════════════════════
+        //  GAUGE SETUP
+        // ════════════════════════════════════════════
+        const CX = 135, CY = 150, R = 100, MAX_V = 1000;
+        const SA = -210, EA = 30, RANGE = 240;
+
+        function d2r(d) { return d * Math.PI / 180; }
+        function pt(cx, cy, r, deg) { const a = d2r(deg); return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) }; }
+        function arc(cx, cy, r, s, e) {
+            const sp = pt(cx, cy, r, s), ep = pt(cx, cy, r, e);
+            const lg = ((e - s + 360) % 360) > 180 ? 1 : 0;
+            return `M${sp.x.toFixed(2)} ${sp.y.toFixed(2)} A${r} ${r} 0 ${lg} 1 ${ep.x.toFixed(2)} ${ep.y.toFixed(2)}`;
+        }
+
+        // Track
+        document.getElementById('g-track').setAttribute('d', arc(CX, CY, R, SA, EA));
+
+        // Fill (will be animated via stroke-dasharray)
+        const fillEl = document.getElementById('g-fill');
+        fillEl.setAttribute('d', arc(CX, CY, R, SA, EA));
+
+        let ARC_LEN = 315;
+        try { ARC_LEN = document.getElementById('g-track').getTotalLength() || 315; } catch { }
+        fillEl.style.strokeDasharray = ARC_LEN;
+        fillEl.style.strokeDashoffset = ARC_LEN;
+
+        // Ticks
+        const tG = document.getElementById('g-ticks'), lG = document.getElementById('g-lbls');
+        for (let i = 0; i <= 40; i++) {
+            const frac = i / 40, deg = SA + frac * RANGE;
+            const major = i % 4 === 0;
+            const i1 = pt(CX, CY, R - (major ? 14 : 8), deg), o1 = pt(CX, CY, R - 2, deg);
+            const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            ln.setAttribute('x1', i1.x); ln.setAttribute('y1', i1.y);
+            ln.setAttribute('x2', o1.x); ln.setAttribute('y2', o1.y);
+            ln.setAttribute('class', major ? 'g-tickM' : 'g-tick');
+            tG.appendChild(ln);
+        }
+        [[0, '0'], [200, '200'], [400, '400'], [600, '600'], [800, '800'], [1000, '1k']].forEach(([val, lbl]) => {
+            const frac = val / MAX_V, deg = SA + frac * RANGE;
+            const p = pt(CX, CY, R - 24, deg);
+            const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            t.setAttribute('x', p.x); t.setAttribute('y', p.y + 3);
+            t.setAttribute('class', 'g-lbl'); t.textContent = lbl;
+            lG.appendChild(t);
+        });
+
+        let dispSpd = 0, tgtSpd = 0, rafId;
+
+        function setGaugeImmediate(spd) {
+            const frac = Math.min(Math.max(spd, 0) / MAX_V, 1);
+            fillEl.style.strokeDashoffset = ARC_LEN - frac * ARC_LEN;
+            document.getElementById('needle').style.transform = `rotate(${SA + frac * RANGE + 90}deg)`;
+            document.getElementById('spd-num').textContent = spd < 10 ? spd.toFixed(1) : Math.round(spd);
+        }
+
+        function gaugeLoop() {
+            dispSpd += (tgtSpd - dispSpd) * 0.13;
+            setGaugeImmediate(dispSpd);
+            rafId = requestAnimationFrame(gaugeLoop);
+        }
+
+        // ════════════════════════════════════════════
+        //  GRAPH
+        // ════════════════════════════════════════════
+        const canvas = document.getElementById('speed-graph');
+        const ctx = canvas.getContext('2d');
+        let dlPts = new Array(80).fill(0), ulPts = new Array(80).fill(0);
+
+        function resizeCanvas() {
+            const dpr = devicePixelRatio || 1;
+            canvas.width = canvas.offsetWidth * dpr;
+            canvas.height = canvas.offsetHeight * dpr;
+            ctx.scale(dpr, dpr); drawGraph();
+        }
+        function drawGraph() {
+            const W = canvas.offsetWidth, H = canvas.offsetHeight;
+            ctx.clearRect(0, 0, W, H);
+            const mx = Math.max(...dlPts, ...ulPts, 5);
+            ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+            [0, 1, 2, 3].forEach(i => { const y = (i / 3) * H; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); });
+            function line(pts, col, fill) {
+                if (pts.every(v => v === 0)) return;
+                const step = W / (pts.length - 1);
+                ctx.beginPath(); pts.forEach((v, i) => { const x = i * step, y = H - (v / mx) * H * 0.86 - H * 0.07; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
+                ctx.strokeStyle = col; ctx.lineWidth = 1.8; ctx.stroke();
+                ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+            }
+            line(ulPts, 'rgba(99,102,241,0.7)', 'rgba(99,102,241,0.07)');
+            line(dlPts, 'rgba(37,99,235,0.8)', 'rgba(37,99,235,0.09)');
+        }
+        window.addEventListener('resize', resizeCanvas);
+        setTimeout(resizeCanvas, 60);
+
+        // ════════════════════════════════════════════
+        //  HELPERS
+        // ════════════════════════════════════════════
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function setStatus(txt, running = false) {
+            document.getElementById('status-txt').textContent = txt;
+            document.getElementById('status-bar').className = 'status-bar' + (running ? ' running' : '');
+        }
+
+        function setPhase(txt) {
+            document.getElementById('gauge-phase').textContent = txt;
+            log('step', 'Phase → ' + txt);
+        }
+
+        function pushDL(spd) {
+            tgtSpd = spd;
+            dlPts.push(spd); if (dlPts.length > 80) dlPts.shift(); drawGraph();
+            document.getElementById('dl-val').textContent = spd.toFixed(1);
+            document.getElementById('dl-bar').style.width = Math.min((spd / 500) * 100, 100) + '%';
+        }
+        function pushUL(spd) {
+            tgtSpd = spd;
+            ulPts.push(spd); if (ulPts.length > 80) ulPts.shift(); drawGraph();
+            document.getElementById('ul-val').textContent = spd.toFixed(1);
+            document.getElementById('ul-bar').style.width = Math.min((spd / 200) * 100, 100) + '%';
+        }
+
+        // ════════════════════════════════════════════
+        //  PING
+        // ════════════════════════════════════════════
+        async function measurePing() {
+            const URL = 'https://www.cloudflare.com/cdn-cgi/trace';
+            log('step', 'Ping: starting 8 samples to ' + URL);
+            const times = [];
+            for (let i = 0; i < 8; i++) {
+                const t0 = performance.now();
+                try {
+                    await fetch(`${URL}?_=${Date.now()}${i}`, { cache: 'no-store', mode: 'no-cors' });
+                    const ms = performance.now() - t0;
+                    times.push(ms);
+                    log('data', `Ping sample ${i + 1}/8: ${ms.toFixed(1)} ms`);
+                } catch (e) {
+                    log('warn', `Ping sample ${i + 1} threw: ${e.message}`);
+                }
+                await sleep(80);
+            }
+            if (times.length === 0) throw new Error('0 successful ping samples');
+            times.sort((a, b) => a - b);
+            const t2 = times.length > 2 ? times.slice(1, -1) : times;
+            const avg = t2.reduce((a, b) => a + b, 0) / t2.length;
+            const jit = t2.length > 1 ? Math.max(...t2) - Math.min(...t2) : 0;
+            log('ok', `Ping done — avg:${avg.toFixed(1)} ms  jitter:${jit.toFixed(1)} ms`, { n: times.length });
+            return { ping: avg, jitter: jit };
+        }
+
+        // ════════════════════════════════════════════
+        //  DOWNLOAD
+        // ════════════════════════════════════════════
+        async function measureDownload() {
+            const chunks = [
+                { bytes: 10_000_000, label: '10MB' },
+                { bytes: 25_000_000, label: '25MB' },
+                { bytes: 50_000_000, label: '50MB' },
+            ];
+            log('step', 'Download: streaming from speed.cloudflare.com');
+
+            let best = 0;
+            for (const chunk of chunks) {
+                if (!testRunning) { log('warn', 'Test stopped — aborting download loop'); break; }
+                const url = `https://speed.cloudflare.com/__down?bytes=${chunk.bytes}&_=${Date.now()}`;
+                log('info', `DL fetch start: ${chunk.label}  url=${url.split('?')[0]}`);
+                try {
+                    const t0 = performance.now();
+                    const resp = await fetch(url, { cache: 'no-store' });
+                    log('data', `DL response: HTTP ${resp.status}  content-length:${resp.headers.get('content-length') || 'unknown'}`);
+
+                    if (!resp.ok) { log('warn', `Non-2xx response ${resp.status} — skipping chunk`); continue; }
+
+                    if (!resp.body) {
+                        log('warn', 'ReadableStream unavailable — using arrayBuffer fallback');
+                        const buf = await resp.arrayBuffer();
+                        const el = (performance.now() - t0) / 1000;
+                        const spd = (buf.byteLength * 8) / el / 1e6;
+                        log('data', `ArrayBuffer: ${buf.byteLength} bytes / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
+                        pushDL(spd); best = Math.max(best, spd);
+                        continue;
+                    }
+
+                    const reader = resp.body.getReader();
+                    let total = 0, lastT = t0, chunkN = 0;
+                    while (testRunning) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        total += value.length;
+                        chunkN++;
+                        const now = performance.now(), dt = now - lastT;
+                        if (dt >= 180) {
+                            const cSpd = (value.length * 8) / (dt / 1000) / 1e6;
+                            const aSpd = (total * 8) / ((now - t0) / 1000) / 1e6;
+                            const smooth = cSpd * 0.35 + aSpd * 0.65;
+                            log('data', `DL chunk #${chunkN}: ${(value.length / 1024).toFixed(0)}KB / ${dt.toFixed(0)}ms — chunk:${cSpd.toFixed(1)} avg:${aSpd.toFixed(1)} smooth:${smooth.toFixed(1)} Mbps`);
+                            pushDL(Math.max(smooth, 0));
+                            best = Math.max(best, smooth);
+                            lastT = now;
+                        }
+                    }
+                    const elapsed = (performance.now() - t0) / 1000;
+                    const final = (total * 8) / elapsed / 1e6;
+                    log('ok', `DL chunk "${chunk.label}" done: ${(total / 1e6).toFixed(2)} MB / ${elapsed.toFixed(2)}s = ${final.toFixed(2)} Mbps`);
+                    best = Math.max(best, final);
+                    pushDL(final);
+                    if (best > 5 && chunk.label !== '10MB') { log('info', 'Good signal — stopping after 2 chunks'); break; }
+                } catch (e) {
+                    log('error', `DL chunk "${chunk.label}" exception: ${e.name}: ${e.message}`);
+                }
+            }
+
+            if (best === 0) {
+                log('warn', 'All streaming attempts yielded 0 — running timing fallback');
+                best = await dlFallback();
+            }
+            log('ok', `Download final result: ${best.toFixed(2)} Mbps`);
+            return best;
+        }
+
+        async function dlFallback() {
+            log('step', 'DL fallback: timing 1 MB fetch');
+            try {
+                const t0 = performance.now();
+                const resp = await fetch(`https://speed.cloudflare.com/__down?bytes=1000000&_=${Date.now()}`, { cache: 'no-store' });
+                const buf = await resp.arrayBuffer();
+                const el = (performance.now() - t0) / 1000;
+                const spd = (buf.byteLength * 8) / el / 1e6;
+                log('data', `Fallback: ${buf.byteLength} bytes / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
+                return spd;
+            } catch (e) {
+                log('error', 'DL fallback failed: ' + e.message);
+                return 0;
+            }
+        }
+
+        // ════════════════════════════════════════════
+        //  UPLOAD
+        // ════════════════════════════════════════════
+        async function measureUpload() {
+            const UL_URL = 'https://speed.cloudflare.com/__up';
+            const sizes = [1_000_000, 5_000_000, 10_000_000];
+            log('step', 'Upload: posting random data to ' + UL_URL);
+            const results = [];
+
+            for (const sz of sizes) {
+                if (!testRunning) { log('warn', 'Test stopped — aborting upload loop'); break; }
+                log('info', `UL sending ${(sz / 1e6).toFixed(0)} MB`);
+                try {
+                    const buf = new Uint8Array(sz);
+                    // Randomise first 8KB to defeat zero-compression shortcuts
+                    crypto.getRandomValues(buf.subarray(0, Math.min(sz, 8192)));
+                    const t0 = performance.now();
+                    const resp = await fetch(`${UL_URL}?_=${Date.now()}`, {
+                        method: 'POST', body: buf.buffer, cache: 'no-store'
+                    });
+                    const el = (performance.now() - t0) / 1000;
+                    log('data', `UL response HTTP ${resp.status} for ${(sz / 1e6).toFixed(0)} MB`);
+                    if (!resp.ok) { log('warn', `UL non-2xx: ${resp.status}`); continue; }
+                    const spd = (sz * 8) / el / 1e6;
+                    log('data', `UL ${(sz / 1e6).toFixed(0)} MB / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
+                    results.push(spd);
+                    pushUL(spd);
+                } catch (e) {
+                    log('error', `UL ${(sz / 1e6).toFixed(0)} MB exception: ${e.name}: ${e.message}`);
+                }
+            }
+
+            if (results.length === 0) { log('error', 'All upload tests failed'); return 0; }
+            results.sort((a, b) => b - a);
+            const avg = results.slice(0, 2).reduce((a, b) => a + b, 0) / Math.min(results.length, 2);
+            log('ok', `Upload final: ${avg.toFixed(2)} Mbps  (${results.length} sample(s))`);
+            return avg;
+        }
+
+        // ════════════════════════════════════════════
+        //  TEST RUNNER
+        // ════════════════════════════════════════════
+        let testRunning = false;
+        let finalResults = {};
+
+        async function startTest() {
+            if (testRunning) { log('warn', 'startTest called while already running — ignored'); return; }
+            testRunning = true;
+
+            // Reset
+            dlPts = new Array(80).fill(0); ulPts = new Array(80).fill(0); drawGraph();
+            document.getElementById('results-card').classList.remove('show');
+            document.getElementById('action-row').classList.remove('show');
+            document.getElementById('gauge-card').classList.add('testing');
+            document.getElementById('start-btn').classList.add('running');
+            document.getElementById('start-btn').disabled = true;
+            document.getElementById('btn-icon').textContent = '■';
+            document.getElementById('btn-txt').textContent = '…';
+            ['dl-val', 'ul-val', 'ping-val', 'jitter-val'].forEach(id => document.getElementById(id).textContent = '—');
+            ['dl-bar', 'ul-bar'].forEach(id => document.getElementById(id).style.width = '0');
+            ['mc-dl', 'mc-ul', 'mc-ping', 'mc-jitter'].forEach(id => document.getElementById(id).classList.remove('active'));
+
+            dispSpd = 0; tgtSpd = 0;
+            cancelAnimationFrame(rafId);
+            gaugeLoop();
+
+            log('step', '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            log('step', 'TEST STARTED  ' + new Date().toLocaleString());
+            log('info', 'userAgent: ' + navigator.userAgent.substring(0, 80));
+            log('info', 'connection.effectiveType: ' + (navigator.connection?.effectiveType || 'unknown'));
+            log('info', 'connection.downlink: ' + (navigator.connection?.downlink || 'unknown') + ' Mbps');
+            log('info', 'Gauge ARC_LEN: ' + ARC_LEN.toFixed(1));
+
+            let dl = 0, ul = 0, ping = 0, jitter = 0;
+
+            // PING
+            setPhase('⚡ MEASURING PING');
+            setStatus('Measuring ping & jitter…', true);
+            document.getElementById('mc-ping').classList.add('active');
+            try {
+                const res = await measurePing();
+                ping = res.ping; jitter = res.jitter;
+                document.getElementById('ping-val').textContent = ping.toFixed(0);
+                document.getElementById('jitter-val').textContent = jitter.toFixed(0);
+            } catch (e) { log('error', 'Ping phase failed: ' + e.message); }
+            document.getElementById('mc-ping').classList.remove('active');
+            document.getElementById('mc-jitter').classList.add('active');
+            await sleep(200);
+            document.getElementById('mc-jitter').classList.remove('active');
+
+            // DOWNLOAD
+            setPhase('⬇  DOWNLOAD TEST');
+            setStatus('Testing download speed…', true);
+            document.getElementById('mc-dl').classList.add('active');
+            try {
+                dl = await measureDownload();
+                document.getElementById('dl-val').textContent = dl.toFixed(1);
+                document.getElementById('dl-bar').style.width = Math.min((dl / 500) * 100, 100) + '%';
+            } catch (e) { log('error', 'Download phase failed: ' + e.message); }
+            document.getElementById('mc-dl').classList.remove('active');
+            tgtSpd = 0;
+            await sleep(500);
+
+            // UPLOAD
+            setPhase('⬆  UPLOAD TEST');
+            setStatus('Testing upload speed…', true);
+            document.getElementById('mc-ul').classList.add('active');
+            try {
+                ul = await measureUpload();
+                document.getElementById('ul-val').textContent = ul.toFixed(1);
+                document.getElementById('ul-bar').style.width = Math.min((ul / 200) * 100, 100) + '%';
+            } catch (e) { log('error', 'Upload phase failed: ' + e.message); }
+            document.getElementById('mc-ul').classList.remove('active');
+
+            // DONE
+            testRunning = false;
+            tgtSpd = ul;
+            await sleep(400);
+            cancelAnimationFrame(rafId);
+            setGaugeImmediate(ul);
+
+            setPhase('✓  TEST COMPLETE');
+            setStatus('Test complete!');
+            document.getElementById('gauge-card').classList.remove('testing');
+            document.getElementById('start-btn').classList.remove('running');
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('btn-icon').textContent = '▶';
+            document.getElementById('btn-txt').textContent = 'RETEST';
+
+            finalResults = { dl, ul, ping, jitter };
+            log('step', '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            log('ok', `FINAL → DL:${dl.toFixed(2)} UL:${ul.toFixed(2)} Ping:${ping.toFixed(1)} Jitter:${jitter.toFixed(1)}`);
+
+            // Results card
+            const q = dl >= 100 && ul >= 20 && ping <= 30 ? 'EXCELLENT' : dl >= 25 && ul >= 5 && ping <= 80 ? 'GOOD' : dl >= 10 && ping <= 150 ? 'FAIR' : 'POOR';
+            document.getElementById('quality-tag').textContent = q;
+            document.getElementById('r-dl').textContent = dl.toFixed(1) + ' Mbps';
+            document.getElementById('r-ul').textContent = ul.toFixed(1) + ' Mbps';
+            document.getElementById('r-ping').textContent = ping.toFixed(0) + ' ms';
+            document.getElementById('r-jitter').textContent = jitter.toFixed(0) + ' ms';
+            document.getElementById('r-time').textContent = new Date().toLocaleString();
+            document.getElementById('results-card').classList.add('show');
+            document.getElementById('action-row').classList.add('show');
+            log('info', 'Quality: ' + q);
+        }
+
+        function copyResults() {
+            const { dl, ul, ping, jitter } = finalResults;
+            if (!dl) { log('warn', 'copyResults called but no results yet'); return; }
+            const txt = `VELOCITY SPEED TEST\n──────────────────\nDownload: ${dl.toFixed(1)} Mbps\nUpload:   ${ul.toFixed(1)} Mbps\nPing:     ${ping.toFixed(0)} ms\nJitter:   ${jitter.toFixed(0)} ms\nTested:   ${new Date().toLocaleString()}`;
+            navigator.clipboard.writeText(txt)
+                .then(() => showToast('✓ Copied to clipboard'))
+                .catch(e => { log('error', 'Clipboard write failed: ' + e.message); showToast('Copy failed'); });
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        // ── Boot logs
+        log('info', 'VELOCITY initialized at ' + new Date().toLocaleString());
+        log('info', `Viewport: ${window.innerWidth}×${window.innerHeight}  DPR: ${devicePixelRatio}`);
+        log('info', `Connection API: type=${navigator.connection?.type || 'N/A'} effective=${navigator.connection?.effectiveType || 'N/A'} downlink=${navigator.connection?.downlink || 'N/A'}Mbps`);
+    </script>
+    <script src="tracker.js" defer></script>
+</body>
+
+</html>

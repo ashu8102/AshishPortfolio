@@ -1,12 +1,11 @@
 // Disable right-click and keyboard shortcuts
-document.addEventListener('contextmenu', (e) => e.preventDefault());// Disable right-click
+//document.addEventListener('contextmenu', (e) => e.preventDefault());// Disable right-click
 document.addEventListener('keydown', (e) => {
   if (e.key === 'F12') { e.preventDefault(); }// Disable F12
   if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); }
   if (e.ctrlKey && e.key === 'u') { e.preventDefault(); } // Disable Ctrl+U (View Source)
   if (e.ctrlKey && e.key === 's') { e.preventDefault(); }// Disable Ctrl+S (Save Page)
 });
-
 
 
 /**
@@ -119,13 +118,19 @@ document.addEventListener('keydown', (e) => {
   // ═══════════════════════════════════════════════════════════════
 
   function trackVisit() {
+    // Prevent tracking on local development
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    if (isLocal) {
+      console.log('Skipping visit submission (Local development detected)');
+      return;
+    }
+
     // Guard: only fire once per page per session
     if (sessionStorage.getItem(visitKey)) return;
     sessionStorage.setItem(visitKey, '1');
 
     const ua = navigator.userAgent || '';
     const parsed = parseUA(ua);
-
     post(SF_ENDPOINT, {
       trackingType: 'page_visit',
       sessionId: sessionId,
@@ -210,6 +215,10 @@ document.addEventListener('keydown', (e) => {
   }
 
   function sendTime() {
+    // Prevent tracking on local development
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    if (isLocal) return;
+
     if (timeSent) return;
     timeSent = true;
 
