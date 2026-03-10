@@ -1,5 +1,5 @@
 // Disable right-click and keyboard shortcuts
-//document.addEventListener('contextmenu', (e) => e.preventDefault());// Disable right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());// Disable right-click
 document.addEventListener('keydown', (e) => {
   if (e.key === 'F12') { e.preventDefault(); }// Disable F12
   if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); }

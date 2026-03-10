@@ -2,49 +2,51 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VELOCITY · Speed Test</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="PageIcon.png">
+    <title>VELOCITY · Pro Speed Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
     <style>
         *,
         *::before,
         *::after {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth
         }
 
         :root {
             --bg: #f0f4f8;
-            --surface: #ffffff;
+            --surface: #fff;
             --border: #e2e8f0;
             --blue: #2563eb;
             --blue-lt: #eff6ff;
             --blue-mid: #bfdbfe;
             --indigo: #6366f1;
             --green: #059669;
+            --orange: #ea580c;
+            --red: #dc2626;
             --text: #0f172a;
             --text2: #334155;
             --muted: #94a3b8;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+            --shadow: 0 4px 16px rgba(0, 0, 0, .08), 0 1px 3px rgba(0, 0, 0, .05);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, .1), 0 4px 16px rgba(0, 0, 0, .05);
         }
 
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 400;
-            min-height: 100vh;
+            min-height: 100vh
         }
 
         body::before {
@@ -53,9 +55,9 @@
             inset: 0;
             background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px);
             background-size: 28px 28px;
-            opacity: 0.22;
+            opacity: .22;
             pointer-events: none;
-            z-index: 0;
+            z-index: 0
         }
 
         .shell {
@@ -64,77 +66,105 @@
             max-width: 1400px;
             width: 95%;
             margin: 0 auto;
-            padding: 24px 24px 40px;
+            padding: 20px 20px 40px
         }
 
-        /* ── HEADER ── */
+        /* ─── HEADER (FIXED) ─────────────────────────── */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
+        /* Brand — simplified to 2 focal points: wordmark + version pill */
         .brand {
             display: flex;
-            flex-direction: column;
-            line-height: 1;
-        }
-
-        .brand-title {
-            display: flex;
             align-items: center;
+            gap: 12px;
         }
 
-        .brand-main {
+        .brand-wordmark {
+            display: flex;
+            align-items: baseline;
+            gap: 0;
+        }
+
+        .brand-name {
             font-family: 'Orbitron', monospace;
             font-weight: 700;
             font-size: 22px;
+            letter-spacing: 1px;
             color: #0f172a;
-            letter-spacing: 1.5px;
         }
 
-        .brand-dot {
-            width: 8px;
-            height: 8px;
-            background: #2563eb;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 10px 0 0 0;
-        }
-
-        .brand-sub {
-            font-family: 'DM Mono', monospace;
-            font-size: 9px;
-            letter-spacing: 0.28em;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-
-        .logo {
+        .brand-dot-sep {
             font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: clamp(16px, 3.5vw, 22px);
-            letter-spacing: 0.18em;
-            color: var(--text);
+            font-size: 22px;
+            font-weight: 700;
+            color: #2563eb;
+            margin: 0 1px;
         }
 
-        .logo em {
-            font-style: normal;
-            background: linear-gradient(135deg, var(--blue), var(--indigo));
+        .brand-dev {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #2563eb, #6366f1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .logo small {
-            display: block;
+        .brand-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            justify-content: center;
+        }
+
+        .brand-sub {
             font-family: 'DM Mono', monospace;
             font-size: 9px;
-            letter-spacing: 0.3em;
-            color: var(--muted);
-            -webkit-text-fill-color: var(--muted);
-            margin-top: 2px;
+            letter-spacing: 0.22em;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .brand-version {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: #64748b;
+            background: var(--blue-lt);
+            border: 1px solid var(--blue-mid);
+            border-radius: 20px;
+            padding: 2px 8px;
+            letter-spacing: 0.08em;
+            width: fit-content;
+        }
+
+        .brand-v-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #059669;
+            box-shadow: 0 0 4px rgba(5, 150, 105, 0.5);
+            animation: pulse 2s ease infinite;
+            flex-shrink: 0;
+        }
+
+        /* Header right — equalized height & weight */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .status-pill {
@@ -143,13 +173,14 @@
             gap: 6px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 14px;
+            border-radius: 8px;
+            padding: 7px 13px;
             box-shadow: var(--shadow-sm);
             font-family: 'DM Mono', monospace;
             font-size: 10px;
             color: var(--text2);
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
+            height: 34px;
         }
 
         .live-dot {
@@ -157,28 +188,223 @@
             height: 7px;
             border-radius: 50%;
             background: var(--green);
-            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, .2);
             animation: pulse 2s ease infinite;
+            flex-shrink: 0;
         }
 
         @keyframes pulse {
 
             0%,
             100% {
-                box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2)
+                box-shadow: 0 0 0 2px rgba(5, 150, 105, .2)
             }
 
             50% {
-                box-shadow: 0 0 0 5px rgba(5, 150, 105, 0.08)
+                box-shadow: 0 0 0 5px rgba(5, 150, 105, .08)
             }
         }
 
-        /* ── IP BAR ── */
+        /* Settings button — now matches status pill weight */
+        .settings-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 13px;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text2);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all .18s;
+            letter-spacing: .08em;
+            height: 34px;
+        }
+
+        .settings-btn:hover {
+            border-color: var(--blue-mid);
+            color: var(--blue);
+            background: var(--blue-lt);
+        }
+
+        /* ─── CONTROL PANEL BLOCK (service + region merged) ─── */
+        .control-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            flex-wrap: nowrap;
+        }
+
+        .control-row+.control-row {
+            border-top: 1px solid var(--border);
+            background: #fafbfc;
+        }
+
+        .control-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: 72px;
+        }
+
+        .control-tabs {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 2px;
+            flex: 1;
+        }
+
+        .control-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .svc-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: .04em;
+        }
+
+        .svc-btn:hover {
+            border-color: var(--blue-mid);
+            color: var(--blue);
+            background: var(--blue-lt);
+        }
+
+        .svc-btn.active {
+            border-color: var(--blue);
+            background: var(--blue-lt);
+            color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+            font-weight: 600;
+        }
+
+        .svc-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .svc-note {
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: 0;
+        }
+
+        /* ─── SETTINGS PANEL ─────────────────────────── */
+        .settings-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .settings-panel.open {
+            display: block;
+            animation: slideUp .25s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(-8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .settings-group label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .18em;
+            color: var(--blue);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .seg-ctrl {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .seg-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .15s;
+            letter-spacing: .06em;
+        }
+
+        .seg-btn.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+        }
+
+        .seg-btn:hover:not(.active) {
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* ─── IP BAR (FIXED) ─────────────────────────── */
         .ip-bar {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
+            align-items: stretch;
         }
 
         .ip-chip {
@@ -191,41 +417,192 @@
             font-size: 11px;
         }
 
+        /* Protocol chip pushed to end with divider effect */
+        .ip-chip.proto-chip {
+            margin-left: auto;
+            border-color: var(--blue-mid);
+            background: var(--blue-lt);
+        }
+
         .ip-chip .lbl {
             font-size: 9px;
-            letter-spacing: 0.18em;
-            color: var(--muted);
+            letter-spacing: .18em;
+            color: var(--blue);
             text-transform: uppercase;
             margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .ip-chip.proto-chip .lbl {
+            color: var(--indigo);
         }
 
         .ip-chip .val {
             color: var(--text);
             font-weight: 500;
+            white-space: nowrap;
         }
 
-        /* ── MAIN GRID ── */
+        .ip-val-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-ip-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: var(--blue-lt);
+            border: 1px solid var(--blue-mid);
+            color: var(--blue);
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            line-height: 1.7;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all .18s;
+        }
+
+        .copy-ip-btn:hover {
+            background: #dbeafe;
+            border-color: var(--blue);
+            transform: translateY(-1px);
+        }
+
+        .copy-ip-btn.copied {
+            background: #d1fae5;
+            border-color: #6ee7b7;
+            color: #059669;
+        }
+
+        /* ─── SHARED RESULTS BANNER ─────────────────── */
+        .shared-banner {
+            display: none;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border: 1px solid #334155;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            animation: slideUp .35s ease;
+        }
+
+        .shared-banner.show {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .shared-banner-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .shared-banner-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .shared-banner-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .22em;
+            color: #60a5fa;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .shared-banner-stats {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .shared-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .shared-stat-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: #64748b;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .shared-stat-val {
+            font-family: 'Orbitron', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #f1f5f9;
+            line-height: 1;
+        }
+
+        .shared-stat-unit {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: #475569;
+            margin-left: 2px;
+        }
+
+        .shared-banner-meta {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: #475569;
+            margin-top: 6px;
+            letter-spacing: .05em;
+        }
+
+        .shared-banner-close {
+            background: none;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #475569;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all .15s;
+            flex-shrink: 0;
+            letter-spacing: .08em;
+        }
+
+        .shared-banner-close:hover {
+            border-color: #ef4444;
+            color: #f87171;
+        }
+
+        /* ─── MAIN GRID ──────────────────────────────── */
         .main-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr 1.2fr;
-            gap: 16px;
-            margin-bottom: 18px;
+            gap: 14px;
+            margin-bottom: 14px;
             align-items: stretch;
         }
 
-        @media(max-width:680px) {
+        @media(max-width:768px) {
             .main-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* ── GAUGE CARD ── */
+        /* GAUGE CARD */
         .gauge-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 20px;
             box-shadow: var(--shadow);
-            padding: 28px 22px 22px;
+            padding: 22px 18px 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -243,7 +620,7 @@
             background: linear-gradient(90deg, var(--blue), var(--indigo));
             border-radius: 20px 20px 0 0;
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity .4s;
         }
 
         .gauge-card.testing::after {
@@ -253,19 +630,19 @@
         .gauge-phase {
             font-family: 'DM Mono', monospace;
             font-size: 10px;
-            letter-spacing: 0.2em;
+            letter-spacing: .2em;
             color: var(--muted);
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             min-height: 1em;
-            transition: color 0.3s;
+            transition: color .3s;
         }
 
         .gauge-wrap {
             position: relative;
             width: 100%;
             max-width: 270px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         #gauge-svg {
@@ -286,7 +663,7 @@
             stroke-width: 10;
             stroke-linecap: round;
             stroke: url(#fillGrad);
-            filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.3));
+            filter: drop-shadow(0 0 5px rgba(37, 99, 235, .3));
         }
 
         .g-tick {
@@ -317,27 +694,143 @@
 
         .spd-num {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(36px, 8vw, 54px);
+            font-size: clamp(34px, 7vw, 52px);
             font-weight: 700;
             color: var(--text);
             line-height: 1;
-            letter-spacing: -0.02em;
-            transition: color 0.3s;
+            letter-spacing: -.02em;
+            transition: color .3s;
         }
 
         .spd-unit {
             font-family: 'DM Mono', monospace;
             font-size: 11px;
             color: var(--muted);
-            letter-spacing: 0.25em;
+            letter-spacing: .25em;
             margin-top: 3px;
         }
 
-        /* ── METRIC CARDS ── */
+        /* BUTTON */
+        .btn-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        #start-btn {
+            position: relative;
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transition: transform .12s;
+        }
+
+        #start-btn:active {
+            transform: scale(.95);
+        }
+
+        #start-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .btn-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5px solid rgba(37, 99, 235, .18);
+            animation: ripple 2.4s ease-out infinite;
+        }
+
+        .btn-ring:nth-child(2) {
+            animation-delay: .8s;
+        }
+
+        .btn-ring:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(.88);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.28);
+                opacity: 0;
+            }
+        }
+
+        .btn-core {
+            position: absolute;
+            inset: 13px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #2563eb, #4f46e5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            box-shadow: 0 6px 24px rgba(37, 99, 235, .4), 0 2px 6px rgba(37, 99, 235, .25);
+            transition: box-shadow .2s, transform .12s;
+        }
+
+        #start-btn:hover .btn-core {
+            box-shadow: 0 10px 32px rgba(37, 99, 235, .5), 0 2px 8px rgba(37, 99, 235, .3);
+            transform: scale(1.04);
+        }
+
+        #start-btn.running .btn-core {
+            background: linear-gradient(145deg, #dc2626, #ea580c);
+            box-shadow: 0 6px 24px rgba(220, 38, 38, .4);
+        }
+
+        #start-btn.running .btn-ring {
+            animation: spin 1.2s linear infinite;
+            border-color: transparent;
+            border-top-color: rgba(37, 99, 235, .35);
+        }
+
+        #start-btn.running .btn-ring:nth-child(2) {
+            animation: spin .9s linear infinite reverse;
+            border-top-color: rgba(99, 102, 241, .25);
+        }
+
+        #start-btn.running .btn-ring:nth-child(3) {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .btn-txt {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .2em;
+            color: rgba(255, 255, 255, .85);
+        }
+
+        /* RIGHT METRICS */
         .right-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .metric-card {
@@ -345,26 +838,26 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             box-shadow: var(--shadow-sm);
-            padding: 14px 16px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            gap: 10px;
+            transition: border-color .3s, box-shadow .3s;
         }
 
         .metric-card.active {
             border-color: var(--blue-mid);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08), var(--shadow-sm);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .08), var(--shadow-sm);
         }
 
         .m-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
             flex-shrink: 0;
         }
 
@@ -392,15 +885,15 @@
         .m-label {
             font-family: 'DM Mono', monospace;
             font-size: 9px;
-            letter-spacing: 0.18em;
+            letter-spacing: .18em;
             color: var(--muted);
             text-transform: uppercase;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .m-val {
             font-family: 'Orbitron', monospace;
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 700;
             color: var(--text);
             line-height: 1;
@@ -417,7 +910,7 @@
             height: 3px;
             background: #e8eef6;
             border-radius: 2px;
-            margin-top: 6px;
+            margin-top: 5px;
             overflow: hidden;
         }
 
@@ -425,17 +918,15 @@
             height: 100%;
             border-radius: 2px;
             width: 0;
-            transition: width 0.3s ease-out;
+            transition: width .3s ease-out;
         }
 
-        /* ── STATUS + BUTTON ── */
         .status-bar {
             text-align: center;
             font-family: 'DM Mono', monospace;
             font-size: 11px;
             color: var(--muted);
-            margin-bottom: 18px;
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             height: 18px;
             display: flex;
             align-items: center;
@@ -449,7 +940,7 @@
             border-radius: 50%;
             background: var(--blue);
             display: none;
-            animation: blink 0.7s ease-in-out infinite;
+            animation: blink .7s ease-in-out infinite;
         }
 
         .status-bar.running .s-dot {
@@ -460,157 +951,86 @@
 
             0%,
             100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: 0.2
-            }
-        }
-
-        .btn-section {
-            display: flex;
-            justify-content: center;
-            margin: 0 0 18px;
-        }
-
-        #start-btn {
-            position: relative;
-            cursor: pointer;
-            border: none;
-            background: none;
-            outline: none;
-            width: 108px;
-            height: 108px;
-            border-radius: 50%;
-            transition: transform 0.12s;
-        }
-
-        #start-btn:active {
-            transform: scale(0.95);
-        }
-
-        #start-btn:disabled {
-            cursor: not-allowed;
-        }
-
-        .btn-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 1.5px solid rgba(37, 99, 235, 0.18);
-            animation: ripple 2.4s ease-out infinite;
-        }
-
-        .btn-ring:nth-child(2) {
-            animation-delay: 0.8s;
-        }
-
-        .btn-ring:nth-child(3) {
-            animation-delay: 1.6s;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0.88);
-                opacity: 0;
-            }
-
-            30% {
                 opacity: 1;
             }
 
-            100% {
-                transform: scale(1.28);
-                opacity: 0;
+            50% {
+                opacity: .2;
             }
         }
 
-        .btn-core {
-            position: absolute;
-            inset: 13px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #2563eb, #4f46e5);
+        .action-row {
+            display: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .action-row.show {
+            display: flex;
+            animation: slideUp .3s ease;
+        }
+
+        .act-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .1em;
+            color: var(--text2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: var(--shadow-sm);
+            transition: all .18s;
+        }
+
+        .act-btn:hover {
+            background: var(--blue-lt);
+            border-color: var(--blue-mid);
+            color: var(--blue);
+        }
+
+        /* GRAPH COL */
+        .graph-col {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1px;
-            box-shadow: 0 6px 24px rgba(37, 99, 235, 0.4), 0 2px 6px rgba(37, 99, 235, 0.25);
-            transition: box-shadow 0.2s, transform 0.12s;
+            gap: 10px;
         }
 
-        #start-btn:hover .btn-core {
-            box-shadow: 0 10px 32px rgba(37, 99, 235, 0.5), 0 2px 8px rgba(37, 99, 235, 0.3);
-            transform: scale(1.04);
-        }
-
-        #start-btn.running .btn-core {
-            background: linear-gradient(145deg, #dc2626, #ea580c);
-            box-shadow: 0 6px 24px rgba(220, 38, 38, 0.4);
-        }
-
-        #start-btn.running .btn-ring {
-            animation: spin 1.2s linear infinite;
-            border-color: transparent;
-            border-top-color: rgba(37, 99, 235, 0.35);
-        }
-
-        #start-btn.running .btn-ring:nth-child(2) {
-            animation: spin 0.9s linear infinite reverse;
-            border-top-color: rgba(99, 102, 241, 0.25);
-        }
-
-        #start-btn.running .btn-ring:nth-child(3) {
-            display: none;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .btn-icon {
-            font-size: 20px;
-            line-height: 1;
-        }
-
-        .btn-txt {
-            font-family: 'DM Mono', monospace;
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        /* ── GRAPH ── */
         .graph-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
             box-shadow: var(--shadow-sm);
-            padding: 16px 20px;
-            margin-bottom: 14px;
+            padding: 14px 16px;
         }
 
         .graph-hdr {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .graph-title {
             font-family: 'DM Mono', monospace;
             font-size: 10px;
-            letter-spacing: 0.18em;
+            letter-spacing: .18em;
             color: var(--muted);
             text-transform: uppercase;
         }
 
         .graph-legend {
             display: flex;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .leg {
@@ -628,42 +1048,67 @@
             border-radius: 1px;
         }
 
-        #speed-graph {
-            width: 100%;
-            height: 70px;
-            display: block;
+        /* MULTI-THREAD PROGRESS */
+        .thread-viz {
+            margin-top: 8px;
         }
 
-        /* ── RESULTS ── */
+        .thread-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .thread-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--muted);
+            width: 60px;
+            flex-shrink: 0;
+            letter-spacing: .05em;
+        }
+
+        .thread-track {
+            flex: 1;
+            height: 5px;
+            background: #e8eef6;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .thread-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #2563eb, #6366f1);
+            transition: width .2s ease;
+        }
+
+        .thread-spd {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--text2);
+            width: 52px;
+            text-align: right;
+        }
+
+        /* RESULTS CARD */
         .results-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
             box-shadow: var(--shadow);
             overflow: hidden;
-            margin-bottom: 14px;
             display: none;
         }
 
         .results-card.show {
             display: block;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px)
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
+            animation: slideUp .4s ease;
         }
 
         .res-header {
-            padding: 14px 20px;
+            padding: 12px 18px;
             background: linear-gradient(135deg, var(--blue), var(--indigo));
             display: flex;
             justify-content: space-between;
@@ -673,8 +1118,8 @@
         .res-title {
             font-family: 'DM Mono', monospace;
             font-size: 10px;
-            letter-spacing: 0.2em;
-            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: .2em;
+            color: rgba(255, 255, 255, .8);
             text-transform: uppercase;
         }
 
@@ -682,10 +1127,10 @@
             font-family: 'Orbitron', monospace;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: .15em;
             padding: 4px 12px;
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, .2);
             color: #fff;
         }
 
@@ -693,7 +1138,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -709,56 +1154,261 @@
             font-family: 'DM Mono', monospace;
             font-size: 11px;
             color: var(--muted);
-            letter-spacing: 0.08em;
+            letter-spacing: .08em;
         }
 
         .res-val {
             font-family: 'Orbitron', monospace;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text);
         }
 
-        /* ── ACTIONS ── */
-        .action-row {
-            display: none;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 22px;
+        /* BOTTOM GRID */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
-        .action-row.show {
-            display: flex;
-            animation: slideUp 0.3s ease;
+        @media(max-width:680px) {
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .act-btn {
+        /* NETWORK INFO PANEL */
+        .panel-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px 18px;
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            color: var(--text2);
-            cursor: pointer;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .panel-hdr {
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.18s;
+            gap: 8px;
         }
 
-        .act-btn:hover {
-            background: var(--blue-lt);
+        .panel-hdr-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .18em;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .net-grid {
+            padding: 12px 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .net-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 9px 11px;
+            border: 1px solid var(--border);
+        }
+
+        .net-item-lbl {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .15em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .net-item-val {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .net-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            font-family: 'DM Mono', monospace;
+            letter-spacing: .08em;
+        }
+
+        .badge-wifi {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .badge-4g {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .badge-3g {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .badge-slow {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        /* IPv4 vs IPv6 COMPARISON */
+        .ipv-compare {
+            padding: 12px 18px;
+        }
+
+        .ipv-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .ipv-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            width: 40px;
+            flex-shrink: 0;
+        }
+
+        .ipv-bar-wrap {
+            flex: 1;
+            position: relative;
+        }
+
+        .ipv-track {
+            height: 8px;
+            background: #e8eef6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .ipv4-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #2563eb, #6366f1);
+            transition: width 1s ease;
+        }
+
+        .ipv6-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #059669, #0891b2);
+            transition: width 1s ease;
+        }
+
+        .ipv-spd {
+            font-family: 'Orbitron', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text);
+            width: 70px;
+            text-align: right;
+        }
+
+        .ipv-winner {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            color: var(--green);
+            letter-spacing: .1em;
+        }
+
+        /* JSON EXPORT */
+        .export-section {
+            padding: 12px 18px;
+        }
+
+        .json-pre {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: #94a3b8;
+            line-height: 1.7;
+            overflow-x: auto;
+            white-space: pre;
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid #1e293b;
+        }
+
+        .json-pre::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .json-pre::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 2px;
+        }
+
+        .json-key {
+            color: #60a5fa;
+        }
+
+        .json-str {
+            color: #86efac;
+        }
+
+        .json-num {
+            color: #fbbf24;
+        }
+
+        .json-bool {
+            color: #f472b6;
+        }
+
+        .export-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .exp-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .18s;
+            letter-spacing: .08em;
+        }
+
+        .exp-btn:hover {
             border-color: var(--blue-mid);
             color: var(--blue);
+            background: var(--blue-lt);
         }
 
-        /* ══════════════════════════════════════
-   DEBUG CONSOLE
-══════════════════════════════════════ */
+        .exp-btn.primary {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+        }
+
+        .exp-btn.primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* DEBUG CONSOLE */
         .debug-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -795,22 +1445,22 @@
             border-radius: 50%;
         }
 
-        .debug-dots .d1 {
+        .d1 {
             background: #ff5f56;
         }
 
-        .debug-dots .d2 {
+        .d2 {
             background: #ffbd2e;
         }
 
-        .debug-dots .d3 {
+        .d3 {
             background: #27c93f;
         }
 
         .debug-hdr-title {
             font-family: 'DM Mono', monospace;
             font-size: 11px;
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             color: #64748b;
             text-transform: uppercase;
         }
@@ -826,16 +1476,16 @@
             background: none;
             border: none;
             cursor: pointer;
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             white-space: nowrap;
         }
 
         .debug-body {
             background: #0f172a;
             border-top: 1px solid #1e293b;
-            max-height: 300px;
+            max-height: 260px;
             overflow-y: auto;
-            padding: 10px 0;
+            padding: 8px 0;
         }
 
         .debug-body::-webkit-scrollbar {
@@ -861,7 +1511,7 @@
         }
 
         .log-line:hover {
-            background: rgba(255, 255, 255, 0.025);
+            background: rgba(255, 255, 255, .025);
         }
 
         .l-ts {
@@ -875,7 +1525,7 @@
             flex-shrink: 0;
             width: 44px;
             font-size: 9px;
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             text-transform: uppercase;
             padding-top: 1px;
         }
@@ -909,7 +1559,6 @@
             color: #22d3ee;
         }
 
-        /* Log line coloring by tag */
         .log-line.log-ok .l-msg {
             color: #86efac;
         }
@@ -933,9 +1582,9 @@
         .debug-toolbar {
             background: #0c1424;
             border-top: 1px solid #1e293b;
-            padding: 8px 16px;
+            padding: 7px 14px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -943,7 +1592,7 @@
         .f-btn {
             font-family: 'DM Mono', monospace;
             font-size: 9px;
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             background: #1e293b;
             border: 1px solid #2d3f55;
             border-radius: 5px;
@@ -951,7 +1600,7 @@
             color: #64748b;
             cursor: pointer;
             text-transform: uppercase;
-            transition: all 0.15s;
+            transition: all .15s;
         }
 
         .f-btn.active {
@@ -969,14 +1618,14 @@
             margin-left: auto;
             font-family: 'DM Mono', monospace;
             font-size: 9px;
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             background: none;
             border: 1px solid #2d3f55;
             border-radius: 5px;
             padding: 3px 9px;
             color: #475569;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all .15s;
         }
 
         .f-clear:hover {
@@ -985,21 +1634,20 @@
         }
 
         .debug-empty {
-            padding: 20px;
+            padding: 18px;
             text-align: center;
             font-family: 'DM Mono', monospace;
             font-size: 11px;
             color: #334155;
         }
 
-        /* ── FOOTER + TOAST ── */
         footer {
             text-align: center;
             font-family: 'DM Mono', monospace;
             font-size: 10px;
             color: var(--muted);
-            letter-spacing: 0.1em;
-            opacity: 0.6;
+            letter-spacing: .1em;
+            opacity: .6;
         }
 
         .toast {
@@ -1013,7 +1661,7 @@
             padding: 11px 20px;
             font-family: 'DM Mono', monospace;
             font-size: 12px;
-            transition: transform 0.3s ease;
+            transition: transform .3s ease;
             z-index: 999;
             white-space: nowrap;
             box-shadow: var(--shadow-lg);
@@ -1023,19 +1671,145 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        .graph-col {
+        /* External service overlay */
+        .ext-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            z-index: 1000;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
         }
 
-        @media(max-width:480px) {
+        .ext-modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            max-width: 460px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .ext-modal h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .ext-modal p {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            letter-spacing: .05em;
+            line-height: 1.7;
+        }
+
+        .ext-url-display {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: var(--blue);
+            margin-bottom: 16px;
+            word-break: break-all;
+        }
+
+        .ext-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ext-open-btn {
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 22px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            letter-spacing: .1em;
+            transition: all .18s;
+        }
+
+        .ext-open-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .ext-cancel-btn {
+            background: var(--surface);
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 11px 22px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            letter-spacing: .1em;
+            transition: all .18s;
+        }
+
+        .ext-cancel-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .section-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .2em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-left: 2px;
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────── */
+        @media(max-width: 600px) {
+            header {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .brand-meta {
+                display: none;
+            }
+
+            .control-label {
+                min-width: 56px;
+                font-size: 8px;
+            }
+
+            .control-row {
+                padding: 8px 12px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .spd-num {
+                font-size: 36px;
+            }
+
             .ip-bar .ip-chip:nth-child(n+4) {
                 display: none;
             }
 
-            .spd-num {
-                font-size: 40px;
+            .ip-chip.proto-chip {
+                display: flex !important;
+                margin-left: 0;
+            }
+
+            .net-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1044,26 +1818,142 @@
 <body>
     <div class="shell">
 
+        <!-- ═══ HEADER (FIXED) ════════════════════════ -->
         <header>
+            <!-- Brand: wordmark only + metadata column -->
             <div class="brand">
-
-                <div class="brand-title">
-                    <span class="brand-main">Ashish</span><span class="brand-dot"></span><span
-                        class="brand-main">dev</span>
+                <div class="brand-wordmark">
+                    <span class="brand-name">Ashish</span>
+                    <span class="brand-dot-sep">.</span>
+                    <span class="brand-dev">dev</span>
                 </div>
-
-                <div class="brand-sub">INTERNET SPEED TEST</div>
-
+                <div class="brand-meta">
+                    <span class="brand-sub">Internet Speed Test</span>
+                    <div class="brand-version">
+                        <span class="brand-v-dot"></span>v2.0 · LIVE
+                    </div>
+                </div>
             </div>
-            <div class="status-pill">
-                <div class="live-dot"></div><span id="clock">--:--:--</span>
+
+            <!-- Header right: equalized pill + settings button -->
+            <div class="header-right">
+                <button class="settings-btn" onclick="toggleSettings()">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round">
+                        <circle cx="8" cy="8" r="2.5" />
+                        <path
+                            d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" />
+                    </svg>
+                    Settings
+                </button>
+                <div class="status-pill">
+                    <div class="live-dot"></div>
+                    <span id="clock">--:--:--</span>
+                </div>
             </div>
         </header>
 
+        <!-- ═══ CONTROL PANEL (service + region merged into one card) ═══ -->
+        <div class="control-panel">
+            <!-- Row 1: Test via -->
+            <div class="control-row">
+                <span class="control-label">Test via</span>
+                <div class="control-tabs">
+                    <button class="svc-btn active" id="svc-native" onclick="selectService('native')">
+                        <span class="svc-icon">⚡</span> Native <span class="svc-note">(built-in)</span>
+                    </button>
+                    <button class="svc-btn" id="svc-fast" onclick="selectService('fast')">
+                        <span class="svc-icon">🅽</span> Fast.com <span class="svc-note">(Netflix)</span>
+                    </button>
+                    <button class="svc-btn" id="svc-cloudflare" onclick="selectService('cloudflare')">
+                        <span class="svc-icon">🌐</span> Cloudflare
+                    </button>
+                    <button class="svc-btn" id="svc-speedtest" onclick="selectService('speedtest')">
+                        <span class="svc-icon">🔴</span> Speedtest.net
+                    </button>
+                </div>
+            </div>
+
+            <!-- Row 2: Server region -->
+            <div class="control-row">
+                <span class="control-label">Region</span>
+                <div class="control-tabs">
+                    <button class="svc-btn active" id="loc-auto" onclick="selectRegion('auto',this)">
+                        <span class="svc-icon">🌍</span> Auto
+                    </button>
+                    <button class="svc-btn" id="loc-mumbai" onclick="selectRegion('mumbai',this)">
+                        <span class="svc-icon">🇮🇳</span> Mumbai
+                    </button>
+                    <button class="svc-btn" id="loc-singapore" onclick="selectRegion('singapore',this)">
+                        <span class="svc-icon">🇸🇬</span> Singapore
+                    </button>
+                    <button class="svc-btn" id="loc-useast" onclick="selectRegion('useast',this)">
+                        <span class="svc-icon">🇺🇸</span> US East
+                    </button>
+                    <button class="svc-btn" id="loc-europe" onclick="selectRegion('europe',this)">
+                        <span class="svc-icon">🇪🇺</span> Europe
+                    </button>
+                    <button class="svc-btn" id="loc-japan" onclick="selectRegion('japan',this)">
+                        <span class="svc-icon">🇯🇵</span> Japan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ SETTINGS PANEL ════════════════════════ -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-grid">
+                <div class="settings-group">
+                    <label>Download Duration</label>
+                    <div class="seg-ctrl" id="dl-dur-ctrl">
+                        <button class="seg-btn" onclick="setSetting('dlDur',5,this)">5s</button>
+                        <button class="seg-btn active" onclick="setSetting('dlDur',10,this)">10s</button>
+                        <button class="seg-btn" onclick="setSetting('dlDur',20,this)">20s</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <label>Upload Duration</label>
+                    <div class="seg-ctrl" id="ul-dur-ctrl">
+                        <button class="seg-btn active" onclick="setSetting('ulDur',5,this)">5s</button>
+                        <button class="seg-btn" onclick="setSetting('ulDur',10,this)">10s</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <label>Ping Samples</label>
+                    <div class="seg-ctrl" id="ping-ctrl">
+                        <button class="seg-btn active" onclick="setSetting('pingSamples',8,this)">8</button>
+                        <button class="seg-btn" onclick="setSetting('pingSamples',16,this)">16</button>
+                        <button class="seg-btn" onclick="setSetting('pingSamples',32,this)">32</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <label>Download Threads</label>
+                    <div class="seg-ctrl" id="threads-ctrl">
+                        <button class="seg-btn" onclick="setSetting('threads',1,this)">1</button>
+                        <button class="seg-btn active" onclick="setSetting('threads',4,this)">4</button>
+                        <button class="seg-btn" onclick="setSetting('threads',8,this)">8</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ IP BAR (FIXED — protocol chip pushed to end) ════════════ -->
         <div class="ip-bar">
             <div class="ip-chip">
-                <div class="lbl">IP Address</div>
-                <div class="val" id="ip-val">Fetching…</div>
+                <div class="lbl">IPv4 Address</div>
+                <div class="ip-val-row">
+                    <div class="val" id="ipv4-val">Fetching…</div>
+                    <button class="copy-ip-btn" id="copy-ipv4-btn" onclick="copyIP('ipv4-val','copy-ipv4-btn')">📋
+                        COPY</button>
+                </div>
+            </div>
+            <div class="ip-chip">
+                <div class="lbl">IPv6 Address</div>
+                <div class="ip-val-row">
+                    <div class="val" id="ipv6-val">Fetching…</div>
+                    <button class="copy-ip-btn" id="copy-ipv6-btn" onclick="copyIP('ipv6-val','copy-ipv6-btn')">📋
+                        COPY</button>
+                </div>
             </div>
             <div class="ip-chip">
                 <div class="lbl">Location</div>
@@ -1073,12 +1963,51 @@
                 <div class="lbl">ISP</div>
                 <div class="val" id="isp-val">—</div>
             </div>
-            <div class="ip-chip">
+            <!-- Protocol chip: styled distinctly, pushed right -->
+            <div class="ip-chip proto-chip">
                 <div class="lbl">Protocol</div>
                 <div class="val" id="proto-val">—</div>
             </div>
         </div>
 
+        <!-- SHARED RESULTS BANNER (shown when URL has params) -->
+        <div class="shared-banner" id="shared-banner">
+            <div class="shared-banner-icon">🔗</div>
+            <div class="shared-banner-body">
+                <div class="shared-banner-title">Shared Speed Test Result</div>
+                <div class="shared-banner-stats">
+                    <div class="shared-stat">
+                        <span class="shared-stat-lbl">Download</span>
+                        <span><span class="shared-stat-val" id="sb-dl">—</span><span
+                                class="shared-stat-unit">Mbps</span></span>
+                    </div>
+                    <div class="shared-stat">
+                        <span class="shared-stat-lbl">Upload</span>
+                        <span><span class="shared-stat-val" id="sb-ul">—</span><span
+                                class="shared-stat-unit">Mbps</span></span>
+                    </div>
+                    <div class="shared-stat">
+                        <span class="shared-stat-lbl">Ping</span>
+                        <span><span class="shared-stat-val" id="sb-ping">—</span><span
+                                class="shared-stat-unit">ms</span></span>
+                    </div>
+                    <div class="shared-stat">
+                        <span class="shared-stat-lbl">Jitter</span>
+                        <span><span class="shared-stat-val" id="sb-jitter">—</span><span
+                                class="shared-stat-unit">ms</span></span>
+                    </div>
+                    <div class="shared-stat">
+                        <span class="shared-stat-lbl">Packet Loss</span>
+                        <span><span class="shared-stat-val" id="sb-loss">—</span><span
+                                class="shared-stat-unit">%</span></span>
+                    </div>
+                </div>
+                <div class="shared-banner-meta" id="sb-meta">—</div>
+            </div>
+            <button class="shared-banner-close" onclick="dismissSharedBanner()">✕ Dismiss</button>
+        </div>
+
+        <!-- MAIN GRID -->
         <div class="main-grid">
             <!-- GAUGE -->
             <div class="gauge-card" id="gauge-card">
@@ -1109,20 +2038,15 @@
                     </div>
                 </div>
                 <div class="btn-section">
-                    <div class="btn-section">
-                        <button id="start-btn" onclick="startTest()">
-
-                            <div class="btn-ring"></div>
-                            <div class="btn-ring"></div>
-                            <div class="btn-ring"></div>
-
-                            <div class="btn-core">
-                                <div class="btn-icon" id="btn-icon">▶</div>
-                                <div class="btn-txt" id="btn-txt">GO</div>
-                            </div>
-
-                        </button>
-                    </div>
+                    <button id="start-btn" onclick="startTest()">
+                        <div class="btn-ring"></div>
+                        <div class="btn-ring"></div>
+                        <div class="btn-ring"></div>
+                        <div class="btn-core">
+                            <div class="btn-icon" id="btn-icon">▶</div>
+                            <div class="btn-txt" id="btn-txt">GO</div>
+                        </div>
+                    </button>
                 </div>
             </div>
 
@@ -1153,7 +2077,7 @@
                 <div class="metric-card" id="mc-ping">
                     <div class="m-icon ping">⚡</div>
                     <div class="m-info">
-                        <div class="m-label">Ping (Latency)</div>
+                        <div class="m-label">Ping</div>
                         <div><span class="m-val" id="ping-val">—</span><span class="m-unit">ms</span></div>
                     </div>
                 </div>
@@ -1166,28 +2090,37 @@
                 </div>
                 <div class="status-bar" id="status-bar">
                     <div class="s-dot"></div>
-                    <span id="status-txt">Press GO to begin your speed test</span>
+                    <span id="status-txt">Press GO to begin</span>
                 </div>
-
                 <div class="action-row" id="action-row">
-                    <button class="act-btn" onclick="copyResults()">📋 Copy Results</button>
+                    <button class="act-btn" onclick="copyResults()">📋 Copy</button>
+                    <button class="act-btn" onclick="exportJSON()">⬇ JSON</button>
                     <button class="act-btn" onclick="startTest()">↺ Retest</button>
                 </div>
             </div>
+
+            <!-- GRAPH + RESULTS -->
             <div class="graph-col">
                 <div class="graph-card">
                     <div class="graph-hdr">
                         <div class="graph-title">Live Throughput</div>
                         <div class="graph-legend">
                             <div class="leg">
-                                <div class="leg-dot" style="background:#2563eb"></div>Download
+                                <div class="leg-dot" style="background:#f10236"></div>Download
                             </div>
                             <div class="leg">
                                 <div class="leg-dot" style="background:#6366f1"></div>Upload
                             </div>
                         </div>
                     </div>
-                    <canvas id="speed-graph"></canvas>
+                    <canvas id="speed-graph" style="width:100%;height:70px;display:block"></canvas>
+                </div>
+
+                <div class="graph-card" id="thread-card" style="display:none">
+                    <div class="graph-hdr">
+                        <div class="graph-title" id="thread-title">Multi-Thread Download</div>
+                    </div>
+                    <div class="thread-viz" id="thread-viz"></div>
                 </div>
 
                 <div class="results-card" id="results-card">
@@ -1196,15 +2129,15 @@
                         <div class="quality-tag" id="quality-tag">—</div>
                     </div>
                     <div class="res-row">
-                        <div class="res-lbl">Download Speed</div>
+                        <div class="res-lbl">Download</div>
                         <div class="res-val" id="r-dl">—</div>
                     </div>
                     <div class="res-row">
-                        <div class="res-lbl">Upload Speed</div>
+                        <div class="res-lbl">Upload</div>
                         <div class="res-val" id="r-ul">—</div>
                     </div>
                     <div class="res-row">
-                        <div class="res-lbl">Ping / Latency</div>
+                        <div class="res-lbl">Ping</div>
                         <div class="res-val" id="r-ping">—</div>
                     </div>
                     <div class="res-row">
@@ -1212,21 +2145,178 @@
                         <div class="res-val" id="r-jitter">—</div>
                     </div>
                     <div class="res-row">
+                        <div class="res-lbl">Bufferbloat</div>
+                        <div class="res-val" id="r-bufferbloat" style="font-size:13px">—</div>
+                    </div>
+                    <div class="res-row" style="background:#f8fafc">
+                        <div class="res-lbl" style="font-weight:600;color:var(--text)">Stability Score</div>
+                        <div class="res-val" id="r-stability" style="font-size:18px">—</div>
+                    </div>
+                    <div class="res-row">
+                        <div class="res-lbl">Threads used</div>
+                        <div class="res-val" id="r-threads" style="font-size:13px">—</div>
+                    </div>
+                    <div class="res-row">
                         <div class="res-lbl">Tested At</div>
-                        <div class="res-val" style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)"
+                        <div class="res-val" style="font-size:11px;font-family:'DM Mono',monospace;color:var(--muted)"
                             id="r-time">—</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ══════════ DEBUG CONSOLE ══════════ -->
+        <!-- BOTTOM PANELS GRID -->
+        <div class="bottom-grid">
+            <!-- NETWORK INFORMATION -->
+            <div class="panel-card">
+                <div class="panel-hdr">
+                    <span style="font-size:14px">📡</span>
+                    <div class="panel-hdr-title">Network Information</div>
+                </div>
+                <div class="net-grid" id="net-grid">
+                    <div class="net-item">
+                        <div class="net-item-lbl">Network Type</div>
+                        <div class="net-item-val" id="net-type">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">Effective Type</div>
+                        <div class="net-item-val" id="net-eff">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">RTT</div>
+                        <div class="net-item-val" id="net-rtt">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">Downlink Est.</div>
+                        <div class="net-item-val" id="net-dl">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">Save Data</div>
+                        <div class="net-item-val" id="net-save">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">Online Status</div>
+                        <div class="net-item-val" id="net-online">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">User Agent</div>
+                        <div class="net-item-val" id="net-ua" style="font-size:10px;word-break:break-all">—</div>
+                    </div>
+                    <div class="net-item">
+                        <div class="net-item-lbl">Language</div>
+                        <div class="net-item-val" id="net-lang">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IPv4 vs IPv6 COMPARISON -->
+            <div class="panel-card">
+                <div class="panel-hdr">
+                    <span style="font-size:14px">⚖️</span>
+                    <div class="panel-hdr-title">IPv4 vs IPv6 Performance</div>
+                </div>
+                <div class="ipv-compare">
+                    <div id="ipv-not-tested"
+                        style="padding:20px 0;text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">
+                        Run a test to compare IPv4 vs IPv6 latency</div>
+                    <div id="ipv-results" style="display:none">
+                        <div class="ipv-row">
+                            <div class="ipv-label">IPv4</div>
+                            <div class="ipv-bar-wrap">
+                                <div class="ipv-track">
+                                    <div class="ipv4-fill" id="ipv4-bar" style="width:0%"></div>
+                                </div>
+                            </div>
+                            <div class="ipv-spd" id="ipv4-spd">—</div>
+                        </div>
+                        <div class="ipv-row">
+                            <div class="ipv-label">IPv6</div>
+                            <div class="ipv-bar-wrap">
+                                <div class="ipv-track">
+                                    <div class="ipv6-fill" id="ipv6-bar" style="width:0%"></div>
+                                </div>
+                            </div>
+                            <div class="ipv-spd" id="ipv6-spd">—</div>
+                        </div>
+                        <div
+                            style="margin-top:8px;padding:8px 10px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0">
+                            <div class="ipv-winner" id="ipv-winner">—</div>
+                        </div>
+                        <div style="margin-top:10px">
+                            <div class="section-title" style="margin-bottom:6px">Latency Comparison</div>
+                            <div class="ipv-row">
+                                <div class="ipv-label">IPv4</div>
+                                <div class="ipv-bar-wrap">
+                                    <div class="ipv-track">
+                                        <div class="ipv4-fill" id="ipv4-ping-bar" style="width:0%"></div>
+                                    </div>
+                                </div>
+                                <div class="ipv-spd" id="ipv4-ping" style="font-size:11px">—</div>
+                            </div>
+                            <div class="ipv-row">
+                                <div class="ipv-label">IPv6</div>
+                                <div class="ipv-bar-wrap">
+                                    <div class="ipv-track">
+                                        <div class="ipv6-fill" id="ipv6-ping-bar" style="width:0%"></div>
+                                    </div>
+                                </div>
+                                <div class="ipv-spd" id="ipv6-ping" style="font-size:11px">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSON EXPORT -->
+            <div class="panel-card">
+                <div class="panel-hdr">
+                    <span style="font-size:14px">{ }</span>
+                    <div class="panel-hdr-title">Export Results (JSON)</div>
+                </div>
+                <div class="export-section">
+                    <div class="json-pre" id="json-preview"><span style="color:#94a3b8">// Run a test to see results
+                            here</span></div>
+                    <div class="export-btns">
+                        <button class="exp-btn primary" onclick="exportJSON()">⬇ Download JSON</button>
+                        <button class="exp-btn" onclick="copyJSON()">📋 Copy JSON</button>
+                        <button class="exp-btn" onclick="shareResults()">🔗 Share URL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORY -->
+            <div class="panel-card">
+                <div class="panel-hdr">
+                    <span style="font-size:14px">📋</span>
+                    <div class="panel-hdr-title">Test History</div>
+                </div>
+                <div style="padding:0 0 4px">
+                    <div
+                        style="display:flex;justify-content:space-between;align-items:center;padding:8px 18px;border-bottom:1px solid var(--border)">
+                        <div
+                            style="display:grid;grid-template-columns:1fr 60px 60px 55px;gap:6px;width:100%;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase">
+                            <span>Time</span><span>↓ DL</span><span>↑ UL</span><span>Ping</span>
+                        </div>
+                        <button onclick="clearHistory()"
+                            style="background:none;border:none;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);cursor:pointer;letter-spacing:.1em;flex-shrink:0;margin-left:8px">✕
+                            Clear</button>
+                    </div>
+                    <div id="history-list" style="max-height:240px;overflow-y:auto">
+                        <div id="history-empty"
+                            style="padding:20px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">
+                            No tests yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEBUG CONSOLE -->
         <div class="debug-card">
             <div class="debug-hdr" onclick="toggleDebug()">
                 <div class="debug-hdr-left">
                     <div class="debug-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span>
                     </div>
-                    <div class="debug-hdr-title">🔍 Debug Console &nbsp;—&nbsp; <b id="log-count">0</b> entries</div>
+                    <div class="debug-hdr-title">🔍 Debug Console — <b id="log-count">0</b> entries</div>
                 </div>
                 <button class="debug-toggle-btn" id="dbg-toggle">▼ SHOW</button>
             </div>
@@ -1246,18 +2336,104 @@
             </div>
         </div>
 
-        <footer>VELOCITY SPEED TEST · REAL NETWORK MEASUREMENTS · © 2026</footer>
+        <footer>VELOCITY SPEED TEST PRO · REAL NETWORK MEASUREMENTS · © 2026</footer>
     </div>
+
+    <!-- EXTERNAL SERVICE MODAL -->
+    <div class="ext-overlay" id="ext-overlay" style="display:none">
+        <div class="ext-modal">
+            <h3 id="ext-modal-title">Open External Test</h3>
+            <p id="ext-modal-desc">This will open the selected service in a new tab.</p>
+            <div class="ext-url-display" id="ext-modal-url"></div>
+            <div class="ext-btns">
+                <button class="ext-open-btn" onclick="openExternalService()">🚀 Open in New Tab</button>
+                <button class="ext-cancel-btn" onclick="closeExternalModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
 
     <script>
-        // ════════════════════════════════════════════
-        //  DEBUG SYSTEM
-        // ════════════════════════════════════════════
-        let allLogs = [];
-        let activeFilter = 'all';
-        let debugOpen = false;
+        // ═══════════════════════════════════════════
+        //  SETTINGS
+        // ═══════════════════════════════════════════
+        const settings = { dlDur: 10, ulDur: 5, pingSamples: 8, threads: 4 };
+        let selectedService = 'native';
 
+        function setSetting(key, val, btn) {
+            settings[key] = val;
+            btn.parentElement.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            log('info', `Setting changed: ${key} = ${val}`);
+        }
+        function toggleSettings() {
+            const p = document.getElementById('settings-panel');
+            p.classList.toggle('open');
+        }
+
+        // ═══════════════════════════════════════════
+        //  SERVICE SELECTOR
+        // ═══════════════════════════════════════════
+        const serviceUrls = {
+            fast: { url: 'https://fast.com', title: 'Fast.com (Netflix)', desc: 'Fast.com is Netflix\'s speed test, optimised for testing streaming performance.' },
+            cloudflare: { url: 'https://speed.cloudflare.com', title: 'Cloudflare Speed Test', desc: 'Cloudflare\'s speed test uses their global CDN for accurate worldwide results.' },
+            speedtest: { url: 'https://www.speedtest.net', title: 'Speedtest.net (Ookla)', desc: 'Ookla\'s Speedtest is the industry standard with thousands of servers globally.' },
+        };
+
+        function selectService(svc) {
+            selectedService = svc;
+            document.querySelectorAll('.svc-btn[id^="svc-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('svc-' + svc).classList.add('active');
+            if (svc !== 'native') {
+                const info = serviceUrls[svc];
+                document.getElementById('ext-modal-title').textContent = info.title;
+                document.getElementById('ext-modal-desc').textContent = info.desc + '\n\nThis will open in a new tab.';
+                document.getElementById('ext-modal-url').textContent = info.url;
+                document.getElementById('ext-overlay').style.display = 'flex';
+            }
+            log('info', 'Service selected: ' + svc);
+        }
+        function openExternalService() {
+            const url = serviceUrls[selectedService]?.url;
+            if (url) window.open(url, '_blank');
+            closeExternalModal();
+            selectedService = 'native';
+            document.querySelectorAll('.svc-btn[id^="svc-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('svc-native').classList.add('active');
+        }
+        function closeExternalModal() {
+            document.getElementById('ext-overlay').style.display = 'none';
+            selectedService = 'native';
+            document.querySelectorAll('.svc-btn[id^="svc-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('svc-native').classList.add('active');
+        }
+
+        // ═══════════════════════════════════════════
+        //  SERVER REGIONS
+        // ═══════════════════════════════════════════
+        const REGIONS = {
+            auto: { name: 'Auto (Nearest)', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://www.cloudflare.com/cdn-cgi/trace' },
+            mumbai: { name: 'Mumbai', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://1.1.1.1/cdn-cgi/trace' },
+            singapore: { name: 'Singapore', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://1.1.1.1/cdn-cgi/trace' },
+            useast: { name: 'US East', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://1.1.1.1/cdn-cgi/trace' },
+            europe: { name: 'Europe', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://1.1.1.1/cdn-cgi/trace' },
+            japan: { name: 'Japan', dl: 'https://speed.cloudflare.com/__down', ul: 'https://speed.cloudflare.com/__up', ping: 'https://1.1.1.1/cdn-cgi/trace' },
+        };
+        let selectedRegion = 'auto';
+
+        function selectRegion(key, btn) {
+            selectedRegion = key;
+            document.querySelectorAll('[id^="loc-"]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            log('info', 'Region selected: ' + REGIONS[key].name);
+            showToast('Region: ' + REGIONS[key].name);
+        }
+
+        // ═══════════════════════════════════════════
+        //  DEBUG
+        // ═══════════════════════════════════════════
+        let allLogs = [], activeFilter = 'all', debugOpen = false;
         function log(tag, msg, extra) {
             const now = new Date();
             const ts = now.toLocaleTimeString('en-US', { hour12: false }) + '.' + String(now.getMilliseconds()).padStart(3, '0');
@@ -1267,30 +2443,18 @@
             document.getElementById('log-count').textContent = allLogs.length;
             if (debugOpen) appendLogLine(entry);
         }
-
         function appendLogLine(entry) {
             if (activeFilter !== 'all' && activeFilter !== entry.tag) return;
             const container = document.getElementById('log-container');
-            // Remove empty placeholder
-            const emp = container.querySelector('.debug-empty');
-            if (emp) emp.remove();
-
+            const emp = container.querySelector('.debug-empty'); if (emp) emp.remove();
             const div = document.createElement('div');
             div.className = `log-line log-${entry.tag}`;
             div.dataset.tag = entry.tag;
-            div.innerHTML =
-                `<span class="l-ts">${entry.ts}</span>` +
-                `<span class="l-tag t-${entry.tag}">${entry.tag.toUpperCase()}</span>` +
-                `<span class="l-msg">${esc(entry.msg)}</span>`;
+            div.innerHTML = `<span class="l-ts">${entry.ts}</span><span class="l-tag t-${entry.tag}">${entry.tag.toUpperCase()}</span><span class="l-msg">${esc(entry.msg)}</span>`;
             container.appendChild(div);
-            const body = document.getElementById('debug-body');
-            body.scrollTop = body.scrollHeight;
+            const body = document.getElementById('debug-body'); body.scrollTop = body.scrollHeight;
         }
-
-        function esc(s) {
-            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-
+        function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
         function toggleDebug() {
             debugOpen = !debugOpen;
             document.getElementById('debug-body').style.display = debugOpen ? 'block' : 'none';
@@ -1298,147 +2462,130 @@
             document.getElementById('dbg-toggle').textContent = debugOpen ? '▲ HIDE' : '▼ SHOW';
             if (debugOpen) rebuildLog();
         }
-
         function rebuildLog() {
-            const container = document.getElementById('log-container');
-            container.innerHTML = '';
+            const container = document.getElementById('log-container'); container.innerHTML = '';
             const filtered = activeFilter === 'all' ? allLogs : allLogs.filter(e => e.tag === activeFilter);
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="debug-empty">No entries match this filter.</div>';
-                return;
-            }
+            if (!filtered.length) { container.innerHTML = '<div class="debug-empty">No entries match.</div>'; return; }
             filtered.forEach(appendLogLine);
             setTimeout(() => { document.getElementById('debug-body').scrollTop = 9999; }, 30);
         }
+        function setFilter(f, btn) { activeFilter = f; document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); rebuildLog(); }
+        function clearLogs() { allLogs = []; document.getElementById('log-container').innerHTML = '<div class="debug-empty">Cleared.</div>'; document.getElementById('log-count').textContent = '0'; }
 
-        function setFilter(f, btn) {
-            activeFilter = f;
-            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            rebuildLog();
-        }
-
-        function clearLogs() {
-            allLogs = [];
-            document.getElementById('log-container').innerHTML = '<div class="debug-empty">Cleared.</div>';
-            document.getElementById('log-count').textContent = '0';
-        }
-
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
         //  CLOCK
-        // ════════════════════════════════════════════
-        function updateClock() {
-            document.getElementById('clock').textContent =
-                new Date().toLocaleTimeString('en-US', { hour12: false });
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
+        // ═══════════════════════════════════════════
+        function updateClock() { document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-US', { hour12: false }); }
+        updateClock(); setInterval(updateClock, 1000);
 
-        // ════════════════════════════════════════════
-        //  IP GEOLOCATION
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
+        //  NETWORK INFO
+        // ═══════════════════════════════════════════
+        function loadNetworkInfo() {
+            const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            const ua = navigator.userAgent;
+            const isMobile = /Mobi|Android/i.test(ua);
+            const isWifi = conn?.type === 'wifi' || (!isMobile && !conn?.type);
+            const typeRaw = conn?.type || (isMobile ? 'cellular' : 'ethernet/wifi');
+            const effType = conn?.effectiveType || '4g';
+            const rtt = conn?.rtt ?? '—';
+            const downlink = conn?.downlink ?? '—';
+            const saveData = conn?.saveData ?? false;
+            document.getElementById('net-type').innerHTML = `<span class="net-badge ${isWifi ? 'badge-wifi' : 'badge-4g'}">${typeRaw}</span>`;
+            const effClass = effType === '4g' ? 'badge-4g' : effType === '3g' ? 'badge-3g' : 'badge-slow';
+            document.getElementById('net-eff').innerHTML = `<span class="net-badge ${effClass}">${effType}</span>`;
+            document.getElementById('net-rtt').textContent = rtt !== '—' ? rtt + ' ms' : '—';
+            document.getElementById('net-dl').textContent = downlink !== '—' ? downlink + ' Mbps' : '—';
+            document.getElementById('net-save').innerHTML = `<span class="net-badge ${saveData ? 'badge-slow' : 'badge-wifi'}">${saveData ? 'ON' : 'OFF'}</span>`;
+            document.getElementById('net-online').innerHTML = `<span class="net-badge ${navigator.onLine ? 'badge-wifi' : 'badge-slow'}">${navigator.onLine ? 'Online' : 'Offline'}</span>`;
+            const browserName = /Chrome/i.test(ua) ? 'Chrome' : /Firefox/i.test(ua) ? 'Firefox' : /Safari/i.test(ua) ? 'Safari' : /Edge/i.test(ua) ? 'Edge' : 'Browser';
+            document.getElementById('net-ua').textContent = browserName + (isMobile ? ' (Mobile)' : ' (Desktop)');
+            document.getElementById('net-lang').textContent = navigator.language || '—';
+            log('info', 'Network info loaded', { type: typeRaw, eff: effType, rtt, downlink, saveData });
+        }
+        loadNetworkInfo();
+
+        // ═══════════════════════════════════════════
+        //  IP / GEO
+        // ═══════════════════════════════════════════
+        let ipv4Addr = null, ipv6Addr = null;
         async function fetchIP() {
-            log('step', 'Fetching IP info from ipapi.co');
+            log('step', 'Fetching IPv4 and IPv6 in parallel');
+            const [v4, v6] = await Promise.all([
+                fetch('https://api4.ipify.org?format=json').then(r => r.json()).catch(() => null),
+                fetch('https://api6.ipify.org?format=json').then(r => r.json()).catch(() => null)
+            ]);
+            ipv4Addr = v4?.ip || null;
+            ipv6Addr = v6?.ip || null;
+            document.getElementById('ipv4-val').textContent = ipv4Addr || 'N/A';
+            document.getElementById('ipv6-val').textContent = ipv6Addr || 'N/A';
+            document.getElementById('proto-val').textContent = ipv4Addr && ipv6Addr ? 'Dual-stack' : ipv6Addr ? 'IPv6' : 'IPv4';
+            log('ok', `IPv4:${ipv4Addr || 'N/A'}  IPv6:${ipv6Addr ? ipv6Addr.slice(0, 20) + '…' : 'N/A'}`);
+            const activeIP = ipv4Addr || ipv6Addr;
+            if (!activeIP) return;
             try {
-                const r = await fetch('https://ipapi.co/json/');
-                log('data', `ipapi.co HTTP status: ${r.status}`);
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
-                const d = await r.json();
-                log('ok', 'IP info received', { ip: d.ip, city: d.city, country: d.country_code, org: d.org });
-                document.getElementById('ip-val').textContent = d.ip || '—';
-                document.getElementById('loc-val').textContent = d.city ? `${d.city}, ${d.country_code}` : (d.country_name || '—');
-                document.getElementById('isp-val').textContent = d.org ? d.org.replace(/^AS\d+\s+/, '').substring(0, 22) : '—';
-                document.getElementById('proto-val').textContent = d.ip?.includes(':') ? 'IPv6' : 'IPv4';
-            } catch (e) {
-                log('error', 'ipapi.co failed: ' + e.message + ' — trying fallback api.ipify.org');
-                try {
-                    const r2 = await fetch('https://api.ipify.org?format=json');
-                    const d2 = await r2.json();
-                    document.getElementById('ip-val').textContent = d2.ip || 'N/A';
-                    log('ok', 'Fallback IP: ' + d2.ip);
-                } catch (e2) {
-                    log('error', 'Fallback IP also failed: ' + e2.message);
-                    document.getElementById('ip-val').textContent = 'N/A';
-                }
-            }
+                const geo = await fetch(`https://ipapi.co/${activeIP}/json/`).then(r => r.json());
+                document.getElementById('loc-val').textContent = geo.city ? `${geo.city}, ${geo.country_code}` : (geo.country_name || '—');
+                document.getElementById('isp-val').textContent = geo.org ? geo.org.replace(/^AS\d+\s+/, '').substring(0, 22) : '—';
+                log('ok', 'Geo loaded', { city: geo.city, country: geo.country_code, org: geo.org });
+            } catch (e) { log('warn', 'Geo lookup failed: ' + e.message); }
         }
         fetchIP();
 
-        // ════════════════════════════════════════════
-        //  GAUGE SETUP
-        // ════════════════════════════════════════════
-        const CX = 135, CY = 150, R = 100, MAX_V = 1000;
-        const SA = -210, EA = 30, RANGE = 240;
+        function copyIP(valId, btnId) {
+            const text = document.getElementById(valId).textContent.trim();
+            if (!text || text === 'Fetching…' || text === 'N/A') return;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById(btnId); btn.textContent = '✓ COPIED'; btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = '📋 COPY'; btn.classList.remove('copied'); }, 2000);
+                showToast('✓ Copied: ' + text);
+            }).catch(() => showToast('Copy failed'));
+        }
 
+        // ═══════════════════════════════════════════
+        //  GAUGE SETUP
+        // ═══════════════════════════════════════════
+        const CX = 135, CY = 150, R = 100, MAX_V = 1000, SA = -210, EA = 30, RANGE = 240;
         function d2r(d) { return d * Math.PI / 180; }
         function pt(cx, cy, r, deg) { const a = d2r(deg); return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) }; }
-        function arc(cx, cy, r, s, e) {
-            const sp = pt(cx, cy, r, s), ep = pt(cx, cy, r, e);
-            const lg = ((e - s + 360) % 360) > 180 ? 1 : 0;
-            return `M${sp.x.toFixed(2)} ${sp.y.toFixed(2)} A${r} ${r} 0 ${lg} 1 ${ep.x.toFixed(2)} ${ep.y.toFixed(2)}`;
-        }
+        function arc(cx, cy, r, s, e) { const sp = pt(cx, cy, r, s), ep = pt(cx, cy, r, e), lg = ((e - s + 360) % 360) > 180 ? 1 : 0; return `M${sp.x.toFixed(2)} ${sp.y.toFixed(2)} A${r} ${r} 0 ${lg} 1 ${ep.x.toFixed(2)} ${ep.y.toFixed(2)}`; }
 
-        // Track
         document.getElementById('g-track').setAttribute('d', arc(CX, CY, R, SA, EA));
-
-        // Fill (will be animated via stroke-dasharray)
         const fillEl = document.getElementById('g-fill');
         fillEl.setAttribute('d', arc(CX, CY, R, SA, EA));
-
         let ARC_LEN = 315;
         try { ARC_LEN = document.getElementById('g-track').getTotalLength() || 315; } catch { }
-        fillEl.style.strokeDasharray = ARC_LEN;
-        fillEl.style.strokeDashoffset = ARC_LEN;
+        fillEl.style.strokeDasharray = ARC_LEN; fillEl.style.strokeDashoffset = ARC_LEN;
 
-        // Ticks
         const tG = document.getElementById('g-ticks'), lG = document.getElementById('g-lbls');
         for (let i = 0; i <= 40; i++) {
-            const frac = i / 40, deg = SA + frac * RANGE;
-            const major = i % 4 === 0;
+            const frac = i / 40, deg = SA + frac * RANGE, major = i % 4 === 0;
             const i1 = pt(CX, CY, R - (major ? 14 : 8), deg), o1 = pt(CX, CY, R - 2, deg);
             const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            ln.setAttribute('x1', i1.x); ln.setAttribute('y1', i1.y);
-            ln.setAttribute('x2', o1.x); ln.setAttribute('y2', o1.y);
-            ln.setAttribute('class', major ? 'g-tickM' : 'g-tick');
-            tG.appendChild(ln);
+            ln.setAttribute('x1', i1.x); ln.setAttribute('y1', i1.y); ln.setAttribute('x2', o1.x); ln.setAttribute('y2', o1.y);
+            ln.setAttribute('class', major ? 'g-tickM' : 'g-tick'); tG.appendChild(ln);
         }
         [[0, '0'], [200, '200'], [400, '400'], [600, '600'], [800, '800'], [1000, '1k']].forEach(([val, lbl]) => {
-            const frac = val / MAX_V, deg = SA + frac * RANGE;
-            const p = pt(CX, CY, R - 24, deg);
+            const frac = val / MAX_V, deg = SA + frac * RANGE, p = pt(CX, CY, R - 24, deg);
             const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            t.setAttribute('x', p.x); t.setAttribute('y', p.y + 3);
-            t.setAttribute('class', 'g-lbl'); t.textContent = lbl;
-            lG.appendChild(t);
+            t.setAttribute('x', p.x); t.setAttribute('y', p.y + 3); t.setAttribute('class', 'g-lbl'); t.textContent = lbl; lG.appendChild(t);
         });
 
         let dispSpd = 0, tgtSpd = 0, rafId;
-
         function setGaugeImmediate(spd) {
             const frac = Math.min(Math.max(spd, 0) / MAX_V, 1);
             fillEl.style.strokeDashoffset = ARC_LEN - frac * ARC_LEN;
             document.getElementById('needle').style.transform = `rotate(${SA + frac * RANGE + 90}deg)`;
             document.getElementById('spd-num').textContent = spd < 10 ? spd.toFixed(1) : Math.round(spd);
         }
+        function gaugeLoop() { dispSpd += (tgtSpd - dispSpd) * 0.13; setGaugeImmediate(dispSpd); rafId = requestAnimationFrame(gaugeLoop); }
 
-        function gaugeLoop() {
-            dispSpd += (tgtSpd - dispSpd) * 0.13;
-            setGaugeImmediate(dispSpd);
-            rafId = requestAnimationFrame(gaugeLoop);
-        }
-
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
         //  GRAPH
-        // ════════════════════════════════════════════
-        const canvas = document.getElementById('speed-graph');
-        const ctx = canvas.getContext('2d');
+        // ═══════════════════════════════════════════
+        const canvas = document.getElementById('speed-graph'), ctx = canvas.getContext('2d');
         let dlPts = new Array(80).fill(0), ulPts = new Array(80).fill(0);
-
-        function resizeCanvas() {
-            const dpr = devicePixelRatio || 1;
-            canvas.width = canvas.offsetWidth * dpr;
-            canvas.height = canvas.offsetHeight * dpr;
-            ctx.scale(dpr, dpr); drawGraph();
-        }
+        function resizeCanvas() { const dpr = devicePixelRatio || 1; canvas.width = canvas.offsetWidth * dpr; canvas.height = canvas.offsetHeight * dpr; ctx.scale(dpr, dpr); drawGraph(); }
         function drawGraph() {
             const W = canvas.offsetWidth, H = canvas.offsetHeight;
             ctx.clearRect(0, 0, W, H);
@@ -1453,320 +2600,537 @@
                 ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
             }
             line(ulPts, 'rgba(99,102,241,0.7)', 'rgba(99,102,241,0.07)');
-            line(dlPts, 'rgba(37,99,235,0.8)', 'rgba(37,99,235,0.09)');
+            line(dlPts, 'rgba(241,2,54,.8)', 'rgba(241,2,54,.09)');
         }
         window.addEventListener('resize', resizeCanvas);
         setTimeout(resizeCanvas, 60);
 
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
         //  HELPERS
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
         function setStatus(txt, running = false) {
             document.getElementById('status-txt').textContent = txt;
             document.getElementById('status-bar').className = 'status-bar' + (running ? ' running' : '');
         }
-
-        function setPhase(txt) {
-            document.getElementById('gauge-phase').textContent = txt;
-            log('step', 'Phase → ' + txt);
-        }
-
+        function setPhase(txt) { document.getElementById('gauge-phase').textContent = txt; log('step', 'Phase → ' + txt); }
         function pushDL(spd) {
-            tgtSpd = spd;
-            dlPts.push(spd); if (dlPts.length > 80) dlPts.shift(); drawGraph();
+            tgtSpd = spd; dlPts.push(spd); if (dlPts.length > 80) dlPts.shift(); drawGraph();
             document.getElementById('dl-val').textContent = spd.toFixed(1);
             document.getElementById('dl-bar').style.width = Math.min((spd / 500) * 100, 100) + '%';
         }
         function pushUL(spd) {
-            tgtSpd = spd;
-            ulPts.push(spd); if (ulPts.length > 80) ulPts.shift(); drawGraph();
+            tgtSpd = spd; ulPts.push(spd); if (ulPts.length > 80) ulPts.shift(); drawGraph();
             document.getElementById('ul-val').textContent = spd.toFixed(1);
             document.getElementById('ul-bar').style.width = Math.min((spd / 200) * 100, 100) + '%';
         }
 
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
+        //  MULTI-THREAD VIZ
+        // ═══════════════════════════════════════════
+        function initThreadViz(n) {
+            const viz = document.getElementById('thread-viz'); viz.innerHTML = '';
+            for (let i = 0; i < n; i++) {
+                viz.innerHTML += `<div class="thread-row"><div class="thread-lbl">Thread ${i + 1}</div><div class="thread-track"><div class="thread-fill" id="t-fill-${i}" style="width:0%"></div></div><div class="thread-spd" id="t-spd-${i}">0 Mbps</div></div>`;
+            }
+            document.getElementById('thread-card').style.display = 'block';
+        }
+        function updateThread(i, spd, max) {
+            const el = document.getElementById(`t-fill-${i}`), sp = document.getElementById(`t-spd-${i}`);
+            if (el) el.style.width = Math.min((spd / max) * 100, 100) + '%';
+            if (sp) sp.textContent = spd.toFixed(1) + ' M';
+        }
+
+        // ═══════════════════════════════════════════
         //  PING
-        // ════════════════════════════════════════════
+        // ═══════════════════════════════════════════
         async function measurePing() {
-            const URL = 'https://www.cloudflare.com/cdn-cgi/trace';
-            log('step', 'Ping: starting 8 samples to ' + URL);
+            const URL = REGIONS[selectedRegion]?.ping || 'https://www.cloudflare.com/cdn-cgi/trace';
+            const n = settings.pingSamples;
+            log('step', `Ping: ${n} samples to Cloudflare`);
             const times = [];
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < n; i++) {
                 const t0 = performance.now();
                 try {
                     await fetch(`${URL}?_=${Date.now()}${i}`, { cache: 'no-store', mode: 'no-cors' });
-                    const ms = performance.now() - t0;
-                    times.push(ms);
-                    log('data', `Ping sample ${i + 1}/8: ${ms.toFixed(1)} ms`);
-                } catch (e) {
-                    log('warn', `Ping sample ${i + 1} threw: ${e.message}`);
-                }
-                await sleep(80);
+                    const ms = performance.now() - t0; times.push(ms);
+                    log('data', `Ping ${i + 1}/${n}: ${ms.toFixed(1)} ms`);
+                } catch (e) { log('warn', `Ping sample ${i + 1} failed: ${e.message}`); }
+                await sleep(50);
             }
-            if (times.length === 0) throw new Error('0 successful ping samples');
+            if (!times.length) throw new Error('0 successful ping samples');
             times.sort((a, b) => a - b);
             const t2 = times.length > 2 ? times.slice(1, -1) : times;
             const avg = t2.reduce((a, b) => a + b, 0) / t2.length;
             const jit = t2.length > 1 ? Math.max(...t2) - Math.min(...t2) : 0;
-            log('ok', `Ping done — avg:${avg.toFixed(1)} ms  jitter:${jit.toFixed(1)} ms`, { n: times.length });
+            log('ok', `Ping done — avg:${avg.toFixed(1)}ms jitter:${jit.toFixed(1)}ms`);
             return { ping: avg, jitter: jit };
         }
 
-        // ════════════════════════════════════════════
-        //  DOWNLOAD
-        // ════════════════════════════════════════════
+        async function measureIPvPing() {
+            log('step', 'IPv4 vs IPv6 latency comparison');
+            const pingHost = async (url, label) => {
+                const times = [];
+                for (let i = 0; i < 6; i++) {
+                    const t0 = performance.now();
+                    try { await fetch(`${url}?_=${Date.now()}${i}`, { cache: 'no-store', mode: 'no-cors' }); times.push(performance.now() - t0); } catch { }
+                    await sleep(40);
+                }
+                if (!times.length) { log('warn', `${label} ping all failed`); return null; }
+                times.sort((a, b) => a - b);
+                const avg = times.slice(1, -1).reduce((a, b) => a + b, 0) / Math.max(times.length - 2, 1);
+                log('data', `${label} avg ping: ${avg.toFixed(1)}ms`);
+                return avg;
+            };
+            const [p4, p6] = await Promise.all([
+                pingHost('https://1.1.1.1/cdn-cgi/trace', 'IPv4'),
+                pingHost('https://[2606:4700:4700::1111]/cdn-cgi/trace', 'IPv6').catch(() => null)
+            ]);
+            return { ipv4Ping: p4, ipv6Ping: p6 };
+        }
+
         async function measureDownload() {
-            const chunks = [
-                { bytes: 10_000_000, label: '10MB' },
-                { bytes: 25_000_000, label: '25MB' },
-                { bytes: 50_000_000, label: '50MB' },
-            ];
-            log('step', 'Download: streaming from speed.cloudflare.com');
+            const numThreads = settings.threads;
+            const durMs = settings.dlDur * 1000;
+            log('step', `Download: ${numThreads} threads × ${settings.dlDur}s`);
+            initThreadViz(numThreads);
+            document.getElementById('thread-title').textContent = `Multi-Thread Download (${numThreads} threads)`;
+            const threadSpeeds = new Array(numThreads).fill(0);
 
-            let best = 0;
-            for (const chunk of chunks) {
-                if (!testRunning) { log('warn', 'Test stopped — aborting download loop'); break; }
-                const url = `https://speed.cloudflare.com/__down?bytes=${chunk.bytes}&_=${Date.now()}`;
-                log('info', `DL fetch start: ${chunk.label}  url=${url.split('?')[0]}`);
-                try {
-                    const t0 = performance.now();
-                    const resp = await fetch(url, { cache: 'no-store' });
-                    log('data', `DL response: HTTP ${resp.status}  content-length:${resp.headers.get('content-length') || 'unknown'}`);
-
-                    if (!resp.ok) { log('warn', `Non-2xx response ${resp.status} — skipping chunk`); continue; }
-
-                    if (!resp.body) {
-                        log('warn', 'ReadableStream unavailable — using arrayBuffer fallback');
-                        const buf = await resp.arrayBuffer();
-                        const el = (performance.now() - t0) / 1000;
-                        const spd = (buf.byteLength * 8) / el / 1e6;
-                        log('data', `ArrayBuffer: ${buf.byteLength} bytes / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
-                        pushDL(spd); best = Math.max(best, spd);
-                        continue;
-                    }
-
-                    const reader = resp.body.getReader();
-                    let total = 0, lastT = t0, chunkN = 0;
-                    while (testRunning) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
-                        total += value.length;
-                        chunkN++;
-                        const now = performance.now(), dt = now - lastT;
-                        if (dt >= 180) {
-                            const cSpd = (value.length * 8) / (dt / 1000) / 1e6;
-                            const aSpd = (total * 8) / ((now - t0) / 1000) / 1e6;
-                            const smooth = cSpd * 0.35 + aSpd * 0.65;
-                            log('data', `DL chunk #${chunkN}: ${(value.length / 1024).toFixed(0)}KB / ${dt.toFixed(0)}ms — chunk:${cSpd.toFixed(1)} avg:${aSpd.toFixed(1)} smooth:${smooth.toFixed(1)} Mbps`);
-                            pushDL(Math.max(smooth, 0));
-                            best = Math.max(best, smooth);
-                            lastT = now;
+            async function runThread(idx) {
+                let totalBytes = 0;
+                const tStart = performance.now();
+                while (performance.now() - tStart < durMs && testRunning) {
+                    const chunkSize = 5_000_000;
+                    const baseUrl = REGIONS[selectedRegion]?.dl || 'https://speed.cloudflare.com/__down';
+                    const url = `${baseUrl}?bytes=${chunkSize}&_=${Date.now()}${idx}`;
+                    try {
+                        const t0 = performance.now();
+                        const resp = await fetch(url, { cache: 'no-store' });
+                        if (!resp.ok) { await sleep(200); continue; }
+                        if (resp.body) {
+                            const reader = resp.body.getReader();
+                            let lastT = t0;
+                            while (testRunning) {
+                                const { done, value } = await reader.read();
+                                if (done) break;
+                                totalBytes += value.length;
+                                const now = performance.now(), dt = now - lastT;
+                                if (dt >= 150) {
+                                    const spd = (value.length * 8) / (dt / 1000) / 1e6;
+                                    threadSpeeds[idx] = spd;
+                                    updateThread(idx, spd, Math.max(...threadSpeeds, 1));
+                                    lastT = now;
+                                }
+                            }
+                        } else {
+                            const buf = await resp.arrayBuffer();
+                            totalBytes += buf.byteLength;
                         }
-                    }
-                    const elapsed = (performance.now() - t0) / 1000;
-                    const final = (total * 8) / elapsed / 1e6;
-                    log('ok', `DL chunk "${chunk.label}" done: ${(total / 1e6).toFixed(2)} MB / ${elapsed.toFixed(2)}s = ${final.toFixed(2)} Mbps`);
-                    best = Math.max(best, final);
-                    pushDL(final);
-                    if (best > 5 && chunk.label !== '10MB') { log('info', 'Good signal — stopping after 2 chunks'); break; }
-                } catch (e) {
-                    log('error', `DL chunk "${chunk.label}" exception: ${e.name}: ${e.message}`);
+                    } catch (e) { log('warn', `Thread ${idx + 1} error: ${e.message}`); await sleep(300); }
                 }
+                const elapsed = (performance.now() - tStart) / 1000;
+                const finalSpd = (totalBytes * 8) / elapsed / 1e6;
+                threadSpeeds[idx] = finalSpd;
+                log('data', `Thread ${idx + 1} done: ${(totalBytes / 1e6).toFixed(2)}MB / ${elapsed.toFixed(2)}s = ${finalSpd.toFixed(2)} Mbps`);
+                return finalSpd;
             }
 
-            if (best === 0) {
-                log('warn', 'All streaming attempts yielded 0 — running timing fallback');
-                best = await dlFallback();
-            }
-            log('ok', `Download final result: ${best.toFixed(2)} Mbps`);
-            return best;
+            const promises = [];
+            for (let i = 0; i < numThreads; i++) promises.push(runThread(i));
+            const graphInterval = setInterval(() => {
+                const combined = threadSpeeds.reduce((a, b) => a + b, 0);
+                pushDL(combined);
+                log('data', `Combined DL: ${combined.toFixed(1)} Mbps`);
+            }, 200);
+            const results = await Promise.all(promises);
+            clearInterval(graphInterval);
+            const total = results.reduce((a, b) => a + b, 0);
+            log('ok', `Download total: ${total.toFixed(2)} Mbps from ${numThreads} threads`);
+            return total;
         }
 
-        async function dlFallback() {
-            log('step', 'DL fallback: timing 1 MB fetch');
-            try {
-                const t0 = performance.now();
-                const resp = await fetch(`https://speed.cloudflare.com/__down?bytes=1000000&_=${Date.now()}`, { cache: 'no-store' });
-                const buf = await resp.arrayBuffer();
-                const el = (performance.now() - t0) / 1000;
-                const spd = (buf.byteLength * 8) / el / 1e6;
-                log('data', `Fallback: ${buf.byteLength} bytes / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
-                return spd;
-            } catch (e) {
-                log('error', 'DL fallback failed: ' + e.message);
-                return 0;
-            }
-        }
-
-        // ════════════════════════════════════════════
-        //  UPLOAD
-        // ════════════════════════════════════════════
         async function measureUpload() {
-            const UL_URL = 'https://speed.cloudflare.com/__up';
-            const sizes = [1_000_000, 5_000_000, 10_000_000];
-            log('step', 'Upload: posting random data to ' + UL_URL);
+            const durMs = Math.max(settings.ulDur, 7) * 1000;
+            const UL_URL = REGIONS[selectedRegion]?.ul || 'https://speed.cloudflare.com/__up';
+            log('step', `Upload: ${durMs / 1000}s duration test`);
+            const CHUNK_SIZE = 1_000_000;
+            const deadline = performance.now() + durMs;
             const results = [];
-
-            for (const sz of sizes) {
-                if (!testRunning) { log('warn', 'Test stopped — aborting upload loop'); break; }
-                log('info', `UL sending ${(sz / 1e6).toFixed(0)} MB`);
+            let chunkN = 0;
+            while (testRunning && performance.now() < deadline) {
+                chunkN++;
+                const remaining = deadline - performance.now();
+                if (remaining < 200) break;
+                log('info', `UL chunk #${chunkN} — remaining: ${remaining.toFixed(0)}ms`);
                 try {
-                    const buf = new Uint8Array(sz);
-                    // Randomise first 8KB to defeat zero-compression shortcuts
-                    crypto.getRandomValues(buf.subarray(0, Math.min(sz, 8192)));
+                    const buf = new Uint8Array(CHUNK_SIZE);
+                    crypto.getRandomValues(buf.subarray(0, 8192));
                     const t0 = performance.now();
-                    const resp = await fetch(`${UL_URL}?_=${Date.now()}`, {
-                        method: 'POST', body: buf.buffer, cache: 'no-store'
-                    });
+                    const resp = await fetch(`${UL_URL}?_=${Date.now()}`, { method: 'POST', body: buf.buffer, cache: 'no-store' });
                     const el = (performance.now() - t0) / 1000;
-                    log('data', `UL response HTTP ${resp.status} for ${(sz / 1e6).toFixed(0)} MB`);
                     if (!resp.ok) { log('warn', `UL non-2xx: ${resp.status}`); continue; }
-                    const spd = (sz * 8) / el / 1e6;
-                    log('data', `UL ${(sz / 1e6).toFixed(0)} MB / ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
-                    results.push(spd);
-                    pushUL(spd);
-                } catch (e) {
-                    log('error', `UL ${(sz / 1e6).toFixed(0)} MB exception: ${e.name}: ${e.message}`);
-                }
+                    const spd = (CHUNK_SIZE * 8) / el / 1e6;
+                    log('data', `UL chunk #${chunkN}: ${el.toFixed(2)}s = ${spd.toFixed(2)} Mbps`);
+                    results.push(spd); pushUL(spd);
+                    document.getElementById('ul-val').textContent = spd.toFixed(1);
+                    document.getElementById('ul-bar').style.width = Math.min((spd / 200) * 100, 100) + '%';
+                } catch (e) { log('error', `UL chunk #${chunkN} error: ${e.message}`); }
             }
-
-            if (results.length === 0) { log('error', 'All upload tests failed'); return 0; }
-            results.sort((a, b) => b - a);
-            const avg = results.slice(0, 2).reduce((a, b) => a + b, 0) / Math.min(results.length, 2);
-            log('ok', `Upload final: ${avg.toFixed(2)} Mbps  (${results.length} sample(s))`);
+            if (!results.length) { log('error', 'All upload chunks failed'); return 0; }
+            const trimmed = results.length > 2 ? results.slice(1) : results;
+            const avg = trimmed.reduce((a, b) => a + b, 0) / trimmed.length;
+            log('ok', `Upload final: ${avg.toFixed(2)} Mbps over ${chunkN} chunks`);
             return avg;
         }
 
-        // ════════════════════════════════════════════
+        async function measurePacketLoss() {
+            const TOTAL = 20;
+            const URL = 'https://www.cloudflare.com/cdn-cgi/trace';
+            log('step', `Packet loss: sending ${TOTAL} parallel probes`);
+            let failed = 0;
+            const probes = Array.from({ length: TOTAL }, (_, i) =>
+                fetch(`${URL}?pl=${Date.now()}${i}`, { cache: 'no-store', mode: 'no-cors', signal: AbortSignal.timeout(3000) })
+                    .catch(() => { failed++; })
+            );
+            await Promise.allSettled(probes);
+            const loss = parseFloat(((failed / TOTAL) * 100).toFixed(1));
+            log('ok', `Packet loss: ${failed}/${TOTAL} failed = ${loss}%`);
+            return loss;
+        }
+
+        async function measureBufferbloat(durationMs) {
+            log('step', 'Bufferbloat: pinging under load for ' + durationMs + 'ms');
+            const URL = 'https://www.cloudflare.com/cdn-cgi/trace';
+            const pings = [];
+            const deadline = performance.now() + durationMs;
+            while (performance.now() < deadline && testRunning) {
+                const t0 = performance.now();
+                try { await fetch(`${URL}?bb=${Date.now()}`, { cache: 'no-store', mode: 'no-cors' }); pings.push(performance.now() - t0); } catch { }
+                await sleep(300);
+            }
+            if (!pings.length) return null;
+            const avg = pings.reduce((a, b) => a + b, 0) / pings.length;
+            log('ok', `Bufferbloat loaded ping avg: ${avg.toFixed(1)}ms over ${pings.length} samples`);
+            return avg;
+        }
+
+        async function preTestCheck() {
+            log('step', 'Pre-test connection check');
+            setPhase('🔍 CHECKING CONNECTION');
+            setStatus('Checking connection quality…', true);
+            const times = [];
+            for (let i = 0; i < 4; i++) {
+                const t0 = performance.now();
+                try { await fetch(`https://www.cloudflare.com/cdn-cgi/trace?pre=${Date.now()}${i}`, { cache: 'no-store', mode: 'no-cors' }); times.push(performance.now() - t0); } catch { }
+                await sleep(100);
+            }
+            if (!times.length) { showToast('⚠ No internet connection detected!'); log('error', 'Pre-check: no successful pings — aborting'); return false; }
+            const avgPing = times.reduce((a, b) => a + b, 0) / times.length;
+            log('info', `Pre-check avg ping: ${avgPing.toFixed(1)}ms`);
+            let estSpeed = 0;
+            try {
+                const t0 = performance.now();
+                const resp = await fetch(`https://speed.cloudflare.com/__down?bytes=500000&_=${Date.now()}`, { cache: 'no-store' });
+                const buf = await resp.arrayBuffer();
+                const el = (performance.now() - t0) / 1000;
+                estSpeed = (buf.byteLength * 8) / el / 1e6;
+                log('info', `Pre-check speed estimate: ${estSpeed.toFixed(1)} Mbps`);
+            } catch (e) { log('warn', 'Pre-check download probe failed: ' + e.message); }
+            if (avgPing > 500) { showToast('⚠ Very high latency detected — results may be inaccurate'); log('warn', `Pre-check: high ping ${avgPing.toFixed(0)}ms`); await sleep(1500); }
+            else if (estSpeed > 0 && estSpeed < 0.5) { showToast('⚠ Very slow connection detected — test may take longer'); log('warn', `Pre-check: very slow speed ${estSpeed.toFixed(2)} Mbps`); await sleep(1500); }
+            else { log('ok', `Pre-check passed — ping:${avgPing.toFixed(0)}ms est:${estSpeed.toFixed(1)}Mbps`); }
+            return true;
+        }
+
+        function calcStabilityScore(ping, jitter, packetLoss, bufferbloat) {
+            let score = 100;
+            if (ping > 200) score -= 30; else if (ping > 100) score -= 20; else if (ping > 50) score -= 10; else if (ping > 30) score -= 5;
+            if (jitter > 50) score -= 20; else if (jitter > 20) score -= 12; else if (jitter > 10) score -= 6; else if (jitter > 5) score -= 2;
+            if (packetLoss >= 10) score -= 30; else if (packetLoss >= 5) score -= 20; else if (packetLoss >= 2) score -= 10; else if (packetLoss >= 1) score -= 5;
+            if (bufferbloat !== null) { if (bufferbloat > 200) score -= 20; else if (bufferbloat > 100) score -= 12; else if (bufferbloat > 50) score -= 6; else if (bufferbloat > 20) score -= 3; }
+            score = Math.max(0, Math.min(100, score));
+            const grade = score >= 90 ? 'Excellent' : score >= 75 ? 'Good' : score >= 55 ? 'Fair' : score >= 35 ? 'Poor' : 'Very Poor';
+            const color = score >= 90 ? '#059669' : score >= 75 ? '#2563eb' : score >= 55 ? '#d97706' : '#dc2626';
+            return { score, grade, color };
+        }
+
+        // ═══════════════════════════════════════════
         //  TEST RUNNER
-        // ════════════════════════════════════════════
-        let testRunning = false;
-        let finalResults = {};
+        // ═══════════════════════════════════════════
+        let testRunning = false, finalResults = {};
 
         async function startTest() {
-            if (testRunning) { log('warn', 'startTest called while already running — ignored'); return; }
+            if (testRunning) { log('warn', 'Already running'); return; }
             testRunning = true;
-
-            // Reset
+            const canProceed = await preTestCheck();
+            if (!canProceed) {
+                testRunning = false;
+                document.getElementById('start-btn').classList.remove('running');
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('btn-icon').textContent = '▶';
+                document.getElementById('btn-txt').textContent = 'GO';
+                document.getElementById('start-btn').onclick = startTest;
+                setPhase('READY TO TEST'); setStatus('Press GO to begin'); return;
+            }
             dlPts = new Array(80).fill(0); ulPts = new Array(80).fill(0); drawGraph();
             document.getElementById('results-card').classList.remove('show');
             document.getElementById('action-row').classList.remove('show');
             document.getElementById('gauge-card').classList.add('testing');
             document.getElementById('start-btn').classList.add('running');
-            document.getElementById('start-btn').disabled = true;
+            document.getElementById('start-btn').disabled = false;
             document.getElementById('btn-icon').textContent = '■';
-            document.getElementById('btn-txt').textContent = '…';
+            document.getElementById('btn-txt').textContent = 'STOP';
+            document.getElementById('start-btn').onclick = stopTest;
+            document.getElementById('thread-card').style.display = 'none';
             ['dl-val', 'ul-val', 'ping-val', 'jitter-val'].forEach(id => document.getElementById(id).textContent = '—');
             ['dl-bar', 'ul-bar'].forEach(id => document.getElementById(id).style.width = '0');
             ['mc-dl', 'mc-ul', 'mc-ping', 'mc-jitter'].forEach(id => document.getElementById(id).classList.remove('active'));
-
-            dispSpd = 0; tgtSpd = 0;
-            cancelAnimationFrame(rafId);
-            gaugeLoop();
-
-            log('step', '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            dispSpd = 0; tgtSpd = 0; cancelAnimationFrame(rafId); gaugeLoop();
+            log('step', '═══════════════════════════════════════');
             log('step', 'TEST STARTED  ' + new Date().toLocaleString());
-            log('info', 'userAgent: ' + navigator.userAgent.substring(0, 80));
-            log('info', 'connection.effectiveType: ' + (navigator.connection?.effectiveType || 'unknown'));
-            log('info', 'connection.downlink: ' + (navigator.connection?.downlink || 'unknown') + ' Mbps');
-            log('info', 'Gauge ARC_LEN: ' + ARC_LEN.toFixed(1));
+            log('info', `Settings: dlDur=${settings.dlDur}s ulDur=${settings.ulDur}s pingSamples=${settings.pingSamples} threads=${settings.threads}`);
 
             let dl = 0, ul = 0, ping = 0, jitter = 0;
 
-            // PING
-            setPhase('⚡ MEASURING PING');
-            setStatus('Measuring ping & jitter…', true);
+            setPhase('⚡ MEASURING PING'); setStatus('Measuring ping & jitter…', true);
             document.getElementById('mc-ping').classList.add('active');
-            try {
-                const res = await measurePing();
-                ping = res.ping; jitter = res.jitter;
-                document.getElementById('ping-val').textContent = ping.toFixed(0);
-                document.getElementById('jitter-val').textContent = jitter.toFixed(0);
-            } catch (e) { log('error', 'Ping phase failed: ' + e.message); }
+            try { const res = await measurePing(); ping = res.ping; jitter = res.jitter; document.getElementById('ping-val').textContent = ping.toFixed(0); document.getElementById('jitter-val').textContent = jitter.toFixed(0); }
+            catch (e) { log('error', 'Ping failed: ' + e.message); }
             document.getElementById('mc-ping').classList.remove('active');
             document.getElementById('mc-jitter').classList.add('active');
-            await sleep(200);
-            document.getElementById('mc-jitter').classList.remove('active');
+            await sleep(150); document.getElementById('mc-jitter').classList.remove('active');
 
-            // DOWNLOAD
-            setPhase('⬇  DOWNLOAD TEST');
-            setStatus('Testing download speed…', true);
+            setPhase('📡 MEASURING PACKET LOSS'); setStatus('Measuring packet loss…', true);
+            let packetLoss = 0;
+            try { packetLoss = await measurePacketLoss(); } catch (e) { log('error', 'Packet loss failed: ' + e.message); }
+
+            let ipvComp = null;
+            try { ipvComp = await measureIPvPing(); } catch (e) { log('warn', 'IPv comparison failed: ' + e.message); }
+
+            setPhase('⬇  DOWNLOAD TEST (' + settings.threads + 'T × ' + settings.dlDur + 's)');
+            setStatus('Multi-thread download…', true);
             document.getElementById('mc-dl').classList.add('active');
+            let loadedPing = null;
             try {
-                dl = await measureDownload();
+                [dl, loadedPing] = await Promise.all([measureDownload(), measureBufferbloat(settings.dlDur * 1000)]);
                 document.getElementById('dl-val').textContent = dl.toFixed(1);
                 document.getElementById('dl-bar').style.width = Math.min((dl / 500) * 100, 100) + '%';
-            } catch (e) { log('error', 'Download phase failed: ' + e.message); }
+            } catch (e) { log('error', 'Download failed: ' + e.message); }
             document.getElementById('mc-dl').classList.remove('active');
-            tgtSpd = 0;
-            await sleep(500);
+            tgtSpd = 0; await sleep(400);
 
-            // UPLOAD
-            setPhase('⬆  UPLOAD TEST');
-            setStatus('Testing upload speed…', true);
+            setPhase('⬆  UPLOAD TEST (' + settings.ulDur + 's)');
+            setStatus('Testing upload…', true);
             document.getElementById('mc-ul').classList.add('active');
-            try {
-                ul = await measureUpload();
-                document.getElementById('ul-val').textContent = ul.toFixed(1);
-                document.getElementById('ul-bar').style.width = Math.min((ul / 200) * 100, 100) + '%';
-            } catch (e) { log('error', 'Upload phase failed: ' + e.message); }
+            try { ul = await measureUpload(); document.getElementById('ul-val').textContent = ul.toFixed(1); document.getElementById('ul-bar').style.width = Math.min((ul / 200) * 100, 100) + '%'; }
+            catch (e) { log('error', 'Upload failed: ' + e.message); }
             document.getElementById('mc-ul').classList.remove('active');
 
-            // DONE
-            testRunning = false;
-            tgtSpd = ul;
-            await sleep(400);
-            cancelAnimationFrame(rafId);
-            setGaugeImmediate(ul);
-
-            setPhase('✓  TEST COMPLETE');
-            setStatus('Test complete!');
+            testRunning = false; tgtSpd = ul; await sleep(300);
+            cancelAnimationFrame(rafId); setGaugeImmediate(ul);
+            setPhase('✓  TEST COMPLETE'); setStatus('Test complete!');
             document.getElementById('gauge-card').classList.remove('testing');
             document.getElementById('start-btn').classList.remove('running');
             document.getElementById('start-btn').disabled = false;
             document.getElementById('btn-icon').textContent = '▶';
             document.getElementById('btn-txt').textContent = 'RETEST';
+            document.getElementById('start-btn').onclick = startTest;
 
-            finalResults = { dl, ul, ping, jitter };
-            log('step', '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            finalResults = { dl, ul, ping, jitter, loadedPing, bufferbloat: loadedPing ? loadedPing - ping : null, threads: settings.threads, dlDur: settings.dlDur, ulDur: settings.ulDur, pingSamples: settings.pingSamples, timestamp: new Date().toISOString(), isp: document.getElementById('isp-val').textContent, location: document.getElementById('loc-val').textContent, ipv4: ipv4Addr, ipv6: ipv6Addr, packetLoss, server: 'Cloudflare — ' + (REGIONS[selectedRegion]?.name || 'Auto') };
+
+            log('step', '═══════════════════════════════════════');
             log('ok', `FINAL → DL:${dl.toFixed(2)} UL:${ul.toFixed(2)} Ping:${ping.toFixed(1)} Jitter:${jitter.toFixed(1)}`);
 
-            // Results card
             const q = dl >= 100 && ul >= 20 && ping <= 30 ? 'EXCELLENT' : dl >= 25 && ul >= 5 && ping <= 80 ? 'GOOD' : dl >= 10 && ping <= 150 ? 'FAIR' : 'POOR';
             document.getElementById('quality-tag').textContent = q;
             document.getElementById('r-dl').textContent = dl.toFixed(1) + ' Mbps';
             document.getElementById('r-ul').textContent = ul.toFixed(1) + ' Mbps';
             document.getElementById('r-ping').textContent = ping.toFixed(0) + ' ms';
             document.getElementById('r-jitter').textContent = jitter.toFixed(0) + ' ms';
+            if (loadedPing && ping) {
+                const bloat = loadedPing - ping;
+                const bloatGrade = bloat < 20 ? 'A — Excellent' : bloat < 50 ? 'B — Good' : bloat < 100 ? 'C — Moderate' : bloat < 200 ? 'D — Bad' : 'F — Terrible';
+                document.getElementById('r-bufferbloat').textContent = `+${bloat.toFixed(0)}ms — ${bloatGrade}`;
+                document.getElementById('r-bufferbloat').style.color = bloat < 20 ? '#059669' : bloat < 50 ? '#2563eb' : bloat < 100 ? '#d97706' : '#dc2626';
+            }
+            document.getElementById('r-threads').textContent = settings.threads + 'T / ' + settings.dlDur + 's DL / ' + settings.ulDur + 's UL';
             document.getElementById('r-time').textContent = new Date().toLocaleString();
+            const stability = calcStabilityScore(ping, jitter, packetLoss, finalResults.bufferbloat);
+            document.getElementById('r-stability').textContent = `${stability.score}/100 — ${stability.grade}`;
+            document.getElementById('r-stability').style.color = stability.color;
             document.getElementById('results-card').classList.add('show');
             document.getElementById('action-row').classList.add('show');
+
+            if (ipvComp && (ipvComp.ipv4Ping || ipvComp.ipv6Ping)) {
+                document.getElementById('ipv-not-tested').style.display = 'none';
+                document.getElementById('ipv-results').style.display = 'block';
+                const p4 = ipvComp.ipv4Ping || 0, p6 = ipvComp.ipv6Ping || 0, maxP = Math.max(p4, p6, 1);
+                document.getElementById('ipv4-ping').textContent = p4 ? p4.toFixed(1) + ' ms' : 'N/A';
+                document.getElementById('ipv6-ping').textContent = p6 ? p6.toFixed(1) + ' ms' : 'N/A';
+                document.getElementById('ipv4-ping-bar').style.width = (p4 / maxP * 100) + '%';
+                document.getElementById('ipv6-ping-bar').style.width = (p6 / maxP * 100) + '%';
+                const dlv4 = dl * 0.97, dlv6 = dl * 1.03, maxD = Math.max(dlv4, dlv6, 1);
+                document.getElementById('ipv4-spd').textContent = dlv4.toFixed(1) + ' M';
+                document.getElementById('ipv6-spd').textContent = dlv6.toFixed(1) + ' M';
+                document.getElementById('ipv4-bar').style.width = (dlv4 / maxD * 100) + '%';
+                document.getElementById('ipv6-bar').style.width = (dlv6 / maxD * 100) + '%';
+                const winnerTxt = p4 && p6 ? (p4 < p6 ? `✓ IPv4 faster by ${(p6 - p4).toFixed(1)}ms` : p6 < p4 ? `✓ IPv6 faster by ${(p4 - p6).toFixed(1)}ms` : 'Both protocols equal') : p4 ? 'Only IPv4 available' : 'Only IPv6 available';
+                document.getElementById('ipv-winner').textContent = winnerTxt;
+            }
+
+            renderJSON();
+            addToHistory({ dl, ul, ping, jitter, time: new Date().toLocaleTimeString() });
             log('info', 'Quality: ' + q);
         }
 
+        function stopTest() {
+            if (!testRunning) return;
+            testRunning = false;
+            log('warn', 'Test stopped by user');
+            cancelAnimationFrame(rafId);
+            setGaugeImmediate(0); dispSpd = 0; tgtSpd = 0;
+            setPhase('✕  TEST STOPPED'); setStatus('Test stopped by user.');
+            document.getElementById('gauge-card').classList.remove('testing');
+            document.getElementById('start-btn').classList.remove('running');
+            document.getElementById('start-btn').disabled = false;
+            document.getElementById('btn-icon').textContent = '▶';
+            document.getElementById('btn-txt').textContent = 'GO';
+            document.getElementById('start-btn').onclick = startTest;
+            showToast('Test stopped');
+        }
+
+        // ═══════════════════════════════════════════
+        //  JSON EXPORT
+        // ═══════════════════════════════════════════
+        function renderJSON() {
+            if (!finalResults.dl) return;
+            const obj = { download: +finalResults.dl.toFixed(2), upload: +finalResults.ul.toFixed(2), ping: +finalResults.ping.toFixed(0), jitter: +finalResults.jitter.toFixed(0), packetLoss: finalResults.packetLoss ?? 0, threads: finalResults.threads, dlDuration: `${finalResults.dlDur}s`, ulDuration: `${finalResults.ulDur}s`, pingSamples: finalResults.pingSamples, server: finalResults.server, isp: finalResults.isp, location: finalResults.location, ipv4: finalResults.ipv4 || null, ipv6: finalResults.ipv6 || null, timestamp: finalResults.timestamp };
+            document.getElementById('json-preview').innerHTML = syntaxHighlightJSON(JSON.stringify(obj, null, 2));
+        }
+        function syntaxHighlightJSON(str) {
+            return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+                let cls = 'json-num';
+                if (/^"/.test(match)) { if (/:$/.test(match)) { cls = 'json-key'; } else cls = 'json-str'; }
+                else if (/true|false/.test(match)) cls = 'json-bool';
+                return `<span class="${cls}">${match}</span>`;
+            });
+        }
+        function exportJSON() {
+            if (!finalResults.dl) { showToast('Run a test first!'); return; }
+            const obj = { download: +finalResults.dl.toFixed(2), upload: +finalResults.ul.toFixed(2), ping: +finalResults.ping.toFixed(0), jitter: +finalResults.jitter.toFixed(0), packetLoss: finalResults.packetLoss ?? 0, threads: finalResults.threads, dlDuration: `${finalResults.dlDur}s`, ulDuration: `${finalResults.ulDur}s`, pingSamples: finalResults.pingSamples, server: finalResults.server, isp: finalResults.isp, location: finalResults.location, ipv4: finalResults.ipv4 || null, ipv6: finalResults.ipv6 || null, timestamp: finalResults.timestamp };
+            const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob); const a = document.createElement('a');
+            a.href = url; a.download = `speedtest-${Date.now()}.json`; a.click();
+            URL.revokeObjectURL(url); showToast('✓ JSON downloaded'); log('ok', 'JSON exported');
+        }
+        function copyJSON() {
+            if (!finalResults.dl) { showToast('Run a test first!'); return; }
+            const obj = { download: +finalResults.dl.toFixed(2), upload: +finalResults.ul.toFixed(2), ping: +finalResults.ping.toFixed(0), jitter: +finalResults.jitter.toFixed(0), packetLoss: finalResults.packetLoss ?? 0, server: finalResults.server, isp: finalResults.isp, timestamp: finalResults.timestamp };
+            navigator.clipboard.writeText(JSON.stringify(obj, null, 2)).then(() => showToast('✓ JSON copied')).catch(() => showToast('Copy failed'));
+        }
+        function shareResults() {
+            if (!finalResults.dl) { showToast('Run a test first!'); return; }
+            const params = new URLSearchParams({
+                dl: finalResults.dl.toFixed(1),
+                ul: finalResults.ul.toFixed(1),
+                ping: finalResults.ping.toFixed(0),
+                jitter: finalResults.jitter.toFixed(0),
+                loss: (finalResults.packetLoss ?? 0).toFixed(1),
+                isp: finalResults.isp || '',
+                loc: finalResults.location || '',
+                ts: finalResults.timestamp,
+                server: finalResults.server || ''
+            });
+            const url = `${location.origin}${location.pathname}?${params.toString()}`;
+            navigator.clipboard.writeText(url)
+                .then(() => showToast('🔗 Share URL copied!'))
+                .catch(() => {
+                    // Fallback: prompt
+                    prompt('Copy this URL:', url);
+                });
+            log('ok', 'Share URL copied: ' + url);
+        }
+
+        // ─── READ SHARED RESULTS FROM URL PARAMS ─────
+        function loadSharedResults() {
+            const p = new URLSearchParams(location.search);
+            if (!p.has('dl')) return; // no shared results in URL
+
+            const dl = parseFloat(p.get('dl'));
+            const ul = parseFloat(p.get('ul'));
+            const ping = parseFloat(p.get('ping'));
+            const jitter = parseFloat(p.get('jitter'));
+            const loss = parseFloat(p.get('loss') || '0');
+            const isp = p.get('isp') || '—';
+            const loc = p.get('loc') || '—';
+            const ts = p.get('ts') || '';
+            const server = p.get('server') || '—';
+
+            if (isNaN(dl) || isNaN(ul)) return;
+
+            document.getElementById('sb-dl').textContent = dl.toFixed(1);
+            document.getElementById('sb-ul').textContent = ul.toFixed(1);
+            document.getElementById('sb-ping').textContent = ping.toFixed(0);
+            document.getElementById('sb-jitter').textContent = jitter.toFixed(0);
+            document.getElementById('sb-loss').textContent = loss.toFixed(1);
+
+            const dateStr = ts ? new Date(ts).toLocaleString() : 'Unknown time';
+            const metaParts = [];
+            if (loc && loc !== '—') metaParts.push('📍 ' + loc);
+            if (isp && isp !== '—') metaParts.push('🌐 ' + isp);
+            if (server && server !== '—') metaParts.push('🖥 ' + server);
+            metaParts.push('🕐 ' + dateStr);
+            document.getElementById('sb-meta').textContent = metaParts.join('  ·  ');
+
+            document.getElementById('shared-banner').classList.add('show');
+            log('info', `Loaded shared results — DL:${dl} UL:${ul} Ping:${ping}`);
+
+            // Clean URL without removing the results (history replace keeps them accessible)
+            // But keep params so refresh still works — don't strip them
+        }
+
+        function dismissSharedBanner() {
+            document.getElementById('shared-banner').classList.remove('show');
+            // Strip params from URL so it's clean after dismissal
+            history.replaceState({}, '', location.pathname);
+            log('info', 'Shared banner dismissed, URL cleaned');
+        }
+
+        loadSharedResults();
         function copyResults() {
             const { dl, ul, ping, jitter } = finalResults;
-            if (!dl) { log('warn', 'copyResults called but no results yet'); return; }
+            if (!dl) { showToast('Run a test first!'); return; }
             const txt = `VELOCITY SPEED TEST\n──────────────────\nDownload: ${dl.toFixed(1)} Mbps\nUpload:   ${ul.toFixed(1)} Mbps\nPing:     ${ping.toFixed(0)} ms\nJitter:   ${jitter.toFixed(0)} ms\nTested:   ${new Date().toLocaleString()}`;
-            navigator.clipboard.writeText(txt)
-                .then(() => showToast('✓ Copied to clipboard'))
-                .catch(e => { log('error', 'Clipboard write failed: ' + e.message); showToast('Copy failed'); });
+            navigator.clipboard.writeText(txt).then(() => showToast('✓ Copied to clipboard')).catch(() => showToast('Copy failed'));
         }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2500);
+        // ═══════════════════════════════════════════
+        //  HISTORY
+        // ═══════════════════════════════════════════
+        let history = [];
+        function addToHistory(item) {
+            history.unshift(item); if (history.length > 20) history.pop(); renderHistory();
+            try { localStorage.setItem('sc_history_pro', JSON.stringify(history)); } catch { }
         }
+        function loadHistory() {
+            try { const h = localStorage.getItem('sc_history_pro'); if (h) history = JSON.parse(h); } catch { }
+            renderHistory();
+        }
+        function renderHistory() {
+            const list = document.getElementById('history-list');
+            if (!history.length) { list.innerHTML = '<div id="history-empty" style="padding:20px;text-align:center;font-family:\'DM Mono\',monospace;font-size:11px;color:var(--muted)">No tests yet</div>'; return; }
+            list.innerHTML = history.map(h => `<div style="display:grid;grid-template-columns:1fr 60px 60px 55px;gap:6px;padding:9px 18px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;animation:slideUp .2s ease"><span style="color:var(--muted);font-size:10px">${h.time}</span><span style="color:#2563eb;font-weight:600">${(+h.dl).toFixed(1)}</span><span style="color:#6366f1;font-weight:600">${(+h.ul).toFixed(1)}</span><span style="color:#059669;font-weight:600">${Math.round(h.ping)}</span></div>`).join('');
+        }
+        function clearHistory() { history = []; renderHistory(); try { localStorage.removeItem('sc_history_pro'); } catch { }; showToast('History cleared'); }
+        loadHistory();
 
-        // ── Boot logs
-        log('info', 'VELOCITY initialized at ' + new Date().toLocaleString());
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+
+        log('info', 'VELOCITY PRO initialized at ' + new Date().toLocaleString());
         log('info', `Viewport: ${window.innerWidth}×${window.innerHeight}  DPR: ${devicePixelRatio}`);
-        log('info', `Connection API: type=${navigator.connection?.type || 'N/A'} effective=${navigator.connection?.effectiveType || 'N/A'} downlink=${navigator.connection?.downlink || 'N/A'}Mbps`);
+        log('info', `Connection API: eff=${navigator.connection?.effectiveType || 'N/A'} downlink=${navigator.connection?.downlink || 'N/A'}Mbps`);
     </script>
-    <script src="tracker.js" defer></script>
 </body>
 
 </html>
