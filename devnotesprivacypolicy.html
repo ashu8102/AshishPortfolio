@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — DevNotes Extension</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0f0e0c;
+      --paper:      #f5f0e8;
+      --cream:      #ede7d9;
+      --accent:     #c8410a;
+      --accent-lt:  #f0d5c8;
+      --muted:      #7a7265;
+      --rule:       #d4cec3;
+      --green:      #2d6a4f;
+      --green-lt:   #d1e8de;
+      --blue:       #1a4a6b;
+      --blue-lt:    #cfe0ef;
+      --amber:      #92570a;
+      --amber-lt:   #fdecd5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── SIDEBAR PROGRESS ── */
+    .progress-bar {
+      position: fixed;
+      left: 0; top: 0;
+      width: 3px;
+      height: 0%;
+      background: var(--accent);
+      z-index: 999;
+      transition: height 0.1s linear;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .header-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-logo .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .header-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: clamp(4rem, 10vw, 2rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: 'PRIVACY';
+      position: absolute;
+      right: 2rem;
+      bottom: -3rem;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 300;
+      color: var(--rule);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hero-meta-item .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .hero-meta-item .value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* ── TOC SIDEBAR ── */
+    .toc {
+      position: sticky;
+      top: 56px;
+      padding: 3rem 2rem 3rem 0;
+      border-right: 1px solid var(--rule);
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+
+    .toc-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .toc-list a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1rem;
+      text-decoration: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-radius: 4px;
+      transition: all 0.2s;
+      line-height: 1.3;
+    }
+
+    .toc-list a .num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--rule);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .toc-list a:hover,
+    .toc-list a.active {
+      color: var(--ink);
+      background: var(--cream);
+    }
+
+    .toc-list a:hover .num,
+    .toc-list a.active .num {
+      color: var(--accent);
+    }
+
+    .toc-list a.active {
+      font-weight: 500;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      padding: 3rem clamp(1.5rem, 4vw, 3.5rem) 6rem;
+    }
+
+    /* ── COMMITMENT BANNER ── */
+    .commitment {
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 4rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .commitment-icon {
+      width: 48px; height: 48px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .commitment h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .commitment p {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.6;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: var(--accent-lt);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+
+    .section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    .section p {
+      font-size: 0.95rem;
+      color: #3d3a35;
+      margin-bottom: 1.2rem;
+      max-width: 68ch;
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── DATA CARDS ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .data-card {
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .data-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15,14,12,0.08);
+    }
+
+    .data-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+    }
+
+    .data-card.collected::before  { background: var(--accent); }
+    .data-card.stored::before     { background: var(--green); }
+    .data-card.not-shared::before { background: var(--blue); }
+
+    .data-card-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .data-card h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .data-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── STORAGE FLOW ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-node {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .flow-node .node-icon { font-size: 1.2rem; margin-bottom: 0.25rem; }
+
+    .flow-node .node-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    .flow-node .node-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 0.1rem;
+    }
+
+    .flow-arrow {
+      padding: 0 0.75rem;
+      color: var(--muted);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .flow-node.highlight {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    .flow-node.highlight .node-sub { color: rgba(245,240,232,0.5); }
+
+    .flow-node.blocked {
+      background: #fff0f0;
+      border-color: #ffd0d0;
+      position: relative;
+    }
+
+    .flow-node.blocked::after {
+      content: '✕';
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 20px; height: 20px;
+      background: #e03030;
+      color: white;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── SCOPE TABLE ── */
+    .scope-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .scope-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--rule);
+      align-items: start;
+      transition: border-color 0.2s;
+    }
+
+    .scope-item:hover { border-color: var(--muted); }
+
+    .scope-item.drive  { background: var(--green-lt);  border-left: 3px solid var(--green); }
+    .scope-item.cal    { background: var(--blue-lt);   border-left: 3px solid var(--blue); }
+
+    .scope-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .scope-item.drive .scope-badge { background: var(--green); color: white; }
+    .scope-item.cal   .scope-badge { background: var(--blue);  color: white; }
+
+    .scope-content h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .scope-content p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0;
+      max-width: none;
+    }
+
+    /* ── PERMISSION PILLS ── */
+    .perm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .perm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--cream);
+      border-radius: 8px;
+      border: 1px solid var(--rule);
+    }
+
+    .perm-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .perm-desc {
+      font-size: 0.85rem;
+      color: #3d3a35;
+      line-height: 1.5;
+    }
+
+    /* ── GUARANTEE BOX ── */
+    .guarantee {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .guarantee-item {
+      padding: 1.5rem;
+      border-right: 1px solid var(--rule);
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .guarantee-item:last-child { border-right: none; }
+    .guarantee-item:hover { background: var(--cream); }
+
+    .guarantee-item .g-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .guarantee-item h3 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .guarantee-item p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      align-items: flex-start;
+    }
+
+    .callout.info   { background: var(--blue-lt);  border-left: 3px solid var(--blue); }
+    .callout.warn   { background: var(--amber-lt); border-left: 3px solid var(--amber); }
+    .callout.good   { background: var(--green-lt); border-left: 3px solid var(--green); }
+
+    .callout-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    .callout p {
+      font-size: 0.85rem;
+      margin: 0;
+      max-width: none;
+    }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 14px;
+      padding: 2.5rem 3rem;
+      text-align: center;
+    }
+
+    .contact-box h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-box p {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.6);
+      margin-bottom: 2rem;
+      max-width: none;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .contact-email:hover {
+      background: #a8350a;
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--cream);
+      border-top: 1px solid var(--rule);
+      padding: 2rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    footer .footer-mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── INLINE CODE ── */
+    code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      padding: 0.1em 0.4em;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .toc {
+        display: none;
+      }
+      .hero::after {
+        display: none;
+      }
+      .flow {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .flow-arrow {
+        transform: rotate(90deg);
+        padding: 0.25rem 0;
+      }
+      .commitment {
+        grid-template-columns: 1fr;
+      }
+      .guarantee {
+        grid-template-columns: 1fr 1fr;
+      }
+      .guarantee-item:nth-child(2) { border-right: none; }
+      .guarantee-item:nth-child(1),
+      .guarantee-item:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .contact-box {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeSlideIn 0.5s ease both; }
+    .hero h1      { animation: fadeSlideIn 0.5s 0.1s ease both; }
+    .hero-meta    { animation: fadeSlideIn 0.5s 0.2s ease both; }
+    .commitment   { animation: fadeSlideIn 0.5s 0.3s ease both; }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-logo">
+      <span class="dot"></span>
+      DevNotes
+    </div>
+    <span class="header-meta">CHROME EXTENSION · PRIVACY POLICY</span>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Legal Document</div>
+    <h1>Your privacy is <em>not</em> negotiable.</h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Effective Date</span>
+        <span class="value">Mar 1, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Last Updated</span>
+        <span class="value">Mar 1, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Applies To</span>
+        <span class="value">DevNotes Chrome Extension</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Version</span>
+        <span class="value">1.0.1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="layout">
+
+    <!-- SIDEBAR TOC -->
+    <nav class="toc">
+      <div class="toc-title">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#overview"      class="toc-link"><span class="num">00</span> Overview</a></li>
+        <li><a href="#collection"    class="toc-link"><span class="num">01</span> Data Collection</a></li>
+        <li><a href="#storage"       class="toc-link"><span class="num">02</span> Storage &amp; Transfer</a></li>
+        <li><a href="#google-scopes" class="toc-link"><span class="num">03</span> Google API Scopes</a></li>
+        <li><a href="#permissions"   class="toc-link"><span class="num">04</span> Permissions</a></li>
+        <li><a href="#retention"     class="toc-link"><span class="num">05</span> Retention &amp; Deletion</a></li>
+        <li><a href="#children"      class="toc-link"><span class="num">06</span> Children's Privacy</a></li>
+        <li><a href="#changes"       class="toc-link"><span class="num">07</span> Policy Changes</a></li>
+        <li><a href="#contact"       class="toc-link"><span class="num">08</span> Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <!-- COMMITMENT BANNER -->
+      <div class="commitment">
+        <div class="commitment-icon">🔒</div>
+        <div>
+          <h2>Our Core Commitment</h2>
+          <p>DevNotes does not operate any servers, does not maintain any databases, and does not collect or transmit your data to any third party — ever. Your notes live on your device and, optionally, in your own Google Drive. That's the whole picture.</p>
+        </div>
+      </div>
+
+      <!-- §0 OVERVIEW -->
+      <section class="section" id="overview">
+        <div class="section-header">
+          <span class="section-number">§ 00</span>
+          <h2>Overview &amp; Scope</h2>
+        </div>
+        <p>This Privacy Policy describes how <strong>DevNotes</strong> ("the Extension," "we," "our") handles information when you use our Chrome browser extension. By installing and using DevNotes, you agree to the practices described herein.</p>
+        <p>This policy applies exclusively to the DevNotes Chrome Extension and does not apply to any third-party websites, services, or applications that may be linked from within the extension.</p>
+        <div class="callout info">
+          <span class="callout-icon">ℹ️</span>
+          <p>DevNotes is designed with a <strong>privacy-first architecture</strong>. All processing happens locally on your device. We have no backend infrastructure and no ability to access your data.</p>
+        </div>
+      </section>
+
+      <!-- §1 DATA COLLECTION -->
+      <section class="section" id="collection">
+        <div class="section-header">
+          <span class="section-number">§ 01</span>
+          <h2>Data Collection</h2>
+        </div>
+        <p>We collect the minimum data necessary to provide the extension's core functionality. Here is a precise breakdown of everything we collect and why:</p>
+
+        <div class="data-grid">
+          <div class="data-card collected">
+            <div class="data-card-icon">👤</div>
+            <h3>Google Profile</h3>
+            <p>Your email address and profile picture are collected exclusively for identity display and UI personalization within the extension.</p>
+          </div>
+          <div class="data-card collected">
+            <div class="data-card-icon">📝</div>
+            <h3>User-Created Content</h3>
+            <p>Notes, tags, highlights, and to-dos you explicitly create. This content belongs entirely to you.</p>
+          </div>
+          <div class="data-card collected">
+            <div class="data-card-icon">🌐</div>
+            <h3>Page Context</h3>
+            <p>URL and page title of webpages where you create highlights or notes — used only to restore your annotations on return visits.</p>
+          </div>
+          <div class="data-card not-shared">
+            <div class="data-card-icon">🚫</div>
+            <h3>Nothing Else</h3>
+            <p>We do not collect browsing history, search queries, clicks, analytics, or any behavioral data whatsoever.</p>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <span class="callout-icon">⚠️</span>
+          <p>We never collect passwords, payment information, precise location, or any data beyond what is listed above.</p>
+        </div>
+      </section>
+
+      <!-- §2 STORAGE & TRANSFER -->
+      <section class="section" id="storage">
+        <div class="section-header">
+          <span class="section-number">§ 02</span>
+          <h2>Data Storage &amp; Transfer</h2>
+        </div>
+        <p>Your data flows through two possible paths, and only two. No third-party servers are ever involved.</p>
+
+        <div class="flow">
+          <div class="flow-node highlight">
+            <div class="node-icon">👆</div>
+            <span class="node-label">You</span>
+            <span class="node-sub">Create a note</span>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="node-icon">💾</div>
+            <span class="node-label">Local Storage</span>
+            <span class="node-sub">chrome.storage.local + IndexedDB</span>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">
+            <div class="node-icon">☁️</div>
+            <span class="node-label">Your Google Drive</span>
+            <span class="node-sub">Only if sync enabled</span>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node blocked">
+            <div class="node-icon">🏢</div>
+            <span class="node-label">Third Parties</span>
+            <span class="node-sub">Never reached</span>
+          </div>
+        </div>
+
+        <div class="data-grid">
+          <div class="data-card stored">
+            <div class="data-card-icon">💻</div>
+            <h3>Local Storage (Default)</h3>
+            <p>All data is stored on your device using <code>chrome.storage.local</code> and <code>IndexedDB</code>. It never leaves your machine unless you enable sync.</p>
+          </div>
+          <div class="data-card stored">
+            <div class="data-card-icon">🔐</div>
+            <h3>Google Drive Sync (Optional)</h3>
+            <p>If enabled, data is <strong>encrypted</strong> before sync and written to a single backup file (<code>devnotes_backup.json</code>) in your own Google Drive. We cannot access any other Drive files.</p>
+          </div>
+        </div>
+
+        <div class="callout good">
+          <span class="callout-icon">✅</span>
+          <p><strong>No Third-Party Servers.</strong> We do not use AWS, Firebase, MongoDB, Supabase, or any other database or cloud infrastructure. Your data is strictly between your local device and your personal Google Drive account.</p>
+        </div>
+      </section>
+
+      <!-- §3 GOOGLE API SCOPES -->
+      <section class="section" id="google-scopes">
+        <div class="section-header">
+          <span class="section-number">§ 03</span>
+          <h2>Google API Scopes — Limited Use</h2>
+        </div>
+        <p>DevNotes uses Google APIs under Google's <strong>Limited Use</strong> policy. Our use of information received from Google APIs strictly adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" style="color:var(--accent);">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+        <div class="scope-list">
+          <div class="scope-item drive">
+            <span class="scope-badge">drive.file</span>
+            <div class="scope-content">
+              <h3>Google Drive — Backup Only</h3>
+              <p>This scope is used exclusively to create and update a single backup file named <code>devnotes_backup.json</code> in your Google Drive. The extension cannot read, modify, or access any other files in your Drive — not your documents, photos, spreadsheets, or any other content. The scope is restricted to files the extension itself creates.</p>
+            </div>
+          </div>
+          <div class="scope-item cal">
+            <span class="scope-badge">calendar.events</span>
+            <div class="scope-content">
+              <h3>Google Calendar — Read-Only, Real-Time</h3>
+              <p>This scope is used only to detect upcoming Google Meet links from your calendar events, so we can surface timely desktop reminders before your meetings. We do <strong>not</strong> store calendar events permanently. Events are fetched in real-time, used to generate the notification, and immediately discarded — they are never written to any storage.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <span class="callout-icon">🛡️</span>
+          <p>Data obtained through Google APIs is used solely for the purpose described above. We do not use this data to serve advertisements, do not share it with third parties, and do not allow humans to read it except as needed to provide the service or as required by law.</p>
+        </div>
+      </section>
+
+      <!-- §4 PERMISSIONS -->
+      <section class="section" id="permissions">
+        <div class="section-header">
+          <span class="section-number">§ 04</span>
+          <h2>Browser Permissions Justification</h2>
+        </div>
+        <p>Every permission DevNotes requests serves a specific, narrow function. We do not request permissions beyond what is strictly necessary.</p>
+
+        <div class="perm-list">
+          <div class="perm-item">
+            <span class="perm-code">&lt;all_urls&gt;</span>
+            <p class="perm-desc">Required to allow you to create notes and highlights on any website of your choosing, and to accurately restore your highlights when you revisit those specific pages. Without this permission, the extension could only function on a predefined list of websites.</p>
+          </div>
+          <div class="perm-item">
+            <span class="perm-code">identity</span>
+            <p class="perm-desc">Used to authenticate the signed-in Google user for Google Drive sync and to display your name and profile picture within the extension's interface. No identity information is transmitted to our servers.</p>
+          </div>
+          <div class="perm-item">
+            <span class="perm-code">storage</span>
+            <p class="perm-desc">Enables the use of <code>chrome.storage.local</code> to persist your notes, settings, and preferences locally on your device across browser sessions.</p>
+          </div>
+          <div class="perm-item">
+            <span class="perm-code">notifications</span>
+            <p class="perm-desc">Required to display desktop reminders for upcoming Google Meet links detected from your calendar. Notifications are generated locally and shown only to you.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- §5 RETENTION & DELETION -->
+      <section class="section" id="retention">
+        <div class="section-header">
+          <span class="section-number">§ 05</span>
+          <h2>Data Retention &amp; Deletion</h2>
+        </div>
+        <p>You have complete and unconditional control over your data at all times.</p>
+
+        <div class="guarantee">
+          <div class="guarantee-item">
+            <span class="g-icon">✏️</span>
+            <h3>Edit Anytime</h3>
+            <p>Modify any note, highlight, or to-do directly within the extension.</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="g-icon">🗑️</span>
+            <h3>Delete Instantly</h3>
+            <p>Deleting a note removes it from local storage and from the Google Drive backup simultaneously.</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="g-icon">📦</span>
+            <h3>Export Freely</h3>
+            <p>Export all your data at any time in standard formats — your notes are never locked in.</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="g-icon">🔌</span>
+            <h3>Clean Uninstall</h3>
+            <p>Uninstalling the extension automatically removes all locally stored data from your device.</p>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <span class="callout-icon">📌</span>
+          <p><strong>Google Drive Backup:</strong> If you enabled sync, the backup file (<code>devnotes_backup.json</code>) will remain in your Google Drive after uninstalling the extension unless you manually delete it. You can find and delete this file in your Google Drive at any time.</p>
+        </div>
+      </section>
+
+      <!-- §6 CHILDREN -->
+      <section class="section" id="children">
+        <div class="section-header">
+          <span class="section-number">§ 06</span>
+          <h2>Children's Privacy</h2>
+        </div>
+        <p>DevNotes is not directed to children under the age of 13. We do not knowingly collect any personal information from children. If you believe a child under 13 has provided personal information through the extension, please contact us immediately at the address below, and we will take steps to delete such information.</p>
+      </section>
+
+      <!-- §7 CHANGES -->
+      <section class="section" id="changes">
+        <div class="section-header">
+          <span class="section-number">§ 07</span>
+          <h2>Policy Changes</h2>
+        </div>
+        <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last Updated" date at the top of this page and, for material changes, provide a more prominent notice (such as a notification within the extension itself).</p>
+        <p>Your continued use of DevNotes after any changes to this policy constitutes your acceptance of the new terms. We encourage you to review this policy periodically.</p>
+        <div class="callout good">
+          <span class="callout-icon">📬</span>
+          <p>We will never make changes that reduce your privacy rights without explicit notice and, where required, your consent.</p>
+        </div>
+      </section>
+
+      <!-- §8 CONTACT -->
+      <section class="section" id="contact">
+        <div class="section-header">
+          <span class="section-number">§ 08</span>
+          <h2>Contact Us</h2>
+        </div>
+        <p>Have questions, concerns, or requests regarding this Privacy Policy or your data? We're here to help and will respond within 48 hours.</p>
+        <div class="contact-box">
+          <h2>Get in touch</h2>
+          <p>Your privacy questions deserve real answers from a real person.</p>
+          <a href="https://ashishkurzekar.online" target="_blank" class="contact-email">
+            &nbsp; Visit Authors Website
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 DevNotes Chrome Extension. All rights reserved.</p>
+    <span class="footer-mono">PRIVACY-POLICY · v1.0.1 · 2026-03-01</span>
+  </footer>
+
+  <script>
+    // ── SCROLL PROGRESS BAR ──
+    const bar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.height = ((scrolled / total) * 100) + '%';
+    });
+
+    // ── INTERSECTION OBSERVER: Section fade-in ──
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(s => observer.observe(s));
+
+    // ── TOC ACTIVE STATE ──
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sectionEls = document.querySelectorAll('section.section');
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.getAttribute('id');
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.toc-link[href="#${id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sectionEls.forEach(s => tocObserver.observe(s));
+  </script>
+</body>
+</html>
