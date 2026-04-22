@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevNotes – Developer Notes & Highlights Chrome Extension</title>
+    <meta name="description"
+        content="DevNotes is a Chrome extension for developers to capture, highlight, and organise notes across the web — synced with Google Drive and Google Calendar.">
+    <meta property="og:title" content="DevNotes – Developer Notes Chrome Extension">
+    <meta property="og:description"
+        content="Save highlights, create notes, sync with Google Drive, and manage your Google meetings — all from your browser.">
+    <meta property="og:url" content="https://www.ashishkurzekar.online/devnotes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAFAF7;
+            --cream-mid: #F3F2EE;
+            --cream-deep: #EAE9E3;
+            --white: #FFFFFF;
+            --ink: #1A1814;
+            --ink-mid: #3D3A35;
+            --ink-light: #6B6860;
+            --ink-xs: #9C9990;
+            --blue: #0176D3;
+            --blue-mid: #1B96FF;
+            --blue-light: #D4EAFF;
+            --blue-glow: rgba(1, 118, 211, 0.10);
+            --green: #166534;
+            --green-bg: #DCFCE7;
+            --border: #2db8e6;
+            --border-md: rgba(26, 24, 20, 0.16);
+            --shadow-md: 0 4px 20px rgba(26, 24, 20, 0.08), 0 0 0 1px rgba(26, 24, 20, 0.05);
+            --shadow-lg: 0 16px 48px rgba(26, 24, 20, 0.12), 0 0 0 1px rgba(26, 24, 20, 0.06);
+            --shadow-xl: 0 32px 80px rgba(26, 24, 20, 0.16);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 22px;
+            --radius-xl: 32px;
+            --ease: cubic-bezier(.4, 0, .2, 1);
+            --t: 0.28s;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 48px);
+        }
+
+        /* ── NAV ── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 900;
+            background: rgba(250, 250, 247, 0.92);
+            backdrop-filter: blur(18px) saturate(1.6);
+            border-bottom: 1px solid var(--border);
+            height: 58px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 48px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo-dot {
+            color: var(--blue);
+            font-style: normal;
+        }
+
+        .nav-logo-badge {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--blue);
+            background: var(--blue-light);
+            border: 1px solid rgba(1, 118, 211, 0.22);
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-size: 0.83rem;
+            font-weight: 500;
+            color: var(--ink-light);
+            transition: color var(--t);
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white) !important;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: background var(--t), transform var(--t);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            background: #0160b0;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 65% 55% at 80% 25%, rgba(1, 118, 211, 0.08) 0%, transparent 65%),
+                radial-gradient(ellipse 45% 45% at 15% 75%, rgba(0, 169, 224, 0.05) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%231A1814' fill-opacity='0.022'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(40px, 6vw, 80px);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--blue);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--blue);
+            opacity: 0.3;
+            animation: pulse-ring 1.8s ease infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: .3;
+            }
+
+            70% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5.5vw, 5rem);
+            font-weight: 900;
+            line-height: 1.02;
+            letter-spacing: -2.5px;
+            color: var(--ink);
+            margin-bottom: 22px;
+        }
+
+        .hero h1 .accent {
+            background: linear-gradient(105deg, var(--blue) 0%, #00A9E0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: clamp(0.93rem, 1.5vw, 1.08rem);
+            color: var(--ink-light);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            background: var(--blue);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: background var(--t), transform var(--t), box-shadow var(--t);
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            background: #0160b0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(1, 118, 211, 0.3);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-md);
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: border-color var(--t), background var(--t), transform var(--t);
+            white-space: nowrap;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--blue);
+            background: var(--blue-glow);
+            color: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .badge-green {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid #A7F3D0;
+        }
+
+        .badge-blue {
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid rgba(1, 118, 211, 0.2);
+        }
+
+        .badge-gray {
+            background: var(--cream-mid);
+            color: var(--ink-mid);
+            border: 1px solid var(--border-md);
+        }
+
+        /* ── BROWSER MOCKUP ── */
+        .browser-wrap {
+            position: relative;
+        }
+
+        .browser-mockup {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            border: 1.5px solid var(--border-md);
+            overflow: hidden;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .browser-bar {
+            background: var(--cream-mid);
+            border-bottom: 1px solid var(--border-md);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .bd-red {
+            background: #FF5F57;
+        }
+
+        .bd-yellow {
+            background: #FEBC2E;
+        }
+
+        .bd-green {
+            background: #28C840;
+        }
+
+        .browser-url {
+            flex: 1;
+            background: var(--white);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.72rem;
+            color: var(--ink-xs);
+            border: 1px solid var(--border-md);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .browser-url-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #28C840;
+            flex-shrink: 0;
+        }
+
+        .browser-body {
+            padding: 20px;
+            background: var(--white);
+            min-height: 320px;
+            position: relative;
+        }
+
+        /* Simulated webpage content inside browser */
+        .sim-page {
+            position: relative;
+        }
+
+        .sim-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .sim-toolbar-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--ink-xs);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sim-line {
+            height: 8px;
+            border-radius: 4px;
+            background: var(--cream-mid);
+            margin-bottom: 7px;
+        }
+
+        .sim-line.short {
+            width: 55%;
+        }
+
+        .sim-line.med {
+            width: 75%;
+        }
+
+        .sim-line.long {
+            width: 90%;
+        }
+
+        .sim-highlight {
+            position: relative;
+            background: linear-gradient(120deg, rgba(1, 118, 211, 0.18) 0%, rgba(0, 169, 224, 0.14) 100%);
+            border-left: 3px solid var(--blue);
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 12px 0;
+        }
+
+        .sim-highlight-text {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--blue);
+            line-height: 1.5;
+        }
+
+        .sim-highlight-tag {
+            position: absolute;
+            top: -8px;
+            right: 8px;
+            background: var(--blue);
+            color: #fff;
+            font-size: 0.58rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+        }
+
+        /* DevNotes popup panel */
+        .sim-panel {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 160px;
+            background: var(--white);
+            border: 1.5px solid rgba(1, 118, 211, 0.25);
+            border-radius: 14px;
+            box-shadow: 0 12px 32px rgba(1, 118, 211, 0.15);
+            padding: 12px;
+            font-size: 0.68rem;
+        }
+
+        .sim-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-md);
+        }
+
+        .sim-panel-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #fff;
+        }
+
+        .sim-panel-title {
+            font-weight: 800;
+            font-size: 0.66rem;
+            color: var(--ink);
+        }
+
+        .sim-note-item {
+            background: var(--cream);
+            border-radius: 6px;
+            padding: 6px 8px;
+            margin-bottom: 5px;
+            border: 1px solid var(--border-md);
+        }
+
+        .sim-note-label {
+            font-weight: 700;
+            color: var(--ink-mid);
+            font-size: 0.62rem;
+        }
+
+        .sim-note-text {
+            color: var(--ink-xs);
+            font-size: 0.58rem;
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        .sim-note-dot {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+            margin-right: 4px;
+        }
+
+        .sim-meeting {
+            background: linear-gradient(135deg, #EFF6FF, #F0FAFA);
+            border-radius: 6px;
+            padding: 6px 8px;
+            border: 1px solid rgba(1, 118, 211, 0.18);
+            margin-bottom: 5px;
+        }
+
+        .sim-meeting-label {
+            font-weight: 700;
+            color: var(--blue);
+            font-size: 0.6rem;
+        }
+
+        .sim-meeting-time {
+            color: var(--ink-xs);
+            font-size: 0.56rem;
+            margin-top: 1px;
+        }
+
+        /* Floating deco elements */
+        .browser-deco-1 {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(1, 118, 211, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        .browser-deco-2 {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 169, 224, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ── FEATURES SECTION ── */
+        .section {
+            padding: clamp(60px, 8vw, 100px) 0;
+        }
+
+        .section-centered {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 4px 13px;
+            border-radius: 100px;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.08;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .section-sub {
+            font-size: clamp(0.88rem, 1.5vw, 1rem);
+            color: var(--ink-light);
+            line-height: 1.72;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: var(--blue);
+            border-radius: 2px;
+            margin: 14px auto 0;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feat-card {
+            background: var(--white);
+            border: 1.5px solid var(--border-md);
+            border-radius: var(--radius-lg);
+            padding: clamp(22px, 3vw, 32px);
+            transition: box-shadow var(--t), transform var(--t), border-color var(--t);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), #00A9E0);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--t) var(--ease);
+        }
+
+        .feat-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            border-color: rgba(1, 118, 211, 0.2);
+        }
+
+        .feat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            background: var(--blue-light);
+            border: 1px solid rgba(1, 118, 211, 0.18);
+        }
+
+        .feat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .feat-desc {
+            font-size: 0.84rem;
+            color: var(--ink-light);
+            line-height: 1.7;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how-section {
+            background: var(--cream-mid);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: calc(12.5% + 20px);
+            right: calc(12.5% + 20px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-mid), #00C6FF);
+            z-index: 0;
+            border-radius: 2px;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-num {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid rgba(1, 118, 211, 0.25);
+            box-shadow: 0 4px 20px rgba(1, 118, 211, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--blue);
+            transition: background var(--t), box-shadow var(--t);
+        }
+
+        .step-card:hover .step-num {
+            background: var(--blue-light);
+            box-shadow: 0 8px 28px rgba(1, 118, 211, 0.2);
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            line-height: 1.65;
+        }
+
+        /* ── PERMISSIONS ── */
+        .perms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .perm-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 20px;
+            background: var(--white);
+            border: 1.5px solid var(--border-md);
+            border-radius: var(--radius-md);
+            transition: border-color var(--t), box-shadow var(--t);
+        }
+
+        .perm-item:hover {
+            border-color: rgba(1, 118, 211, 0.25);
+            box-shadow: 0 4px 18px rgba(1, 118, 211, 0.08);
+        }
+
+        .perm-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: var(--blue-light);
+            border: 1px solid rgba(1, 118, 211, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .perm-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .perm-desc {
+            font-size: 0.77rem;
+            color: var(--ink-light);
+            line-height: 1.55;
+        }
+
+        /* ── SECURITY TRUST ── */
+        .trust-section {
+            background: var(--white);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .trust-card {
+            background: var(--cream);
+            border: 1.5px solid var(--border-md);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .trust-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .trust-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .trust-desc {
+            font-size: 0.78rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        /* CWS badge */
+        .cws-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, #EFF6FF, #F0FAFA);
+            border: 1.5px solid rgba(1, 118, 211, 0.18);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cws-badge-icon {
+            font-size: 2.2rem;
+        }
+
+        .cws-badge-text {}
+
+        .cws-badge-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+
+        .cws-badge-sub {
+            font-size: 0.76rem;
+            color: var(--ink-light);
+            margin-top: 2px;
+        }
+
+        .cws-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--green-bg);
+            border: 1px solid #A7F3D0;
+            color: var(--green);
+            font-size: 0.68rem;
+            font-weight: 700;
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-section {
+            background: linear-gradient(135deg, #0055A4 0%, #0176D3 55%, #00A9E0 100%);
+            padding: clamp(60px, 8vw, 100px) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1.5px;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.72;
+            max-width: 480px;
+            margin: 0 auto 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 30px;
+            border-radius: var(--radius-sm);
+            background: #fff;
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: transform var(--t), box-shadow var(--t);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-white-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 26px;
+            border-radius: var(--radius-sm);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: border-color var(--t), background var(--t), transform var(--t);
+        }
+
+        .btn-white-outline:hover {
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ── DEVELOPER ── */
+        .dev-section {
+            background: var(--cream-mid);
+        }
+
+        .dev-card {
+            display: flex;
+            align-items: center;
+            gap: clamp(24px, 4vw, 48px);
+            background: var(--white);
+            border: 1.5px solid var(--border-md);
+            border-radius: var(--radius-xl);
+            padding: clamp(28px, 4vw, 48px);
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .dev-avatar {
+            width: clamp(80px, 10vw, 110px);
+            height: clamp(80px, 10vw, 110px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(1, 118, 211, 0.2);
+            box-shadow: 0 8px 24px rgba(1, 118, 211, 0.2);
+            flex-shrink: 0;
+        }
+
+        .dev-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .dev-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .dev-role {
+            font-size: 0.8rem;
+            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .dev-bio {
+            font-size: 0.84rem;
+            color: var(--ink-light);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .dev-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .dev-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: var(--cream);
+            border: 1px solid var(--border-md);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--ink-mid);
+            transition: border-color var(--t), color var(--t), background var(--t);
+        }
+
+        .dev-link:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: var(--blue-light);
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--ink);
+            padding: clamp(36px, 5vw, 52px) 0 20px;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .footer-logo em {
+            color: var(--blue-mid);
+            font-style: normal;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 500;
+            transition: color var(--t);
+        }
+
+        .footer-links a:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-copy {
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.35);
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .fade-up.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .fade-up:nth-child(2) {
+            transition-delay: 0.07s;
+        }
+
+        .fade-up:nth-child(3) {
+            transition-delay: 0.14s;
+        }
+
+        .fade-up:nth-child(4) {
+            transition-delay: 0.21s;
+        }
+
+        .fade-up:nth-child(5) {
+            transition-delay: 0.28s;
+        }
+
+        .fade-up:nth-child(6) {
+            transition-delay: 0.35s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .fade-up {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero-inner>div:first-child {
+                order: 2;
+            }
+
+            .hero-inner>div:last-child {
+                order: 1;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .perms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dev-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dev-links {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cws-badge {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-btns {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── NAV ── -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                DevNotes<em class="nav-logo-dot">.</em>
+                <span class="nav-logo-badge">Chrome Extension</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#permissions">Permissions</a>
+                <a href="https://www.ashishkurzekar.online" target="_blank">Portfolio</a>
+                <a href="https://www.ashishkurzekar.online/devnotesprivacypolicy" target="_blank">Privacy Policy</a>
+                <a href="https://chromewebstore.google.com/detail/devnotes-%E2%80%93-developer-note/kgcnbeiobjglpplogkhpkelhekflplfm"
+                    target="_blank" rel="noopener" class="nav-cta">
+                    Add to Chrome
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14"
+                        height="14">
+                        <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-inner">
+
+                <!-- Left -->
+                <div>
+                    <div class="hero-eyebrow">
+                        <span class="pulse-dot"></span>
+                        Free Chrome Extension · Now Live on Web Store
+                    </div>
+
+                    <h1>
+                        <span class="accent">DevNotes</span><br>
+                        Your Dev Brain,<br>Always Open
+                    </h1>
+
+                    <p class="hero-desc">
+                        Highlight any text on any webpage, save it instantly, and find it again when you return.
+                        Synced with Google Drive, connected to your Google Calendar meetings —
+                        the developer's notebook that lives in your browser.
+                    </p>
+
+                    <div class="hero-btns">
+                        <a href="https://chromewebstore.google.com/detail/devnotes-%E2%80%93-developer-note/kgcnbeiobjglpplogkhpkelhekflplfm"
+                            target="_blank" rel="noopener" class="btn-primary">
+                            🚀 Add to Chrome — It's Free
+                        </a>
+                        <a href="#features" class="btn-outline">See Features →</a>
+                    </div>
+
+                    <div class="hero-badges">
+                        <span class="badge badge-green">✓ Chrome Web Store Verified</span>
+                        <span class="badge badge-blue">🔒 Google OAuth Secured</span>
+                        <span class="badge badge-gray">⚡ Free to Use</span>
+                    </div>
+                </div>
+
+                <!-- Right: Browser mockup -->
+                <div class="browser-wrap">
+                    <div class="browser-deco-1"></div>
+                    <div class="browser-deco-2"></div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots">
+                                <div class="browser-dot bd-red"></div>
+                                <div class="browser-dot bd-yellow"></div>
+                                <div class="browser-dot bd-green"></div>
+                            </div>
+                            <div class="browser-url">
+                                <div class="browser-url-dot"></div>
+                                docs.salesforce.com/apex/triggers
+                            </div>
+                        </div>
+                        <div class="browser-body">
+                            <div class="sim-page">
+                                <!-- Simulated article lines -->
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+                                    <div
+                                        style="width:28px;height:28px;border-radius:7px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:0.85rem;">
+                                        ⚡</div>
+                                    <div>
+                                        <div
+                                            style="height:7px;width:120px;border-radius:4px;background:var(--ink);margin-bottom:3px;">
+                                        </div>
+                                        <div style="height:5px;width:80px;border-radius:3px;background:var(--ink-xs);">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sim-line long"></div>
+                                <div class="sim-line med"></div>
+
+                                <!-- Highlighted text -->
+                                <div class="sim-highlight">
+                                    <span class="sim-highlight-tag">📌 Saved</span>
+                                    <div class="sim-highlight-text">
+                                        Apex triggers execute before or after DML operations. Use
+                                        <code>Trigger.new</code> and <code>Trigger.old</code> to compare record states.
+                                    </div>
+                                </div>
+
+                                <div class="sim-line short"></div>
+                                <div class="sim-line long"></div>
+                                <div class="sim-line med" style="width:40%;"></div>
+
+                                <!-- DevNotes side panel -->
+                                <div class="sim-panel">
+                                    <div class="sim-panel-header">
+                                        <div class="sim-panel-icon">📝</div>
+                                        <div class="sim-panel-title">DevNotes</div>
+                                    </div>
+
+                                    <div class="sim-note-item">
+                                        <div class="sim-note-label"><span class="sim-note-dot"></span>This Page</div>
+                                        <div class="sim-note-text">Trigger.new vs Trigger.old — check context always
+                                        </div>
+                                    </div>
+
+                                    <div class="sim-meeting">
+                                        <div class="sim-meeting-label">📅 Next Meeting</div>
+                                        <div class="sim-meeting-time">Code Review · in 45 min</div>
+                                    </div>
+
+                                    <div class="sim-note-item">
+                                        <div class="sim-note-label"><span class="sim-note-dot"></span>Reminder set</div>
+                                        <div class="sim-note-text">Review governor limits before standup</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FEATURES ── -->
+    <section class="section" id="features" style="background: var(--white);">
+        <div class="container">
+            <div class="section-centered fade-up">
+                <span class="section-label">What It Does</span>
+                <h2 class="section-heading">Everything a Developer<br>Actually Needs</h2>
+                <div class="divider"></div>
+                <p class="section-sub" style="margin-top:14px;">
+                    Built for developers who read docs, debug issues, attend meetings,
+                    and need their thoughts captured instantly — without leaving the browser.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">🖊️</div>
+                    <div class="feat-title">Web Highlighting</div>
+                    <p class="feat-desc">
+                        Select any text on any webpage and save it as a highlight. The next time you visit that URL,
+                        your highlights appear exactly where you left them — colour-coded and persistent.
+                    </p>
+                </div>
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">📝</div>
+                    <div class="feat-title">Notes from Selections</div>
+                    <p class="feat-desc">
+                        Turn any highlighted text into a full note with context. Add your own thoughts,
+                        tag it, and retrieve it later without losing where it came from.
+                    </p>
+                </div>
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">☁️</div>
+                    <div class="feat-title">Google Drive Sync</div>
+                    <p class="feat-desc">
+                        All your notes and highlights sync automatically to Google Drive —
+                        accessible across devices, always backed up, never lost.
+                    </p>
+                </div>
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">📅</div>
+                    <div class="feat-title">Google Calendar Integration</div>
+                    <p class="feat-desc">
+                        See your upcoming Google meetings right inside the extension.
+                        Know what's next without switching tabs or opening Calendar.
+                    </p>
+                </div>
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">🔔</div>
+                    <div class="feat-title">Custom Chrome Reminders</div>
+                    <p class="feat-desc">
+                        Set custom reminders that pop up as native Chrome notifications.
+                        Perfect for code review deadlines, standup prep, or anything you need to remember mid-session.
+                    </p>
+                </div>
+                <div class="feat-card fade-up">
+                    <div class="feat-icon">⚡</div>
+                    <div class="feat-title">Quick Capture, Anywhere</div>
+                    <p class="feat-desc">
+                        One click to open DevNotes from any tab. Capture a thought, create a note,
+                        or review your highlights — without breaking your workflow.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section class="section how-section" id="how-it-works">
+        <div class="container">
+            <div class="section-centered fade-up">
+                <span class="section-label">Getting Started</span>
+                <h2 class="section-heading">Up and Running in Minutes</h2>
+                <div class="divider"></div>
+                <p class="section-sub" style="margin-top:14px;">
+                    No complex setup. No account needed beyond your Google account.
+                </p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card fade-up">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Install the Extension</div>
+                    <p class="step-desc">Add DevNotes from the Chrome Web Store with one click. It's free and takes
+                        under 30 seconds.</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Sign in with Google</div>
+                    <p class="step-desc">Authenticate securely using your Google account to enable Drive sync and
+                        Calendar access.</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Highlight & Capture</div>
+                    <p class="step-desc">Select any text on any page, right-click or use the DevNotes popup to save it
+                        instantly.</p>
+                </div>
+                <div class="step-card fade-up">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Review & Remember</div>
+                    <p class="step-desc">Return to any page and see your highlights. Check upcoming meetings. Get Chrome
+                        reminders on time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PERMISSIONS ── -->
+    <section class="section" id="permissions" style="background: var(--white);">
+        <div class="container">
+            <div class="section-centered fade-up">
+                <span class="section-label">Transparency</span>
+                <h2 class="section-heading">Why We Request<br>These Permissions</h2>
+                <div class="divider"></div>
+                <p class="section-sub" style="margin-top:14px;">
+                    DevNotes only requests what it genuinely needs. Here's exactly why each permission exists.
+                </p>
+            </div>
+
+            <div class="perms-grid fade-up">
+                <div class="perm-item">
+                    <div class="perm-icon">📁</div>
+                    <div>
+                        <div class="perm-title">Google Drive Access</div>
+                        <p class="perm-desc">Used exclusively to read and write your DevNotes data file. We never access
+                            any other files in your Drive.</p>
+                    </div>
+                </div>
+                <div class="perm-item">
+                    <div class="perm-icon">📅</div>
+                    <div>
+                        <div class="perm-title">Google Calendar Access</div>
+                        <p class="perm-desc">Read-only access to display your upcoming meetings inside the extension. We
+                            never create, modify, or delete calendar events.</p>
+                    </div>
+                </div>
+                <div class="perm-item">
+                    <div class="perm-icon">🌐</div>
+                    <div>
+                        <div class="perm-title">Active Tab Access</div>
+                        <p class="perm-desc">Required to detect which page you're on so we can show your saved
+                            highlights for that specific URL.</p>
+                    </div>
+                </div>
+                <div class="perm-item">
+                    <div class="perm-icon">🔔</div>
+                    <div>
+                        <div class="perm-title">Notifications</div>
+                        <p class="perm-desc">Used only to deliver the custom Chrome reminders you set yourself. No
+                            unsolicited notifications, ever.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TRUST ── -->
+    <section class="section trust-section">
+        <div class="container">
+            <div class="section-centered fade-up">
+                <span class="section-label">Security & Trust</span>
+                <h2 class="section-heading">Built with Privacy<br>From the Ground Up</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="trust-grid fade-up">
+                <div class="trust-card">
+                    <div class="trust-icon">🔒</div>
+                    <div class="trust-title">OAuth 2.0 Secured</div>
+                    <p class="trust-desc">All Google authentication uses OAuth 2.0 — the same standard used by major
+                        apps. Your credentials never touch our servers.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">🛡️</div>
+                    <div class="trust-title">No Data Collection</div>
+                    <p class="trust-desc">DevNotes doesn't collect, transmit, or sell your personal data. Your notes
+                        stay in your own Google Drive.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">✅</div>
+                    <div class="trust-title">Chrome Web Store Verified</div>
+                    <p class="trust-desc">DevNotes passed Google's full Chrome Web Store security review and is publicly
+                        listed for all users.</p>
+                </div>
+            </div>
+
+            <div class="cws-badge fade-up">
+                <div class="cws-badge-icon">🧩</div>
+                <div class="cws-badge-text">
+                    <div class="cws-badge-title">Available on Chrome Web Store</div>
+                    <div class="cws-badge-sub">DevNotes – Developer Notes & Highlights</div>
+                </div>
+                <span class="cws-badge-pill">✓ Published & Verified</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start Capturing Smarter,<br>Right Now</h2>
+            <p>Free forever. No signup required beyond your Google account. Works on every website.</p>
+            <div class="cta-btns">
+                <a href="https://chromewebstore.google.com/detail/devnotes-%E2%80%93-developer-note/kgcnbeiobjglpplogkhpkelhekflplfm"
+                    target="_blank" rel="noopener" class="btn-white">
+                    🚀 Add DevNotes to Chrome
+                </a>
+                <a href="https://www.ashishkurzekar.online/devnotesprivacypolicy" target="_blank"
+                    class="btn-white-outline">
+                    Privacy Policy →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── DEVELOPER ── -->
+    <section class="section dev-section" id="developer">
+        <div class="container">
+            <div class="section-centered fade-up" style="margin-bottom: 36px;">
+                <span class="section-label">The Developer</span>
+                <h2 class="section-heading">Built by Ashish Kurzekar</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="dev-card fade-up">
+                <div class="dev-avatar">
+                    <img src="avatarUrl.jpg" alt="Ashish Kurzekar, Senior Salesforce Developer and creator of DevNotes">
+                </div>
+                <div>
+                    <div class="dev-name">Ashish Kurzekar</div>
+                    <div class="dev-role">Senior Salesforce Developer · 4× Certified</div>
+                    <p class="dev-bio">
+                        DevNotes was built out of a real need — to stop losing important snippets from documentation,
+                        Stack Overflow answers, and Salesforce developer guides. As a developer spending hours in
+                        the browser, I wanted my notes to live where I work. So I built DevNotes.
+                    </p>
+                    <div class="dev-links">
+                        <a href="https://www.ashishkurzekar.online" target="_blank" class="dev-link">🌐 Portfolio</a>
+                        <a href="https://linkedin.com/in/ashish-kurzekar-2020" target="_blank" class="dev-link">💼
+                            LinkedIn</a>
+                        <a href="mailto:ashishkurzekar.ak@gmail.com" class="dev-link">✉️ Contact</a>
+                        <a href="https://www.ashishkurzekar.online/devnotesprivacypolicy" target="_blank"
+                            class="dev-link">📄 Privacy Policy
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">DevNotes<em>.</em></div>
+                <div class="footer-links">
+                    <a href="https://chromewebstore.google.com/detail/devnotes-%E2%80%93-developer-note/kgcnbeiobjglpplogkhpkelhekflplfm"
+                        target="_blank">Chrome Web Store</a>
+                    <a href="https://www.ashishkurzekar.online/devnotesprivacypolicy" target="_blank">Privacy Policy</a>
+                    <a href="https://www.ashishkurzekar.online" target="_blank">Developer Portfolio</a>
+                    <a href="mailto:ashishkurzekar.ak@gmail.com">Contact</a>
+                </div>
+                <div class="footer-copy">
+                    © 2025 DevNotes · Built by <a href="https://www.ashishkurzekar.online"
+                        style="color:rgba(255,255,255,0.55); text-decoration:underline;">Ashish Kurzekar</a><br>
+                    A Chrome Extension for developers who live in their browser.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Nav scroll shadow
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            nav.style.boxShadow = window.scrollY > 10
+                ? '0 2px 24px rgba(26,24,20,0.07)' : '';
+        });
+    </script>
+</body>
+
+</html>
