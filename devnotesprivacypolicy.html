@@ -1040,6 +1040,23 @@
           <span class="section-number">§ 03</span>
           <h2>Data Protection &amp; Security Mechanisms</h2>
         </div>
+
+        <!-- Sensitive data paragraph FIRST, after the header -->
+        <p>DevNotes handles the following categories of
+          <strong>sensitive data</strong>: Google OAuth access tokens,
+          Google Calendar event metadata accessed via
+          <code>https://www.googleapis.com/auth/calendar.readonly</code>
+          (meeting titles, times, and Google Meet links), and Google
+          Drive file content accessed via
+          <code>https://www.googleapis.com/auth/drive.file</code>
+          (a single backup file named <code>devnotes_backup.json</code>).
+          The following safeguards protect this sensitive data at every stage.
+        </p>
+
+        <p>DevNotes does <strong>not</strong> use data obtained
+          through Google APIs to develop, improve, or train any
+          AI or ML models. All data is used exclusively for the
+          narrow functionality described in this policy.</p>
         <p>DevNotes applies the following technical and procedural safeguards to protect your data at every stage — from
           capture on your device to optional sync with Google Drive.</p>
 
@@ -1142,11 +1159,17 @@
           <div class="scope-item cal">
             <span class="scope-badge">calendar.readonly</span>
             <div class="scope-content">
-              <h3>Google Calendar — Read-Only, Real-Time</h3>
-              <p>This scope is used only to detect upcoming Google Meet links from your calendar events, so we can
-                surface timely desktop reminders before your meetings. We do <strong>not</strong> store calendar events
-                permanently. Events are fetched in real-time, used to generate the notification, and immediately
-                discarded — they are never written to any storage.</p>
+              <h3>Google Calendar — Read-Only Access</h3>
+              <p>This scope is used to read your upcoming calendar events
+                and detect Google Meet links, so we can surface timely desktop
+                reminders before your meetings. The extension uses
+                <strong>read-only</strong> access via
+                <code>calendar.readonly</code> and cannot create, modify,
+                or delete any calendar events or calendars. Event data is
+                fetched in real-time, used only to generate the reminder
+                notification, and immediately discarded — never written
+                to any storage.
+              </p>
             </div>
           </div>
         </div>
