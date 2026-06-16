@@ -1,3 +1,4 @@
 [submodule "BreakTheMyth"]
 	path = BreakTheMyth
-	url = https://github.com/ashu8102/BreakTheMyth.git
+	url = ../BreakTheMyth.git
+
